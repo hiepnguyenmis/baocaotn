@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+/*employees*/
+Route::get('employees','Api\StaffManagement@index')->name('employees.index');
+Route::post('addemployee','Api\StaffManagement@store')->name('employees.store');
+Route::put('updateemployee/{id}','Api\StaffManagement@update')->name('employees.update');
+Route::delete('deleteemployee/{id}','Api\StaffManagement@destroy')->name('employees.delete');
+
