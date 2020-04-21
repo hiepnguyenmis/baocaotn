@@ -6,7 +6,7 @@ class Employees extends Component {
   render() {
 
     return (
-      <div className="content-wrapper">
+      <div className="content-wrapper mt-0">
         {/* Content Header (Page header) */}
         <section className="content-header">
           <div className="container-fluid">

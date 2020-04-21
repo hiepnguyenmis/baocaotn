@@ -46,6 +46,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapBookingRoutes();
         //
     }
 
@@ -60,13 +61,27 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
              ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+             ->group(base_path('routes/admin/admin.php'));
     }
 
     /**
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapBookingRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/booking/booking.php'));
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
      *
      * @return void
      */
