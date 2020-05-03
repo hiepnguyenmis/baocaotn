@@ -9,6 +9,11 @@ class FoodDetail extends Model
     //
     protected $table='fooddetail';
     protected $primaryKey = 'FOOD_ID';
+    protected $fillable=[
+        'FOOD_ID',
+        'MATERIAL_ID',
+        'FOODDETAIL_QUANTILY'
+    ];
     public $timestamps = false;
     public $incrementing = false;
 
@@ -17,6 +22,6 @@ class FoodDetail extends Model
     }
 
     public function Materials(){
-        return $this->belongsTo('App\Materials', 'MATERIAL_ID','FOOD_ID');
+        return $this->belongsTo('App\Materials', 'MATERIAL_ID','MATERIAL_ID');
     }
 }

@@ -9,7 +9,6 @@ import RouteWithSubRoutes from './../../components/RouteWithSubRoutes'
 
 class ManagePage extends Component {
   render() {
-    
     return (
         <div>
           <Navigation/>
@@ -26,7 +25,6 @@ class ManagePage extends Component {
       result = routes.map((route, index) => {
         return (<RouteWithSubRoutes  key={index} {...route}/>);
       });
-
     return <Switch>
       {result}
     </Switch>;

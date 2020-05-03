@@ -9,6 +9,11 @@ class CategoryMaterials extends Model
     //
     protected $table='categorymaterial';
     protected $primaryKey = 'CATEGORYMATERIAL_ID';
+    protected $fillable=[
+        'CATEGORYMATERIAL_ID',
+        'CATEGORYMATERIAL_NAME',
+        'CATEGORYMATERIAL_UNIT'
+    ];
     public $timestamps = false;
     public $incrementing = false;
 

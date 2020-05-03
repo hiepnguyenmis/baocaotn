@@ -9,6 +9,11 @@ class CategoryFoods extends Model
     //
     protected $table='categoryfoods';
     protected $primaryKey = 'CATEGORYFOODS_ID';
+    protected $fillable=[
+        'CATEGORYFOODS_ID',
+        'CATEGORYFOODS_NAME',
+        'CATEGORYFOODS_DES'
+    ];
     public $timestamps = false;
     public $incrementing = false;
 
