@@ -23,3 +23,7 @@ Route::post('addemployee','Api\StaffManagement@store')->name('employees.store');
 Route::put('updateemployee/{id}','Api\StaffManagement@update')->name('employees.update');
 Route::delete('deleteemployee/{id}','Api\StaffManagement@destroy')->name('employees.delete');
 
+// table
+Route::get('gettable','Api\OrderController@GetTables')->name('gettable.GetTables');
+
+

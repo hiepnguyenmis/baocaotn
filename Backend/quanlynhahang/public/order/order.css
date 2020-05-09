@@ -1,0 +1,37 @@
+/* inteface */
+.bg-while
+{
+    background-color: rgb(255, 255, 255) !important;
+}
+
+/* content */
+.img-bordered-sm
+{
+    border: 2px solid #adb5bd;
+    padding: 5px;
+}
+
+.user-block img{
+    float: left;
+    height: 40px;
+    width: 40px;
+
+}
+.navbar img{
+    float: left;
+    height: 40px;
+    width: 40px;
+}
+/* modal-right */
+
+.card-body-height-left{
+    height: 27.83em;
+}
+
+.card-body-height-right{
+    height: 24em;
+}
+
+.card-merge-bill{
+ height: 10em;
+}

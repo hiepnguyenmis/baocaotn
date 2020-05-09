@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('');
+
+
+
+Route::group(['prefix'=>'/quanly'], function(){
+    Route::get('/datban', function () {
+        return view('page.booking.OrderPage');
+    });
 });
 
