@@ -34,4 +34,8 @@ class Foods extends Model
     public function Bill_Details(){
         return $this->hasMany('App\BillDetails', 'FOOD_ID','FOOD_ID');
     }
+    public function Bills(){
+        return $this->belongsToMany('App\Bills','billdetail','BILLDETAIL_ID','FOOD_ID');
+
+    }
 }

@@ -25,5 +25,15 @@ Route::delete('deleteemployee/{id}','Api\StaffManagement@destroy')->name('employ
 
 // table
 Route::get('gettable','Api\OrderController@GetTables')->name('gettable.GetTables');
+Route::get('getonetable/{id}','Api\OrderController@GetOneTables')->name('getonetable');
+Route::put('puttable/{id}','Api\Ordercontroller@PutTable')->name('puttable.PutTable');
+Route::post('posttable','Api\Ordercontroller@PostTable')->name('posttable.PostTable');
 
+// foods
+Route::get('getfoods','Api\OrderController@GetFoods')->name('getfoods.GetFoods');
+
+
+//bill
+Route::get('getbillwithtable/{id_table}','Api\OrderController@GetBillOfTable')->name('getbillwithtable.GetBillOfTable');
+Route::post('createbill','Api\Ordercontroller@CreateBill')->name('createbill.CreateBill');
 

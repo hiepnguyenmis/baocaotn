@@ -26,7 +26,7 @@ class FoodsController extends Controller
     public function ListFoods()
     {
         $pageSize = 4;
-        $foods = Foods::with('Materials','CategoryFoods')
+        $foods = Foods::with('Materials','CategoryFoods',)
                         ->paginate($pageSize);
         $materials=Materials::all();
         $categoryfoods=CategoryFoods::all();

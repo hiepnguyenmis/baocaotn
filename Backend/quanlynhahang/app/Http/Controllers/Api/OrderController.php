@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Tables;
+use App\Bills;
+use App\BillDetails;
+use App\Foods;
+
 
 class OrderController extends Controller
 {
@@ -65,9 +69,42 @@ class OrderController extends Controller
         //
     }
 
+    public function GetFoods(){
+        $foods=Foods::all();
+        return response()->json($foods);
+    }
+
     public function GetTables()
     {
         $table=Tables::all();
-        return response()->json($table, Response::HTTP_OK);
+        return response()->json($table);
     }
+
+    public function GetOneTables($id_table)
+    {
+        $table=Tables::where('TABLE_ID','=',$id_table)->get();
+        return response()->json($table);
+    }
+
+    public function PostTable(Request $request){
+        return Tables::create($request->all());
+    }
+
+    public function PutTable(Request $request, $id){
+        $table= Tables::findOrFail($id);
+
+        $table->update($request->all());
+        
+        return $table;
+    }
+
+    public function GetBillOfTable($id){
+        $bill=Bills::with('Foods')->where('TABLE_ID','=',$id)->get();
+        return response()->json($bill);
+    }
+
+    public function CreateBill(Request $request){
+        return Bills::create($request->all());
+    }
+
 }

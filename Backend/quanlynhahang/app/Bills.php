@@ -9,10 +9,20 @@ class Bills extends Model
     //
     protected $table='bills';
     protected $primaryKey = 'BILL_ID';
+    protected $fillable=[
+        'BILL_ID',
+        'BILL_NO',
+        'BILL_DATE',
+        'BILL_STATUS',
+        'BILL_TAX',
+        'CUSTOMER_ID',
+        'TABLE_ID',
+        'EMPLOYEE_ID'
+    ];
     public $timestamps = false;
     public $incrementing = false;
 
-    public function Bill_Detail(){
+    public function BillDetail(){
         return $this->hasMany('App/BillDetails','BILLDETAIL_ID','BILL_ID');
     }
 
@@ -26,6 +36,10 @@ class Bills extends Model
     }
     public function Customers(){
         return $this->belongsTo('App/Customers','CUSTOMER_ID','BILL_ID');
+
+    }
+    public function Foods(){
+        return $this->belongsToMany('App\Foods','billdetail','BILLDETAIL_ID','FOOD_ID')->withPivot('BILLDETAIL_PRICE', 'column2');
 
     }
 
