@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content='<?php echo csrf_token(); ?>'>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="<?php echo asset('order/order.css') ?>">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -112,8 +113,10 @@
                         <div class="tab-pane fade show active" id="table" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="card-body card-body-height-left" style="overflow-y: scroll">
                                 <div class="container">
-                                    <div class="row">
-                                        <div class="filtr-item col-sm-2 bg-light border rounded mt-3 mr-3 pt-1" data-category="2" data-sort="white sample" ng-repeat='table in tables' ng-click='CreateBill(table.TABLE_ID)'>
+
+                                    <div ng-if='loading==true' class="row">Đang tải dữ liệu!Vui lòng chờ...</div>
+                                    <div ng-if='loading==false' class="row">
+                                        <div class="filtr-item col-sm-2 bg-light border rounded mt-3 mr-3 pt-1" data-category="2" data-sort="white sample" ng-repeat='table in tables' ng-click='GetBillOfTable(table)'>
                                             <img src="https://via.placeholder.com/300/fff?text={{table.TABLE_NO}}" class="img-fluid mb-2" alt="white sample" />
 
                                         </div>
@@ -129,7 +132,7 @@
                             <div class="card-body card-body-height-left" style="overflow-y: scroll">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-3 mt-2" ng-repeat='food in foods'  data-toggle="tooltip" data-placement="bottom" title="{{food.FOOD_NAME}}">
+                                        <div class="col-3 mt-2" ng-repeat='food in foods' ng-click='AddFoodToBill(food)' data-toggle="tooltip" data-placement="bottom" title="{{food.FOOD_NAME}}">
                                             <div class="card shadow-sm">
                                                 <div class="card-body">
                                                     <img src="https://via.placeholder.com/300/f70404?text=1" class="img-fluid mb-2" alt="white sample" />
@@ -151,18 +154,23 @@
                 <div class="card shadow-sm">
                     <div class="card-header p-1 pt-2 pl-3">
                         <ul class="nav nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">Hóa đơn số 1</a>
-                            </li>
-                            <li class="nav-item dropdown ml-3">
+
+                            <!-- <li class="nav-item dropdown ml-3">
                                 <div class="form-group">
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <select class="form-control" id="selectAllBill">
+                                        <option ng-repeat='idbill in allidstatusfalse' value="{{idbill.BILL_ID}}" ng-click='GetIStatusFalse(idbill.BILL_ID)'>Hóa đơn {{$index+1}}</option>
                                     </select>
+                                </div>
+                            </li> -->
+                            <li>
+                                <div class="dropdown ml-2">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-layer-group"></i> {{indexId}}
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" ng-repeat='idbill in allidstatusfalse' ng-click='GetIdStatusFalse(idbill.BILL_ID,idbill.TABLE_ID,$index+1)'>Hóa đơn {{$index+1}}</a>
+
+                                    </div>
                                 </div>
                             </li>
                             <li>
@@ -171,160 +179,37 @@
 
                         </ul>
                     </div>
-                    <div class="card-body  card-body-height-right" style="overflow-y: scroll ">
-
-                        <div class=" post border mt-1 p-2 rounded shadow-sm">
+                    <div class="card-body card-body-height-right" style="overflow-y: scroll ">
+                        <div class=" post border mt-1 p-2 rounded shadow-sm" ng-repeat='food in getonebill'>
                             <div class="user-block">
                                 <img class="img-bordered rounded-circle img-bordered-sm img-thumbnail img-fluid" src="<?php echo asset('image/smart-cart.png') ?>" alt="user image">
                                 <span class="ml-2">
                                     <a href="#">Tên món ăn: </a>
                                 </span>
-                                <span class="ml-2">abc</span>
-                                <button type="button" class="close mb-2" aria-label="Close">
+                                <span class="ml-2">{{food.FOOD_NAME}}</span>
+                                <button ng-if='loadingDeleteDetailBill==false' type="button" class="close mb-2" ng-click='DeleteDetailBill(food)'>
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <!-- /.user-block -->
                             <p class="m-0">
-                                <a href="#" class="link-black text-sm"><i class="fas fa-info-circle mr-1 text-primary ml-2"></i></i> Số lượng: 1</a>
+                                <a href="#" class="link-black text-sm ml-2">Số lượng: {{food.pivot.BILLDETAIL_AMOUNT}}</a>
+                                <span>
+                                    <i class="fas fa-caret-up text-primary" ng-click='UpAmountBillDetail(food)'></i>
+                                    <i class="fas fa-caret-down text-primary" ng-click='DownAmountBillDetail(food)'></i>
+                                </span>
                                 <span class="float-right">
                                     <a href="#" class="link-black text-ml">
-                                        <i class="fas fa-toggle-on mr-1 text-success"></i> Đơn giá: 20.000
-                                    </a>
-                                </span>
-                            </p>
-                        </div>
-                        <div class=" post border mt-1 p-2 rounded shadow-sm">
-                            <div class="user-block">
-                                <img class="img-bordered rounded-circle img-bordered-sm img-thumbnail img-fluid" src="<?php echo asset('image/smart-cart.png') ?>" alt="user image">
-                                <span class="ml-2">
-                                    <a href="#">Tên món ăn: </a>
-                                </span>
-                                <span class="ml-2">abc</span>
-                                <button type="button" class="close mb-2" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <!-- /.user-block -->
-                            <p class="m-0">
-                                <a href="#" class="link-black text-sm"><i class="fas fa-info-circle mr-1 text-primary ml-2"></i></i> Số lượng: 1</a>
-                                <span class="float-right">
-                                    <a href="#" class="link-black text-ml">
-                                        <i class="fas fa-toggle-on mr-1 text-success"></i> Đơn giá: 20.000
-                                    </a>
-                                </span>
-                            </p>
-                        </div>
-                        <div class=" post border mt-1 p-2 rounded shadow-sm">
-                            <div class="user-block">
-                                <img class="img-bordered rounded-circle img-bordered-sm img-thumbnail img-fluid" src="<?php echo asset('image/smart-cart.png') ?>" alt="user image">
-                                <span class="ml-2">
-                                    <a href="#">Tên món ăn: </a>
-                                </span>
-                                <span class="ml-2">abc</span>
-                                <button type="button" class="close mb-2" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <!-- /.user-block -->
-                            <p class="m-0">
-                                <a href="#" class="link-black text-sm"><i class="fas fa-info-circle mr-1 text-primary ml-2"></i></i> Số lượng: 1</a>
-                                <span class="float-right">
-                                    <a href="#" class="link-black text-ml">
-                                        <i class="fas fa-toggle-on mr-1 text-success"></i> Đơn giá: 20.000
-                                    </a>
-                                </span>
-                            </p>
-                        </div>
-                        <div class=" post border mt-1 p-2 rounded shadow-sm">
-                            <div class="user-block">
-                                <img class="img-bordered rounded-circle img-bordered-sm img-thumbnail img-fluid" src="<?php echo asset('image/smart-cart.png') ?>" alt="user image">
-                                <span class="ml-2">
-                                    <a href="#">Tên món ăn: </a>
-                                </span>
-                                <span class="ml-2">abc</span>
-                                <button type="button" class="close mb-2" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <!-- /.user-block -->
-                            <p class="m-0">
-                                <a href="#" class="link-black text-sm"><i class="fas fa-info-circle mr-1 text-primary ml-2"></i></i> Số lượng: 1</a>
-                                <span class="float-right">
-                                    <a href="#" class="link-black text-ml">
-                                        <i class="fas fa-toggle-on mr-1 text-success"></i> Đơn giá: 20.000
-                                    </a>
-                                </span>
-                            </p>
-                        </div>
-                        <div class=" post border mt-1 p-2 rounded shadow-sm">
-                            <div class="user-block">
-                                <img class="img-bordered rounded-circle img-bordered-sm img-thumbnail img-fluid" src="<?php echo asset('image/smart-cart.png') ?>" alt="user image">
-                                <span class="ml-2">
-                                    <a href="#">Tên món ăn: </a>
-                                </span>
-                                <span class="ml-2">abc</span>
-                                <button type="button" class="close mb-2" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <!-- /.user-block -->
-                            <p class="m-0">
-                                <a href="#" class="link-black text-sm"><i class="fas fa-info-circle mr-1 text-primary ml-2"></i></i> Số lượng: 1</a>
-                                <span class="float-right">
-                                    <a href="#" class="link-black text-ml">
-                                        <i class="fas fa-toggle-on mr-1 text-success"></i> Đơn giá: 20.000
-                                    </a>
-                                </span>
-                            </p>
-                        </div>
-                        <div class=" post border mt-1 p-2 rounded shadow-sm">
-                            <div class="user-block">
-                                <img class="img-bordered rounded-circle img-bordered-sm img-thumbnail img-fluid" src="<?php echo asset('image/smart-cart.png') ?>" alt="user image">
-                                <span class="ml-2">
-                                    <a href="#">Tên món ăn: </a>
-                                </span>
-                                <span class="ml-2">abc</span>
-                                <button type="button" class="close mb-2" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <!-- /.user-block -->
-                            <p class="m-0">
-                                <a href="#" class="link-black text-sm"><i class="fas fa-info-circle mr-1 text-primary ml-2"></i></i> Số lượng: 1</a>
-                                <span class="float-right">
-                                    <a href="#" class="link-black text-ml">
-                                        <i class="fas fa-toggle-on mr-1 text-success"></i> Đơn giá: 20.000
-                                    </a>
-                                </span>
-                            </p>
-                        </div>
-                        <div class=" post border mt-1 p-2 rounded shadow-sm">
-                            <div class="user-block">
-                                <img class="img-bordered rounded-circle img-bordered-sm img-thumbnail img-fluid" src="<?php echo asset('image/smart-cart.png') ?>" alt="user image">
-                                <span class="ml-2">
-                                    <a href="#">Tên món ăn: </a>
-                                </span>
-                                <span class="ml-2">abc</span>
-                                <button type="button" class="close mb-2" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <!-- /.user-block -->
-                            <p class="m-0">
-                                <a href="#" class="link-black text-sm"><i class="fas fa-info-circle mr-1 text-primary ml-2"></i></i> Số lượng: 1</a>
-                                <span class="float-right">
-                                    <a href="#" class="link-black text-ml">
-                                        <i class="fas fa-toggle-on mr-1 text-success"></i> Đơn giá: 20.000
+                                        <i class="fas fa-coins text-warning"></i> Đơn giá: {{food.FOOD_PRICE| currency:'': 0}} đ
                                     </a>
                                 </span>
                             </p>
                         </div>
                     </div>
-                    <div class="card-footer bg-white">
+                    <div class="card-footer bg-white pl-1 pr-1">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <!-- Button trigger modal -->
                                     <span data-toggle="modal" data-target="#mergebill" class="text-success">
                                         <i class="fas fa-book-open"></i> Tách ghép đơn hàng
@@ -347,34 +232,32 @@
                                                         <div class="card-body">
                                                             <div class="container">
                                                                 <div class="row">
-                                                                    <div class="col-6">
+                                                                    <div class="col-6" >
                                                                         <i class="fas fa-exclamation-triangle text-warning"></i>
                                                                         Khi gọp hóa đơn các thông tin hóa đơn sẽ chuyển
                                                                         sang cho người được chuyển.
-                                                                        <div class="form-group">
-                                                                            <label for="mergebillwith">Ghép
-                                                                                hóa đơn </label>
-                                                                            <select class="form-control" id="mergebillwith">
-                                                                                <option>1</option>
-                                                                                <option>2</option>
-                                                                                <option>3</option>
-                                                                                <option>4</option>
-                                                                                <option>5</option>
-                                                                            </select>
-                                                                            <label for="mergebillwithbill"> Với hóa
-                                                                                đơn</label>
-                                                                            <select class="form-control" id="mergebillwithbill">
-                                                                                <option>1</option>
-                                                                                <option>2</option>
-                                                                                <option>3</option>
-                                                                                <option>4</option>
-                                                                                <option>5</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <button type="submit" class="btn btn-primary float-right">Ghép
-                                                                            đơn</button>
+                                                                        <form ng-submit='MergeBillWithBill()'>
+                                                                            <div class="form-group">
+                                                                                <label for="mergebillwith">Ghép
+                                                                                    hóa đơn </label>
+                                                                                <select class="form-control" id="mergebillwith">
+                                                                                    <option ng-repeat='billid in allidstatusfalse' value="{{billid.BILL_ID}}"> {{billid.BILL_ID}}</option>
+
+                                                                                </select>
+                                                                                <label for="mergebillwithbill"> Với hóa
+                                                                                    đơn</label>
+                                                                                <select class="form-control" id="mergebillwithbill">
+                                                                                    <option ng-repeat='billid in allidstatusfalse' value="{{billid.BILL_ID}}"> {{billid.BILL_ID}}</option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <button type="submit" class="btn btn-primary float-right">Ghép
+                                                                                đơn</button>
+
+                                                                        </form>
 
                                                                     </div>
+                                                                    <span ng-if='loadingmerge==false'>Vui lòng chờ!</span>
                                                                     <div class="col-6">
                                                                         <div class="form-group">
                                                                             <label for="exampleFormControlSelect1">Ghép
@@ -628,8 +511,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <button type="button" class="btn btn-primary float-lg-right" data-toggle="modal" data-target="#staticBackdrop">
+                                <div class="col-5 pt-1">
+                                    <h6>Tổng cộng(VNĐ): <span class="text-right text-danger">{{total| currency:"":0}}</span> </h6>
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn btn-primary float-lg-right" data-toggle="modal" data-target="#paybill">
                                         Thanh toán
                                     </button>
                                 </div>
@@ -637,7 +523,7 @@
                         </div>
                     </div>
                     <!-- Modal -->
-                    <div class=" modal fade modal-right" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class=" modal fade modal-right" id="paybill" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -650,19 +536,14 @@
                                 <div class="modal-body">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-8">
+                                            <div class="col-7">
 
                                                 <div class="container-fluid">
                                                     <div class="row">
                                                         <div class="col-8">
                                                             <h4>Chi tiết hóa đơn</h4>
                                                         </div>
-                                                        <div class="col-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                                <label class="custom-control-label text-success" for="customCheck1">Trả một phần</label>
-                                                            </div>
-                                                        </div>
+
                                                     </div>
                                                     <div class="row">
                                                         <table class="table table-striped">
@@ -672,57 +553,168 @@
                                                                     <th scope="col">Tên món ăn</th>
                                                                     <th scope="col">Đơn vị</th>
                                                                     <th scope="col">Đơn giá</th>
+                                                                    <th scope="col">Số lượng</th>
                                                                     <th scope="col">Thành tiền</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
+                                                                <tr ng-repeat='food in getonebill'>
                                                                     <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
-                                                                    <td>@mdo</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">2</th>
-                                                                    <td>Jacob</td>
-                                                                    <td>Thornton</td>
-                                                                    <td>@fat</td>
-                                                                    <td>@fat</td>
+                                                                    <td>{{food.FOOD_NAME}}</td>
+                                                                    <td>{{food.FOOD_UNIT}}</td>
+                                                                    <td>{{food.FOOD_PRICE | currency: '': 0}} đ</td>
+                                                                    <td>{{food.pivot.BILLDETAIL_AMOUNT}}</td>
+                                                                    <td>{{food.pivot.BILLDETAIL_PRICE * food.pivot.BILLDETAIL_AMOUNT | currency: '': 0}} đ</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="row">
-                                                    <div class="col-6"></div>
-                                                    <div class="col-6 text-secondary"> 5/6/2020 3:20 PM</div>
-                                                </div>
-                                                <div class="row">
-                                                    <table>
+                                                <div class="col-12">
+
+                                                    <div class="row">
+                                                        <h4 class="col-6">Thông tin đơn hàng</h4>
+                                                        <div class="col-6"></div>
+                                                        <div class="col-6 text-secondary"> 5/6/2020 3:20 PM</div>
+                                                    </div>
+                                                    <table class="col-12">
                                                         <tbody>
                                                             <tr>
                                                                 <td>Tổng tiền hàng: </td>
-                                                                <td>20000đ</td>
+                                                                <td>{{total | currency:'':0}} đ</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Khuyến mãi: </td>
-                                                                <td> <input type="text" class="form-control"> </td>
+                                                                <td>Tổng khuyến mãi:</td>
+                                                                <td>{{allPromotionOfBill | currency:'':0}} đ</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Khách phải trả: </td>
+                                                                <td>
+                                                                    {{total- allPromotionOfBill| currency:'':0}} đ
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Khách hàng trả: </td>
                                                                 <td>
-                                                                    <input type="text" class="form-control">
+                                                                    <input type="number" ng-model='customersPay' class="form-control" ng-require='true'>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Tiền thừa trả khách: </td>
-                                                                <td> </td>
+                                                                <td ng-if='customersPay==null'>0</td>
+                                                                <td ng-if='customersPay!=null'>{{customersPay -(total- allPromotionOfBill) | currency:'':0}} đ</td>
+
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="row">
+                                                    <h4>Thông tin khách hàng</h4>
+                                                    <form name='checkphone' class="form-inline my-2 my-lg-0" ng-submit='CheckPromotion()'>
+                                                        <label for="checkproduct" class="mr-sm-2">Nhập số điện thoại: </label>
+                                                        <input class="form-control mr-sm-2" name='checkPhoneCus' ng-model='checkPhoneCus' ng-pattern='/((09|03|07|08|05)+([0-9]{8})\b)/g' type="search" id='checkproduct' placeholder="0969878788" aria-label="Search">
+                                                        <button class="btn btn-primary my-2 my-sm-0" type="submit" ng-disabled='checkphone.checkPhoneCus.$invalid'>Kiểm tra</button>
+                                                        <span class="text-danger" ng-show='checkphone.checkPhoneCus.$invalid'>Số diện thoại không đúng</span>
+                                                    </form>
+
+                                                </div>
+                                                <div class="row" ng-if='IsCustomer==true'>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Tên Khách hàng:</td>
+                                                                <td>{{customerbyphone.CUSTOMER_NAME}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Điểm tích lũy:</td>
+                                                                <td>{{customerbyphone.CUSTOMER_MARK}} ( <span class="text-success">{{rankCustomer}}</span> ) </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Khuyến mãi theo đơn:</td>
+                                                                <td>{{promotionforProtentialCustomer | currency:'':0}} đ</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="row" ng-if='IsCustomer==false'>
+                                                    <p class="text-warning"> Khách hàng mới!
+                                                        <a class="link-black" data-toggle="collapse" href="#inforCustomer" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                            Thêm thông tin khách hàng
+                                                        </a> hoặc chọn "thanh toán và in hóa đơn" để thanh toán đơn hàng
+                                                    </p>
+                                                    <div class="collapse" id="inforCustomer">
+                                                        <div class="card card-body">
+                                                            <ng-form name='addCustomer'>
+                                                                <div class="form-group row">
+                                                                    <label for="phoneCustomer" class="col-sm-5 col-form-label">Số điện thoại:</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input type="email" class="form-control" ng-model='phoneCustomer' id="phoneCustomer" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label for="nameCustomer" class="col-sm-5 col-form-label">Tên khách hàng(<span class="text-danger">*</span>):</label>
+                                                                    <div class="col-sm-7">
+                                                                        <input type="text" class="form-control" id="nameCustomer" name='nameCustomer' ng-model='nameCustomer' placeholder="Password" ng-required="true">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-10">
+                                                                        <button type="submit" ng-disabled="addCustomer.nameCustomer.$invalid" class="btn btn-primary">Thêm</button>
+                                                                    </div>
+                                                                </div>
+                                                            </ng-form>
+                                                            <small class="text-danger">* Trường bắt buộc</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <form ng-submit='AddPromotion()' name="addNewPromotion">
+                                                        <h4>Khuyến mãi khác</h4>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                <tr>
+                                                                    <td>Giá trị khuyến mãi: </td>
+                                                                    <td> <input type="text" ng-pattern='/^[0-9]*$/' class="form-control" ng-model='newPromotion' name='newPromotion'></td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span class="text-danger" ng-show='addNewPromotion.newPromotion.$invalid'>Số tiền chưa đúng</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="text-danger">{{addNewPromotionStatus}}</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Đơn vị khuyến mãi:</td>
+                                                                    <td>
+                                                                        <div class="container">
+                                                                            <div class="row">
+                                                                                <div class="col-4 custom-control custom-radio">
+                                                                                    <input type="radio" class="custom-control-input" ng-model='addPromotion.name' id="coinPromotion" name="coin" value="coin">
+                                                                                    <label class="custom-control-label" for="coinPromotion">VNĐ</label>
+                                                                                </div>
+                                                                                <div class="col-4 custom-control custom-radio">
+                                                                                    <input type="radio" class="custom-control-input" ng-model='addPromotion.name' id="percentPromotion" name="percent" value="percent">
+                                                                                    <label class="custom-control-label" for="percentPromotion">%</label>
+                                                                                </div>
+                                                                                <div class="col-4 custom-control custom-radio">
+                                                                                    <input type="radio" class="custom-control-input" ng-model='addPromotion.name' id="freePromotion" name="free" value="free">
+                                                                                    <label class="custom-control-label" for="freePromotion">M.phí</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <button class="btn btn-primary" type="submit">Thêm</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -730,7 +722,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                    <button type="button" class="btn btn-primary">Thanh toán và in hóa đơn</button>
+                                    <button type="button" class="btn btn-primary" ng-click='PayBill()' data-dismiss="modal">Thanh toán và in hóa đơn</button>
                                 </div>
                             </div>
                         </div>
@@ -746,7 +738,6 @@
             <div class="col-4"></div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">

@@ -17,7 +17,8 @@ class Bills extends Model
         'BILL_TAX',
         'CUSTOMER_ID',
         'TABLE_ID',
-        'EMPLOYEE_ID'
+        'EMPLOYEE_ID',
+        'BILL_PROMOTION'
     ];
     public $timestamps = false;
     public $incrementing = false;
@@ -39,7 +40,7 @@ class Bills extends Model
 
     }
     public function Foods(){
-        return $this->belongsToMany('App\Foods','billdetail','BILLDETAIL_ID','FOOD_ID')->withPivot('BILLDETAIL_PRICE', 'column2');
+        return $this->belongsToMany('App\Foods','billdetail','BILLDETAIL_ID','FOOD_ID')->withPivot('BILLDETAIL_PRICE', 'BILLDETAIL_AMOUNT');
 
     }
 
