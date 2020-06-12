@@ -27,8 +27,8 @@ class Bills extends Model
         return $this->hasMany('App/BillDetails','BILLDETAIL_ID','BILL_ID');
     }
 
-    public function Table(){
-        return $this->belongsTo('App/Tables','TABLE_ID','BILL_ID');
+    public function Tables(){
+        return $this->belongsTo('App\Tables','TABLE_ID','TABLE_ID');
     }
 
     public function Employees(){
@@ -41,7 +41,6 @@ class Bills extends Model
     }
     public function Foods(){
         return $this->belongsToMany('App\Foods','billdetail','BILLDETAIL_ID','FOOD_ID')->withPivot('BILLDETAIL_PRICE', 'BILLDETAIL_AMOUNT');
-
     }
 
 

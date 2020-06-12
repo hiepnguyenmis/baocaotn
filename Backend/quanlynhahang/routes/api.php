@@ -40,11 +40,13 @@ Route::get('getallbillsfalse','Api\OrderController@GetAllBillStatusFalse')->name
 Route::get('getallidbillsfalse','Api\OrderController@GetAllIdBillStatusFalse')->name('getallidbillsfalse');
 Route::get('getallbillswithdetail','Api\OrderController@GetAllBillWithDetail')->name('getallbillswithdetail');
 Route::get('getidbilloftable/{id}','Api\OrderController@GetIDBillOfTable')->name('getidbilloftable');
-Route::get('getonebilll/{id}','Api\OrderController@GetOneBill')->name('getonebilll');
+Route::get('getonebill/{id}','Api\OrderController@GetOneBill')->name('getonebill');
+Route::get('find/{id}','Api\OrderController@GetOneBill')->name('getonebill');
 Route::get('findfoodinbilldetail/{id_bill}/{id_food}','Api\OrderController@FindBillinBillDetail')->name('findfoodinbilldetail');
 
 Route::post('createbill','Api\Ordercontroller@CreateBill')->name('createbill.CreateBill');
 Route::delete('deletebill/{id}','Api\OrderController@DeleteBill')->name('deletebill');
+Route::delete('deletebillwithidbill/{id}','Api\OrderController@DeleteBillWithIdBill')->name('deletebillwithidbill');
 Route::put('updateBill/{id_bill}','Api\OrderController@UpdateBill')->name('updatebill');
 
 //billdetail

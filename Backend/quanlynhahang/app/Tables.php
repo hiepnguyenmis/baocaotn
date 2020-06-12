@@ -19,7 +19,7 @@ class Tables extends Model
     public $incrementing = false;
 
     public function Bills(){
-        return $this->hasMany('App/Bills','TABLE_ID','TABLE_ID');
+        return $this->hasMany('App\Bills','TABLE_ID','TABLE_ID');
     }
 
     public function Room(){

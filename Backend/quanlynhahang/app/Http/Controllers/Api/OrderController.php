@@ -104,6 +104,11 @@ class OrderController extends Controller
        return 204;
 
     }
+    public function DeleteBillWithIdBill($id){
+        $bills= Bills::findOrFail($id)->delete();
+        return 204;
+
+     }
     public function GetBillOfTable($id){
         $bill=Bills::with('Foods')->where('TABLE_ID','=',$id)->where('BILL_STATUS','=',0)->get();
 
@@ -145,7 +150,7 @@ class OrderController extends Controller
         return response()->json($bills);
     }
     public function GetAllIdBillStatusFalse(){
-        $bills=Bills::where('bills.BILL_STATUS','=',0)->select('bills.BILL_ID','bills.TABLE_ID')->get();
+        $bills=Bills::with('Tables')->where('bills.BILL_STATUS','=',0)->select('bills.BILL_ID','bills.TABLE_ID')->get();
         return response()->json($bills);
     }
 
@@ -187,8 +192,5 @@ class OrderController extends Controller
         $customer= Customers::where('customers.CUSTOMER_PHONE','=',$phone)->get();
         return response()->json($customer);
     }
-
-
-
 
 }

@@ -212,6 +212,13 @@ app.controller('OrderControler', function ($scope, $http) {
             alert('Lỗi thay đổi trạng thái');
         });
     }
+    $scope.DeleteBillWithIdBill = function (idBill) {
+        $http.delete(baseUrl + 'deletebillwithidbill/' + idBill).then((response) => {
+            alert('Xóa thành công');
+        }, (err) => {
+            alert('Lỗi thay đổi trạng thái');
+        });
+    }
     $scope.UpdateStatusTable = function (table, status) {
         let data = {
             'TABLE_STATUS': status
@@ -226,7 +233,7 @@ app.controller('OrderControler', function ($scope, $http) {
     }
 
     $scope.GetBillOfTable = function (table) {
-
+        
         if (table.TABLE_STATUS == 0) {
             $scope.postBills(table.TABLE_ID);
             $scope.tableIndex = table.TABLE_ID;
@@ -300,6 +307,7 @@ app.controller('OrderControler', function ($scope, $http) {
                             return;
                         });
                     }
+                    $scope.GetAllIdBillStatusFalse()
                 });
             }
         });
@@ -588,53 +596,101 @@ app.controller('OrderControler', function ($scope, $http) {
         });
 
     }
+    $scope.DeleteBillDetailWithBillId = function (idBillDetail, idFood) {
+
+        $http.delete(baseUrl + 'deletebilldetail/' + idBillDetail + '/' + idFood).then((response) => {
+            $scope.GetBillWithTable(idTable);
+            $scope.loadingDeleteBillDetailWithBillId = false;
+        }, (err) => {
+            return;
+        });
+    }
+    $scope.CreateBillDetailWithData = function (data) {
+        $http.post(baseUrl + 'createbilldetail', data).then((response) => {
+            console.log(false);
+            $scope.loadingmerge = true;
+        }, (err) => {
+            return;
+        });
+    }
     $scope.MergeBillWithBill = function () {
         var mergebillwith = document.getElementById('mergebillwith').value;
         var mergebillwithbill = document.getElementById('mergebillwithbill').value;
-        $http({
-            method: 'GET',
-            url: baseUrl + 'getonebilll/' + mergebillwith
-        }).then(function mySuccess(response) {
-            const {
-                foods
-            } = response.data[0];
-            $scope.mergeWithBill = foods;
-            console.log($scope.mergeWithBill);
-
+        if(mergebillwith!=mergebillwithbill){
             $http({
                 method: 'GET',
-                url: baseUrl + 'getonebilll/' + mergebillwithbill
+                url: baseUrl + 'getonebill/' + mergebillwith
             }).then(function mySuccess(response) {
                 const {
                     foods
                 } = response.data[0];
+                $scope.mergeWithBill = foods;
+                var checkMergeWithBill = response.data[0];
+                console.log($scope.mergeWithBill);
 
-                $scope.mergeByBill = foods;
-                console.log($scope.mergeByBill);
-                $scope.loadingmerge = false;
-                angular.forEach($scope.mergeWithBill, function (itemBillMerge) {
-                    angular.forEach($scope.mergeByBill, function (itemmergeByBill) {
-                        if (itemBillMerge.FOOD_ID == itemmergeByBill.FOOD_ID) {
-                            var billId = itemmergeByBill.pivot.BILLDETAIL_ID;
-                            var amount = itemmergeByBill.pivot.BILLDETAIL_AMOUNT + itemBillMerge.pivot.BILLDETAIL_AMOUNT;
+                $http({
+                    method: 'GET',
+                    url: baseUrl + 'getonebill/' + mergebillwithbill
+                }).then(function mySuccess(response) {
+                    const {
+                        foods
+                    } = response.data[0];
 
-                            let data = {
-                                "BILLDETAIL_ID": billId,
-                                "BILLDETAIL_AMOUNT": amount
-                            }
-                            console.log(itemBillMerge.pivot.BILLDETAIL_ID);
-                            console.log(itemBillMerge.FOOD_ID);
+                    $scope.mergeByBill = foods;
+                    var checkMergeByBill = response.data[0];
+                    if (IsEmptyObject(checkMergeWithBill.foods) == false) {
+                        if (IsEmptyObject(checkMergeByBill.foods) == false) {
+                            console.log($scope.mergeByBill);
+                            $scope.loadingmerge = false;
+                            angular.forEach($scope.mergeWithBill, function (itemBillMerge) {
+                                angular.forEach($scope.mergeByBill, function (itemmergeByBill) {
+                                    if (itemBillMerge.FOOD_ID == itemmergeByBill.FOOD_ID) {
+                                        var billId = itemmergeByBill.pivot.BILLDETAIL_ID;
+                                        var amount = itemmergeByBill.pivot.BILLDETAIL_AMOUNT + itemBillMerge.pivot.BILLDETAIL_AMOUNT;
+                                        let data = {
+                                            "BILLDETAIL_AMOUNT": amount
+                                        }
+                                        $scope.putBill(itemBillMerge.pivot.BILLDETAIL_ID, itemBillMerge.FOOD_ID, data);
+                                        $scope.DeleteBillDetailWithBillId(itemmergeByBill.pivot.BILLDETAIL_ID, itemmergeByBill.FOOD_ID);
 
 
+                                    } else {
+                                        let dataMerge = {
+                                            "BILLDETAIL_ID": itemBillMerge.pivot.BILLDETAIL_ID,
+                                            "FOOD_ID": itemmergeByBill.FOOD_ID,
+                                            "BILLDETAIL_PRICE": itemmergeByBill.pivot.BILLDETAIL_PRICE,
+                                            "BILLDETAIL_AMOUNT": itemmergeByBill.pivot.BILLDETAIL_AMOUNT
+                                        }
+                                        if (itemBillMerge.FOOD_ID == dataMerge.FOOD_ID) {
+                                            var billId = data.pivot.BILLDETAIL_ID;
+                                            var amount = data.pivot.BILLDETAIL_AMOUNT + itemBillMerge.pivot.BILLDETAIL_AMOUNT;
+                                            let data = {
+                                                "BILLDETAIL_AMOUNT": amount
+                                            }
+                                            $scope.putBill(itemBillMerge.pivot.BILLDETAIL_ID, itemBillMerge.FOOD_ID, data);
+                                            $scope.DeleteBillDetailWithBillId(itemmergeByBill.pivot.BILLDETAIL_ID, itemmergeByBill.FOOD_ID);
+                                        } else {
+                                            $scope.CreateBillDetailWithData(dataMerge)
+                                            $scope.DeleteBillDetailWithBillId(itemmergeByBill.pivot.BILLDETAIL_ID, itemmergeByBill.FOOD_ID);
+                                        }
+                                    }
 
-                            $scope.putBill(itemBillMerge.pivot.BILLDETAIL_ID,itemBillMerge.FOOD_ID,data);
+                                });
+
+                            });
+                        }else{
+                            $scope.mergeStatus='Hóa đơn không có chi tiết hóa đơn';
                         }
-                    });
+                    }else{
+                        $scope.mergeStatus='Hóa đơn không có chi tiết hóa đơn';
+                    }
                 });
+
             });
-        });
-
-
+        }else{
+            $scope.mergeStatus='Trùng hóa đơn';
+        }
+        console.log($scope.mergeStatus);
     }
 
 });

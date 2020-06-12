@@ -43,3 +43,19 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
 }
+.content-responsive{
+    display: none;
+}
+@media only screen and (max-width: 1300px)
+{
+    .header{
+        display: none;
+    }
+    .content-wrapper{
+        display: none;
+    }
+    .content-responsive{
+        display: block;
+    }
+    
+}

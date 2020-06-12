@@ -15,8 +15,8 @@
 
 </head>
 
-<body class="bg-primary">
-    <header>
+<body>
+    <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-while shadow-sm">
             <a class="navbar-brand">Brand</a>
 
@@ -164,12 +164,11 @@
                             </li> -->
                             <li>
                                 <div class="dropdown ml-2">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" ng-click='GetAllIdBillStatusFalse()' id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-layer-group"></i> {{indexId}}
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" ng-repeat='idbill in allidstatusfalse' ng-click='GetIdStatusFalse(idbill.BILL_ID,idbill.TABLE_ID,$index+1)'>Hóa đơn {{$index+1}}</a>
-
+                                        <a class="dropdown-item" ng-repeat='idbill in allidstatusfalse' ng-click='GetIdStatusFalse(idbill.BILL_ID,idbill.TABLE_ID,$index+1)'>Hóa đơn bàn {{idbill.tables.TABLE_NO }}</a>
                                     </div>
                                 </div>
                             </li>
@@ -232,10 +231,7 @@
                                                         <div class="card-body">
                                                             <div class="container">
                                                                 <div class="row">
-                                                                    <div class="col-6" >
-                                                                        <i class="fas fa-exclamation-triangle text-warning"></i>
-                                                                        Khi gọp hóa đơn các thông tin hóa đơn sẽ chuyển
-                                                                        sang cho người được chuyển.
+                                                                    <div class="col-6">
                                                                         <form ng-submit='MergeBillWithBill()'>
                                                                             <div class="form-group">
                                                                                 <label for="mergebillwith">Ghép
@@ -254,10 +250,28 @@
                                                                             <button type="submit" class="btn btn-primary float-right">Ghép
                                                                                 đơn</button>
 
+                                                                            <div ng-if='loadingmerge==false'>
+                                                                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                                                                    <span class="sr-only">Loading...</span>
+                                                                                </div>
+                                                                                <div class="spinner-grow-sm text-primary" role="status">
+                                                                                    <span class="sr-only">Loading...</span>
+                                                                                </div>
+                                                                                <div class="spinner-grow-sm text-secondary" role="status">
+                                                                                    <span class="sr-only">Loading...</span>
+                                                                                </div>
+                                                                                <div class="spinner-grow-sm text-success" role="status">
+                                                                                    <span class="sr-only">Loading...</span>
+                                                                                </div>
+                                                                                <div class="spinner-grow-sm text-danger" role="status">
+                                                                                    <span class="sr-only">Loading...</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <span class="text-warning">{{mergeStatus}}</span>
                                                                         </form>
 
                                                                     </div>
-                                                                    <span ng-if='loadingmerge==false'>Vui lòng chờ!</span>
+
                                                                     <div class="col-6">
                                                                         <div class="form-group">
                                                                             <label for="exampleFormControlSelect1">Ghép
@@ -736,6 +750,17 @@
                 <span class="text-center">Hotline 19001900 &copy;2019-2020 </span>
             </div>
             <div class="col-4"></div>
+        </div>
+    </div>
+    <div class="container-fluid content-responsive">
+        <div class="row mt-5">
+            <div class="col">
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Hưm! Có vẻ bạn đang gặp vấn đề?</h4>
+                    <p>Chuyển sang chế độ toàn màn hình để có thể làm việc dễ dàng hơn</p>
+                    <hr>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
