@@ -82,6 +82,11 @@
                                                                         <input type="text" class="form-control"
                                                                             placeholder="Enter email"
                                                                             name='employees_lastname'>
+                                                                        @if ($errors->has('employees_lastname'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('employees_lastname') }}
+                                                                        </div>
+                                                                        @endif
 
                                                                     </div>
                                                                     <!-- /.form-group -->
@@ -93,26 +98,17 @@
                                                                             <div class="input-group date"
                                                                                 id="birthdayadd"
                                                                                 data-target-input="nearest">
-                                                                                <input type="text"
-                                                                                    class="form-control datetimepicker-input"
-                                                                                    data-target="#birthdayadd"
+                                                                                <input type="datetime-local"
+                                                                                    class="form-control "
                                                                                     name="employees_birthday" />
-                                                                                <div class="input-group-append"
-                                                                                    data-target="#birthdayadd"
-                                                                                    data-toggle="datetimepicker">
-                                                                                    <div class="input-group-text"><i
-                                                                                            class="fa fa-calendar"></i>
-                                                                                    </div>
-                                                                                </div>
+
                                                                             </div>
+                                                                            @if ($errors->has('employees_birthday'))
+                                                                            <div style="color: red">
+                                                                                {{ $errors->first('employees_birthday') }}
+                                                                            </div>
+                                                                            @endif
                                                                         </div>
-                                                                        <script type="text/javascript">
-                                                                            $(function () {
-                                                                                    $('#birthdayadd').datetimepicker({
-                                                                                        format: 'L'
-                                                                                    });
-                                                                                });
-                                                                        </script>
                                                                     </div>
                                                                     <!-- /.form-group -->
                                                                     <div class="form-group">
@@ -121,6 +117,11 @@
                                                                         <input type="text" class="form-control"
                                                                             id="phone" placeholder="0905075821"
                                                                             name="employees_phone">
+                                                                        @if ($errors->has('employees_phone'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('employees_phone') }}
+                                                                        </div>
+                                                                        @endif
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label>Ngày làm
@@ -129,32 +130,19 @@
                                                                             <div class="input-group date"
                                                                                 id="datetimepicker6"
                                                                                 data-target-input="nearest">
-                                                                                <input type="text"
-                                                                                    class="form-control datetimepicker-input"
-                                                                                    data-target="#datetimepicker6"
+                                                                                <input type="datetime-local"
+                                                                                    class="form-control"
                                                                                     name="employees_startday" />
-                                                                                <div class="input-group-append"
-                                                                                    data-target="#datetimepicker6"
-                                                                                    data-toggle="datetimepicker">
-                                                                                    <div class="input-group-text"><i
-                                                                                            class="fas fa-calendar-minus"></i>
-                                                                                    </div>
-                                                                                </div>
+
                                                                             </div>
                                                                         </div>
-                                                                        <script type="text/javascript">
-                                                                            $(function () {
-                                                                                $('#datetimepicker6').datetimepicker({
-                                                                                    defaultDate: "11/1/2013",
-                                                                                    disabledDates: [
-                                                                                        moment("12/25/2013"),
-                                                                                        new Date(2013, 11 - 1, 21),
-                                                                                        "11/22/2013 00:53"
-                                                                                    ]
-                                                                                });
-                                                                            });
-                                                                        </script>
+                                                                        @if ($errors->has('employees_startday'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('employees_startday') }}
+                                                                        </div>
+                                                                        @endif
                                                                     </div>
+
                                                                     <div class="form-group">
                                                                         <div class="form-group">
                                                                             <label>Giới
@@ -170,6 +158,11 @@
 
                                                                             </select>
                                                                         </div>
+                                                                        @if ($errors->has('employees_gender'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('employees_gender') }}
+                                                                        </div>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -178,6 +171,11 @@
                                                                         <input type="text" class="form-control"
                                                                             placeholder="Enter email"
                                                                             name="employees_firstname">
+                                                                        @if ($errors->has('employees_firstname'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('employees_firstname') }}
+                                                                        </div>
+                                                                        @endif
                                                                     </div>
 
                                                                     <!-- /.form-group -->
@@ -186,6 +184,11 @@
                                                                         <input type="text" class="form-control"
                                                                             placeholder="Enter email"
                                                                             name="employees_address">
+                                                                        @if ($errors->has('employees_address'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('employees_address') }}
+                                                                        </div>
+                                                                        @endif
                                                                     </div>
                                                                     <!-- /.form-group -->
                                                                     <div class="form-group">
@@ -203,6 +206,11 @@
                                                                                 @endforeach
 
                                                                             </select>
+                                                                            @if ($errors->has('employees_position_id'))
+                                                                            <div style="color: red">
+                                                                                {{ $errors->first('employees_position_id') }}
+                                                                            </div>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
@@ -211,17 +219,10 @@
                                                                             placeholder="Enter email"
                                                                             name="employees_mail">
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        @if ($errors->any())
-                                                                        <div class="alert alert-danger">
-                                                                            <ul>
-                                                                                @foreach ($errors->all() as $error)
-                                                                                <li>{{ $error }}</li>
-                                                                                @endforeach
-                                                                            </ul>
-                                                                        </div>
-                                                                        @endif
-                                                                    </div>
+                                                                    @if ($errors->has('employees_mail'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_mail') }}</div>
+                                                                    @endif
 
                                                                 </div>
 
@@ -230,99 +231,44 @@
 
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="card card-default">
-                                                        <div class="card-header">
-                                                            <h3 class="card-title">Thông tin tài khoản</h3>
 
-                                                            <div class="card-tools">
-                                                                <button type="button" class="btn btn-tool"
-                                                                    data-card-widget="collapse"><i
-                                                                        class="fas fa-minus"></i></button>
-                                                                <button type="button" class="btn btn-tool"
-                                                                    data-card-widget="remove"><i
-                                                                        class="fas fa-remove"></i></button>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <img id='imageEmployeesAdd' alt="..." width="150"
+                                                                    height="200"
+                                                                    src="https://via.placeholder.com/150x200"
+                                                                    class="img-fluid">
+                                                                <!-- /.form-group -->
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Thêm
+                                                                        ảnh</label>
+                                                                    <div class="custom-file">
+                                                                        <input type="file" class="custom-file-input"
+                                                                            id="photoEmployeesAdd"
+                                                                            onchange="previewFileEmployeesAdd()"
+                                                                            required>
+                                                                        <label class="custom-file-label"
+                                                                            for="photoEmployeesAdd">Choose
+                                                                            file...</label>
+                                                                        <div class="invalid-feedback">Example
+                                                                            invalid custom file feedback</div>
+                                                                    </div>
+                                                                    <span class="text-danger"
+                                                                        id="statusEmptyFileImgAddEmployees"></span>
+                                                                    <input type="hidden" class="form-control"
+                                                                        placeholder="20000" name="employees_image"
+                                                                        id='imageEmployeesAddUrl'>
+                                                                </div>
+                                                                <button onclick='uploadImageEmployeesAdd()'
+                                                                    class="btn btn-primary mt-2" type="button">Thêm
+                                                                    ảnh</button>
+                                                                <!-- /.form-group -->
                                                             </div>
                                                         </div>
-                                                        <!-- /.card-header -->
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label    >Email:</label>
-                                                                        <input type="text" class="form-control"
-
-                                                                            placeholder="Enter email" name="employees_mail">
-                                                                    </div>
-                                                                    <!-- /.form-group -->
-                                                                    <div class="form-group">
-                                                                        <label    >Tên tài
-                                                                            khoản:</label>
-                                                                        <input type="text" class="form-control"
-
-                                                                            placeholder="Enter email">
-                                                                    </div>
-                                                                    <!-- /.form-group -->
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label    >Đặt lại mật
-                                                                            khẩu:</label>
-                                                                        <input type="text" class="form-control"
-
-                                                                            placeholder="Enter email">
-                                                                    </div>
-                                                                    <!-- /.form-group -->
-                                                                    <div class="form-group">
-                                                                        <label    >Nhập lại mật
-                                                                            khẩu:</label>
-                                                                        <input type="text" class="form-control"
-
-                                                                            placeholder="Enter email">
-                                                                    </div>
-                                                                    <!-- /.form-group -->
-                                                                </div>
-
-                                                            </div>
-                                                            <!-- /.card-body -->
-                                                        </div>
-                                                    </div> --}}
-                                                    <div class="card card-default">
-                                                        <div class="card-header">
-                                                            <h3 class="card-title">Hình ảnh</h3>
-
-                                                            <div class="card-tools">
-                                                                <button type="button" class="btn btn-tool"
-                                                                    data-card-widget="collapse"><i
-                                                                        class="fas fa-minus"></i></button>
-                                                                <button type="button" class="btn btn-tool"
-                                                                    data-card-widget="remove"><i
-                                                                        class="fas fa-remove"></i></button>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.card-header -->
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <img src="https://via.placeholder.com/150x200"
-                                                                        alt="..." class="img-thumbnail">
-                                                                    <!-- /.form-group -->
-                                                                </div>
-                                                                <div class="col-md-6">
-
-                                                                    <div class="form-group">
-                                                                        <label for="exampleFormControlFile1">Thêm
-                                                                            ảnh</label>
-                                                                        <input type="file" class="form-control-file"
-                                                                            name="image">
-                                                                    </div>
-
-                                                                    <!-- /.form-group -->
-                                                                </div>
-
-                                                            </div>
-                                                            <!-- /.card-body -->
-
-                                                        </div>
+                                                        <!-- /.card-body -->
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -337,8 +283,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                            $temp=1;
+                            @endphp
                             @foreach ( $employees as $item )
                             <?php
+
                             $modalEditEmployees= "modal-Edit-Employees".$item->EMPLOYEES_ID;
 
                             $modalDetailEmployees= "modal-Detail-Employees".$item->EMPLOYEES_ID;
@@ -381,33 +331,15 @@
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
-                                                                <div class="input-group date" id="datetimepicker5"
+                                                                <div class="input-group date" id="datetimepicker"
                                                                     data-target-input="nearest">
-                                                                    <input type="text"
-                                                                        class="form-control datetimepicker-input"
-                                                                        data-target="#datetimepicker5"
+                                                                    <input type="datetime-local" class="form-control "
                                                                         name="employees_endday" required />
-                                                                    <div class="input-group-append"
-                                                                        data-target="#datetimepicker5"
-                                                                        data-toggle="datetimepicker">
-                                                                        <div class="input-group-text"><i
-                                                                                class="fas fa-calendar-minus"></i></div>
-                                                                    </div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <script type="text/javascript">
-                                                            $(function () {
-                                                                $('#datetimepicker5').datetimepicker({
-                                                                    defaultDate: "11/1/2013",
-                                                                    disabledDates: [
-                                                                        moment("12/25/2013"),
-                                                                        new Date(2013, 11 - 1, 21),
-                                                                        "11/22/2013 00:53"
-                                                                    ]
-                                                                });
-                                                            });
-                                                        </script>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -460,6 +392,11 @@
                                                                         placeholder="Enter email"
                                                                         name='employees_lastname'
                                                                         value="{{$item->EMPLOYEES_LASTNAME}}">
+                                                                    @if ($errors->has('employees_lastname'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_lastname') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <!-- /.form-group -->
 
@@ -467,29 +404,21 @@
                                                                     <label>Ngày
                                                                         sinh:</label>
                                                                     <div class="form-group">
-                                                                        <div class="input-group date" id="birthdayedit"
-                                                                            data-target-input="nearest">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker-input"
+                                                                        <div class="input-group date" id="birthdayedit">
+                                                                            <input type="datetime-local"
+                                                                                class="form-control "
                                                                                 data-target="#birthdayedit"
                                                                                 name="employees_birthday"
                                                                                 value="{{$item->EMPLOYEES_BIRTHDAY}}" />
-                                                                            <div class="input-group-append"
-                                                                                data-target="#birthdayedit"
-                                                                                data-toggle="datetimepicker">
-                                                                                <div class="input-group-text"><i
-                                                                                        class="fa fa-calendar"></i>
-                                                                                </div>
-                                                                            </div>
+
                                                                         </div>
+                                                                        @if ($errors->has('employees_birthday'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('employees_birthday') }}
+                                                                        </div>
+                                                                        @endif
                                                                     </div>
-                                                                    <script type="text/javascript">
-                                                                        $(function () {
-                                                                                $('#birthdayedit').datetimepicker({
-                                                                                    format: 'L'
-                                                                                });
-                                                                            });
-                                                                    </script>
+
                                                                 </div>
                                                                 <!-- /.form-group -->
                                                                 <div class="form-group">
@@ -498,40 +427,31 @@
                                                                     <input type="text" class="form-control" id="phone"
                                                                         placeholder="0905075821" name="employees_phone"
                                                                         value="{{$item->EMPLOYEES_PHONE}}">
+                                                                    @if ($errors->has('employees_phone'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_phone') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Ngày làm
                                                                         việc</label>
                                                                     <div class="form-group">
                                                                         <div class="input-group date"
-                                                                            id="datetimepickerstartdateedit"
-                                                                            data-target-input="nearest">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker-input"
-                                                                                data-target="#datetimepickerstartdateedit"
+                                                                            id="datetimepickerstartdateedit">
+                                                                            <input type="datetime-local"
+                                                                                class="form-control "
                                                                                 name="employees_startday"
                                                                                 value="{{$item->EMPLOYEES_STARTDAY}}" />
-                                                                            <div class="input-group-append"
-                                                                                data-target="#datetimepickerstartdateedit"
-                                                                                data-toggle="datetimepicker">
-                                                                                <div class="input-group-text"><i
-                                                                                        class="fas fa-calendar-minus"></i>
-                                                                                </div>
-                                                                            </div>
+
                                                                         </div>
                                                                     </div>
-                                                                    <script type="text/javascript">
-                                                                        $(function () {
-                                                                            $('#datetimepickerstartdateedit').datetimepicker({
-                                                                                defaultDate: "11/1/2013",
-                                                                                disabledDates: [
-                                                                                    moment("12/25/2013"),
-                                                                                    new Date(2013, 11 - 1, 21),
-                                                                                    "11/22/2013 00:53"
-                                                                                ]
-                                                                            });
-                                                                        });
-                                                                    </script>
+                                                                    @if ($errors->has('employees_startday'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_startday') }}
+                                                                    </div>
+                                                                    @endif
+
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div class="form-group">
@@ -548,6 +468,11 @@
                                                                             <option value="Nữ">Nữ</option>
                                                                         </select>
                                                                     </div>
+                                                                    @if ($errors->has('employees_gender'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_gender') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -557,6 +482,11 @@
                                                                         placeholder="Enter email"
                                                                         name="employees_lastname"
                                                                         value="{{$item->EMPLOYEES_LASTNAME}}">
+                                                                    @if ($errors->has('employees_lastname'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_lastname') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
 
                                                                 <!-- /.form-group -->
@@ -566,6 +496,11 @@
                                                                         placeholder="Enter email"
                                                                         name="employees_address"
                                                                         value="{{$item->EMPLOYEES_ADDRESS}}">
+                                                                    @if ($errors->has('employees_address'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_address') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <!-- /.form-group -->
                                                                 <div class="form-group">
@@ -587,12 +522,22 @@
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
+                                                                    @if ($errors->has('employees_position_id'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_position_id') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Email:</label>
                                                                     <input type="text" class="form-control"
                                                                         placeholder="Enter email" name="employees_mail"
                                                                         value="{{$item->EMPLOYEES_EMAIL}}">
+                                                                    @if ($errors->has('employees_mail'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('employees_mail') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
 
                                                             </div>
@@ -672,19 +617,83 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <img src="uploads/{{$item->EMPLOYEES_IMG}} " alt="..."
-                                                                    class="img-thumbnail">
+                                                                <img id='imageEmployeesEdit{{$loop->index}}' alt="..."
+                                                                    width="150" height="200"
+                                                                    src="{{$item->EMPLOYEES_IMG}}" class="img-fluid">
                                                                 <!-- /.form-group -->
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="exampleFormControlFile1">Thêm
-                                                                        ảnh</label>
-                                                                    <input type="file" class="form-control-file"
-                                                                        id="exampleFormControlFile1" name='image'>
-                                                                </div>
-                                                            </div>
 
+                                                                <div class="form-group">
+                                                                    <label>Thêm
+                                                                        ảnh</label>
+                                                                    <div class="custom-file">
+                                                                        <input type="file" class="custom-file-input"
+                                                                            id="photoEmployeesEdit{{$loop->index}}"
+                                                                            onchange="previewFileEmployeesEdit{{$loop->index}}()">
+                                                                        <label class="custom-file-label"
+                                                                            for="photoEmployeesEdit{{$loop->index}}">Chọn
+                                                                            file...</label>
+                                                                        <div class="invalid-feedback">Example
+                                                                            invalid custom file feedback</div>
+                                                                    </div>
+                                                                    <span class="text-danger"
+                                                                        id="statusEmptyFileImgEditEmployees{{$loop->index}}"></span>
+                                                                    <input type="hidden" class="form-control"
+                                                                        name="employees_image"
+                                                                        id='imageEmployeesEditUrl{{$loop->index}}'>
+                                                                </div>
+                                                                <button
+                                                                    onclick='uploadImageEmployeesEdit{{$loop->index}}()'
+                                                                    class="btn btn-primary mt-2" type="button">Thêm
+                                                                    ảnh</button>
+                                                                <!-- /.form-group -->
+                                                                <script>
+                                                                    function uploadImageEmployeesEdit{{$loop->index}}() {
+
+
+    if (document.getElementById("photoEmployeesEdit{{$loop->index}}").files.length != 0) {
+        const ref = firebase.storage().ref();
+
+        const file = document.querySelector('#photoEmployeesEdit{{$loop->index}}').files[0];
+        const name = new Date() + '-' + file.name;
+        const metadata = {
+            contentType: file.type
+        }
+
+        const task = ref.child(name).put(file, metadata);
+
+        task
+            .then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url => {
+                const image = document.querySelector('#imageEmployeesEdit{{$loop->index}}');
+                image.src = url;
+                const textInput = document.getElementById('imageEmployeesEditUrl{{$loop->index}}')
+                textInput.value = url;
+                document.getElementById('statusEmptyFileImgEditEmployees{{$loop->index}}').innerHTML = 'Thêm thành công'
+            })
+    } else {
+        document.getElementById('statusEmptyFileImgEditEmployees{{$loop->index}}').innerHTML = "Chưa chọn ảnh"
+    }
+}
+function previewFileEmployeesEdit{{$loop->index}}() {
+    var preview = document.querySelector('#imageEmployeesEdit{{$loop->index}}');
+    var file = document.querySelector('#photoEmployeesEdit{{$loop->index}}').files[0];
+
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
+}
+                                                                </script>
+                                                            </div>
                                                         </div>
                                                         <!-- /.card-body -->
                                                     </div>
@@ -819,7 +828,7 @@
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-md-4">
-                                                            <img src="uploads/{{$item->EMPLOYEES_IMG}}" alt="..."
+                                                            <img src="{{$item->EMPLOYEES_IMG}}" alt="..."
                                                                 class="img-thumbnail">
                                                             <!-- /.form-group -->
                                                         </div>
@@ -858,27 +867,11 @@
                         <?php //Hiển thị thông báo thành công?>
 
                     </div>
+
                 </div>
-                @if ( session('success') )
-                <div class="alert alert-success alert-dismissible m-2" role="alert" id="success-alert">
-                    <strong>{{ session('success') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                </div>
-                @endif
 
                 <?php //Hiển thị thông báo lỗi?>
-                @if ( session('error') )
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>{{ session('error') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                </div>
-                @endif
+
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -887,6 +880,16 @@
     </div>
     <!-- /.row -->
 </section>
+@if ( Session::has('error_status_employees') )
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <strong>{{ Session::get('error_status_employees') }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+</div>
+@endif
+<script src="{{asset('js/uploadfirebase.js')}}"></script>
 <!-- /.content -->
 </div>
 @endsection

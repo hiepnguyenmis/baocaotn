@@ -15,7 +15,7 @@
 
 </head>
 
-<body>
+<body class="bg-light">
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-while shadow-sm">
             <a class="navbar-brand">Brand</a>
@@ -172,9 +172,9 @@
                                     </div>
                                 </div>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#" class="nav-link ml-2"><i class="fas fa-plus-circle"> Thêm hóa đơn</i></a>
-                            </li>
+                            </li> -->
 
                         </ul>
                     </div>

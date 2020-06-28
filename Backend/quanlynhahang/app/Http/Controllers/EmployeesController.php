@@ -18,6 +18,7 @@ use App\Positions;
 use Dotenv\Validator as DotenvValidator;
 
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeesController extends Controller
 {
@@ -30,47 +31,71 @@ class EmployeesController extends Controller
 
         return view('page.admin.EmployeesPage', ['position' => $position, 'employees' => $employees, 'pageSize' => $pageSize]);
     }
-    protected function Updload( $request)
+    protected function LoginAdmin( $request)
     {
+        $request->validate([
 
+            'customer_phone' => ['bail', 'required', 'regex:/((09|03|07|08|05)+([0-9]{8})\b)/'],
+            'customer_password' => 'bail|required|min:8'
+        ], [
+            'customer_phone.required' => 'Không bỏ trống trường này',
+            'customer_phone.regex' => 'Số điện thoại không đúng',
+            'customer_password.required' => 'Không bỏ trống trường này',
+            'customer_password.min' => 'Password phải lớn hơn 8 ký tự',
+
+        ]);
+        $emloyee_username = $request->emloyee_username;
+        $emloyee_password =$request->emloyee_password;
+        $login = Employees::where('employees.EMPLOYEE_USERNAME',$emloyee_username)->get();
+        if($login!=null){
+            foreach($login as $item){
+                if(Hash::check($emloyee_password, $item->EMPLOYEES_PASSWORD)){
+                    session()->put('customer_fistname',$item->EMPLOYEES_FISTNAME);
+                    session()->put('customer_lastname',$item->EMPLOYEES_LASTNAME);
+                    session()->put('customer_no',$item->EMPLOYEES_LASTNAME);
+                    if($item->EMPLOYEES_ISMANAGE==1){
+                        return redirect('trangquantri/thungan');
+                    }else{
+                        return redirect('trangquantri/danhsachNV');
+                    }
+                }
+
+            }
+        }
+        Session::flash('error', 'Tên tài khoản hoặc mật khẩu không đúng');
+        return redirect('trang/dang-nhap');
     }
 
     public function AddEmployees(Request $request)
     {
+        $request->validate([
 
-        // $this->validate(
-        //     $request,[
+            'employees_phone' => ['bail', 'required', 'regex:/((09|03|07|08|05)+([0-9]{8})\b)/'],
+            'employees_lastname'=>'required',
+            'employees_firstname'=>'required',
+            'employees_mail'=>'required|email',
+            'employees_position_id'=>'required',
+            'employees_address'=>'required',
+            'employees_startday'=>'required',
+            'employees_birthday'=>'required',
+            'employees_gender'=>'required',
 
-        //         'employees_lastname'=>'required|min:5|max:50',
-        //         'employees_firstname'=>'required|min:5|max:50',
-        //         'employees_phone'=>'required|min:5|max:50',
-        //         'employees_mail'=>'required|min:5|max:50',
-        //         'image_name'=>'required',
-        //         'employees_address'=>'required|min:5|max:50',
-        //         'employees_startday'=>'required|min:5|max:50',
-        //         'employees_birthday'=>'required|min:5|max:50',
-        //         'employees_gender'=>'required',
-        //         'employees_position_id'=>'required'
-        //     ],[
-        //         'required' => ':attribute Không được để trống',
-        //         'min' => ':attribute Không được nhỏ hơn :min',
-        //         'max' => ':attribute Không được lớn hơn :max',
-        //     ],[
+        ], [
+            'employees_phone.required' => 'Không bỏ trống trường này',
+            'employees_phone.regex' => 'Số điện thoại không đúng',
+            'employees_lastname.required'=>'Không bỏ trống trường này',
+            'employees_firstname.required'=>'Không bỏ trống trường này',
+            'employees_mail.required'=>'Không bỏ trống trường này',
+            'employees_mail'=>'Email không đúng',
+            'employees_position_id.required'=>'Không bỏ trống trường này',
+            'employees_position_id.required'=>'Không bỏ trống trường này',
+            'employees_address.required'=>'Không bỏ trống trường này',
+            'employees_startday.required'=>'Không bỏ trống trường này',
+            'employees_birthday.required'=>'Không bỏ trống trường này',
+            'employees_gender.required'=>'Không bỏ trống trường này'
 
-        //         'employees_lastname'=>'Họ',
-        //         'employees_firstname'=>'Tên',
-        //         'employees_phone'=>'Số điện thoại',
-        //         'employees_mail'=>'Email',
-        //         'image_name'=>'Hình ảnh',
-        //         'employees_address'=>'Địa chỉ',
-        //         'employees_startday'=>'Ngày vào làm',
-        //         'employees_birthday'=>'Ngày sinh',
-        //         'employees_gender'=>'Giới tính',
-        //         'employees_position_id'=>'Chức vụ'
-        //     ]
 
-        // );
-
+        ]);
 
         $employees_no = null;
         $rand_code = (string) rand(1111, 10000);
@@ -78,21 +103,6 @@ class EmployeesController extends Controller
         $get_year = Carbon::now()->year;
         $get_month = Carbon::now()->month;
         $employees_no = 'NV' . $get_year . $get_month . $rand_code;
-
-        $this->validate($request, [
-            'image'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-           ]);
-
-           $image = $request->file('image');
-
-           $image_name = $image->getClientOriginalName();
-           $destinationPath = public_path('/thumbnail');
-           $resize_image = Image::make($image->getRealPath());
-           $resize_image->resize(150, 150, function($constraint){
-            $constraint->aspectRatio();
-           })->save($destinationPath . '/' . $image_name);
-           $destinationPath = public_path('/uploads');
-           $image->move($destinationPath, $image_name);
 
         $employees = new Employees();
 
@@ -102,8 +112,8 @@ class EmployeesController extends Controller
         $employees->EMPLOYEES_FIRSTNAME = $request->employees_firstname;
         $employees->EMPLOYEES_PHONE = $request->employees_phone;
         $employees->EMPLOYEES_EMAIL = $request->employees_mail;
-        $employees->EMPLOYEES_PASSWORD = md5($employees_no);
-        $employees->EMPLOYEES_IMG =$image_name;
+        $employees->EMPLOYEES_PASSWORD = Hash::make($employees_no);
+        $employees->EMPLOYEES_IMG =$request->employees_image;
         $employees->POSITION_ID = $request->employees_position_id;
         $employees->EMPLOYEES_STATUS = 1;
         $employees->EMPLOYEES_ADDRESS = $request->employees_address;
@@ -114,90 +124,57 @@ class EmployeesController extends Controller
 
         $employees->save();
 
+        if($employees){
+            $error_status_employees='Thêm thành công';
+            session()->flash('error_status_employees',$error_status_employees);
+        }else{
+            $error_status_employees='Thêm Thất bại';
+            session()->flash('error_status_employees',$error_status_employees);
+        }
+
         return redirect()->route('danhsachNV');
 
     }
 
     public function EditEmployees($employees_id, Request $request)
     {
-        // $this->validate(
-        //     $request,[
+        $request->validate([
 
-        //         'employees_lastname'=>'required|min:5|max:50',
-        //         'employees_firstname'=>'required|min:5|max:50',
-        //         'employees_phone'=>'required|min:5|max:50',
-        //         'employees_mail'=>'required|min:5|max:50',
-        //         'image_name'=>'required',
-        //         'employees_address'=>'required|min:5|max:50',
-        //         'employees_startday'=>'required|min:5|max:50',
-        //         'employees_birthday'=>'required|min:5|max:50',
-        //         'employees_gender'=>'required',
-        //         'employees_password'=>'confirmed',
-        //         'employees_password_confirmation'=>'confirmed'
+            'employees_phone' => ['bail', 'required', 'regex:/((09|03|07|08|05)+([0-9]{8})\b)/'],
+            'employees_lastname'=>'required',
+            'employees_firstname'=>'required',
+            'employees_mail'=>'required|email',
+            'employees_position_id'=>'required',
+            'employees_address'=>'required',
+            'employees_startday'=>'required',
+            'employees_birthday'=>'required',
+            'employees_gender'=>'required',
 
-        //     ],[
-        //         'required' => ':attribute Không được để trống',
-        //         'min' => ':attribute Không được nhỏ hơn :min',
-        //         'max' => ':attribute Không được lớn hơn :max',
-        //     ],[
+        ], [
+            'employees_phone.required' => 'Không bỏ trống trường này',
+            'employees_phone.regex' => 'Số điện thoại không đúng',
+            'employees_lastname.required'=>'Không bỏ trống trường này',
+            'employees_firstname.required'=>'Không bỏ trống trường này',
+            'employees_mail.required'=>'Không bỏ trống trường này',
+            'employees_mail'=>'Email không đúng',
+            'employees_position_id.required'=>'Không bỏ trống trường này',
+            'employees_position_id.required'=>'Không bỏ trống trường này',
+            'employees_address.required'=>'Không bỏ trống trường này',
+            'employees_startday.required'=>'Không bỏ trống trường này',
+            'employees_birthday.required'=>'Không bỏ trống trường này',
+            'employees_gender.required'=>'Không bỏ trống trường này'
 
-        //         'employees_lastname'=>'Họ',
-        //         'employees_firstname'=>'Tên',
-        //         'employees_phone'=>'Số điện thoại',
-        //         'employees_mail'=>'Email',
-        //         'image_name'=>'Hình ảnh',
-        //         'employees_address'=>'Địa chỉ',
-        //         'employees_startday'=>'Ngày vào làm',
-        //         'employees_birthday'=>'Ngày sinh',
-        //         'employees_gender'=>'Giới tính',
-        //         'employees_password'=>'Mật khẩu',
-        //         'employees_password_confirmation'=>'Xác nhận mật khẩu'
-        //     ]
 
-        // );
-
+        ]);
         $employees = Employees::find($employees_id);
 
-        if($request->image!=null){
-            $image = $request->file('image');
-            $image_name = $image->getClientOriginalName().$employees->EMPLOYEES_ID;
-            if($image_name!=$employees->EMPLOYEES_IMG){
-
-                $image_name = $image->getClientOriginalName();
-                $destinationPath = public_path('/thumbnail');
-                $resize_image = Image::make($image->getRealPath());
-                $resize_image->resize(150, 150, function($constraint){
-                $constraint->aspectRatio();
-                })->save($destinationPath . '/' . $image_name);
-                $destinationPath = public_path('/uploads');
-                File::delete($destinationPath.$employees->EMPLOYEES_IMG);
-                $image->move($destinationPath, $image_name);
-            }
-
-
-        }else{
-            $this->validate($request, [
-                'image'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-               ]);
-
-               $image = $request->file('image');
-
-               $image_name = $image->getClientOriginalName();
-               $destinationPath = public_path('/thumbnail');
-               $resize_image = Image::make($image->getRealPath());
-               $resize_image->resize(150, 150, function($constraint){
-                $constraint->aspectRatio();
-               })->save($destinationPath . '/' . $image_name);
-               $destinationPath = public_path('/uploads');
-               $image->move($destinationPath, $image_name);
-        }
         $employees->EMPLOYEES_LASTNAME = $request->employees_lastname;
         $employees->EMPLOYEES_USERNAME = $request->employees_username;
         $employees->EMPLOYEES_FIRSTNAME = $request->employees_fistname;
         $employees->EMPLOYEES_PHONE = $request->employees_phone;
         $employees->EMPLOYEES_EMAIL = $request->employees_mail;
         $employees->EMPLOYEES_PASSWORD = $request->employees_password;
-        $employees->EMPLOYEES_IMG = $image_name;
+        $employees->EMPLOYEES_IMG = $request->employees_image;
         $employees->POSITION_ID = $request->employees_position_id;
         $employees->EMPLOYEES_STATUS = 1;
         $employees->EMPLOYEES_ADDRESS = $request->employees_address;
@@ -207,7 +184,13 @@ class EmployeesController extends Controller
         $employees->EMPLOYEES_AGE = $request->employees_age;
 
         $employees->save();
-
+        if($employees){
+            $error_status_employees='Thay đổi thành công';
+            session()->flash('error_status_employees',$error_status_employees);
+        }else{
+            $error_status_employees='Thay đổi thất bại';
+            session()->flash('error_status_employees',$error_status_employees);
+        }
         return redirect()->route('danhsachNV');
 
     }
@@ -229,7 +212,13 @@ class EmployeesController extends Controller
         $employees->EMPLOYEES_ENDDATE=$request->employees_endday;
 
         $employees->save();
-
+        if($employees){
+            $error_status_employees='Xóa thành công';
+            session()->flash('error_status_employees',$error_status_employees);
+        }else{
+            $error_status_employees='Xóa thất bại';
+            session()->flash('error_status_employees',$error_status_employees);
+        }
 
         return redirect()->route('danhsachNV');
 

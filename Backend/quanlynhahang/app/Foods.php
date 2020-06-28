@@ -17,7 +17,9 @@ class Foods extends Model
         'FOOD_UNIT',
         'FOOD_STATUS',
         'FOOD_IMG',
-        'CATEGORYFOODS_ID'
+        'CATEGORYFOODS_ID',
+        'FOOD_DATE',
+        'FOOD_TYPE'
     ];
     public $timestamps = false;
     public $incrementing = false;

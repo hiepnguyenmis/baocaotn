@@ -53,7 +53,7 @@
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="modalAddMaterialsTitle">Thêm thông tin
                                                     nguyên liệu
-                                                    viên</h5>
+                                                </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -82,12 +82,11 @@
                                                                         <label>Tên nguyên liệu:</label>
                                                                         <input type="text" class="form-control"
                                                                             placeholder="Thịt heo đùi"
-                                                                            name='material_name' required>
-                                                                        @if(Session::has('err'))
-
-                                                                        <p class="alert alert-danger">
-                                                                            {{Session::get('err')}}</p>
-
+                                                                            name='material_name'>
+                                                                        @if ($errors->has('material_name'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('material_name') }}
+                                                                        </div>
                                                                         @endif
                                                                     </div>
                                                                     <div class="form-group">
@@ -106,14 +105,23 @@
 
                                                                         </select>
                                                                     </div>
+                                                                    @if ($errors->has('material_id'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('material_id') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Giá mua vào:</label>
                                                                         <input type="text" class="form-control"
-                                                                            placeholder="20000" name="material_price"
-                                                                            required>
+                                                                            placeholder="20000" name="material_price">
                                                                     </div>
+                                                                    @if ($errors->has('material_price'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('material_price') }}
+                                                                    </div>
+                                                                    @endif
 
                                                                 </div>
                                                             </div>
@@ -138,18 +146,40 @@
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <img src="https://via.placeholder.com/150x200"
-                                                                        alt="..." class="img-thumbnail">
+                                                                    <img id='imageMaterialAdd' alt="..." width="150"
+                                                                        height="200"
+                                                                        src="https://via.placeholder.com/150x200"
+                                                                        class="img-fluid">
                                                                     <!-- /.form-group -->
                                                                 </div>
                                                                 <div class="col-md-6">
-
                                                                     <div class="form-group">
-                                                                        <label for="exampleFormControlFile1">Thêm
+                                                                        <label>Thêm
                                                                             ảnh</label>
-                                                                        <input type="file" class="form-control-file"
-                                                                            name="image" required>
+                                                                        <div class="custom-file">
+                                                                            <input type="file" class="custom-file-input"
+                                                                                id="photoMateralAdd"
+                                                                                onchange="previewFileMaterialAdd()">
+                                                                            <label class="custom-file-label"
+                                                                                for="photoMateralAdd">Choose
+                                                                                file...</label>
+                                                                            <div class="invalid-feedback">Example
+                                                                                invalid custom file feedback</div>
+                                                                        </div>
+                                                                        <span class="text-danger"
+                                                                            id="statusEmptyFileImgAddMaterial"></span>
+                                                                        <input type="hidden" class="form-control"
+                                                                            name="material_image"
+                                                                            id='imageMaterialAddUrl'>
+                                                                        @if ($errors->has('material_image'))
+                                                                        <div style="color: red">
+                                                                            {{ $errors->first('material_image') }}
+                                                                        </div>
+                                                                        @endif
                                                                     </div>
+                                                                    <button onclick='uploadImageMaterialAdd()'
+                                                                        class="btn btn-primary mt-2" type="button">Thêm
+                                                                        ảnh</button>
                                                                     <!-- /.form-group -->
                                                                 </div>
                                                             </div>
@@ -169,7 +199,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ( $materials as $item )
+                            @php
+                            $no=1;
+                            @endphp
+                            @foreach ( $materials as $key=>$item )
                             <?php
                             $modalEditMaterials= "modal-Edit-Material".$item->MATERIALS_ID;
 
@@ -178,7 +211,7 @@
                             ?>
 
                             <tr>
-                                <td></td>
+                                <td>{{($materials->currentpage()-1) * $materials->perpage() + $key + 1}}</td>
                                 <td>{{$item->MATERIALS_NO}}</td>
                                 <td>{{$item->MATERIALS_NAME}}</td>
                                 <td>{{$item->MATERIALS_PRICE}}</td>
@@ -206,15 +239,16 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ route('xoaNL',['materials_id' => $item->MATERIALS_ID])}}" method="post">
+                                        <form action="{{ route('xoaNL',['materials_id' => $item->MATERIALS_ID])}}"
+                                            method="post">
                                             @csrf
                                             <div class="modal-body">
                                                 Bạn có chắc chắn xác nhận xóa <b>{{$item->MATERIALS_NAME}}</b> ?
 
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary "
-                                                    data-dismiss="modal">Trở lại</button>
+                                                <button type="button" class="btn btn-primary " data-dismiss="modal">Trở
+                                                    lại</button>
                                                 <button type="submit" class="btn btn-secondary">Lưu lại</button>
                                             </div>
                                         </form>
@@ -257,21 +291,21 @@
                                                                 <div class="form-group">
                                                                     <label>Tên nguyên liệu:</label>
                                                                     <input type="text" class="form-control"
-                                                                        placeholder="Thịt heo đùi" name='material_name'
-                                                                        value="{{$item->MATERIALS_NAME}}" required>
-                                                                    {{-- @if(Session::has('err'))
-
-                                                                        <p class="alert alert-danger">
-                                                                            {{Session::get('err')}}</p>
-
-                                                                    @endif --}}
+                                                                        placeholder="Thịt heo đùi"
+                                                                        name='material_name_edit'
+                                                                        value="{{$item->MATERIALS_NAME}}">
+                                                                    @if ($errors->has('material_name_edit'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('material_name_edit') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label>Danh mục:</label>
                                                                     <select class="form-control select2 select2-danger"
                                                                         data-dropdown-css-class="select2-danger"
-                                                                        style="width: 100%;" name="category_id"
-                                                                        required>
+                                                                        style="width: 100%;"
+                                                                        name="category_material_id_edit" required>
                                                                         <option selected='selected'
                                                                             value="{{$item->categorymaterials->CATEGORYMATERIAL_ID}}">
                                                                             {{$item->categorymaterials->CATEGORYMATERIAL_NAME}}
@@ -283,15 +317,26 @@
                                                                         </option>
                                                                         @endforeach
                                                                     </select>
+                                                                    @if ($errors->has('category_material_id_edit'))
+                                                                    <div style="color: red">
+                                                                        {{ $errors->first('category_material_id_edit') }}
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Giá mua vào:</label>
                                                                     <input type="text" class="form-control"
-                                                                        placeholder="20000" value='{{$item->MATERIALS_PRICE}}' name="material_price"
-                                                                        required>
+                                                                        placeholder="20000"
+                                                                        value='{{$item->MATERIALS_PRICE}}'
+                                                                        name="material_price_edit">
                                                                 </div>
+                                                                @if ($errors->has('material_price_edit'))
+                                                                <div style="color: red">
+                                                                    {{ $errors->first('material_price_edit') }}
+                                                                </div>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                         <!-- /.card-body -->
@@ -315,23 +360,88 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                            <img src="uploads/{{$item->MATERIALS_IMG}}" alt="..."
-                                                                    class="img-thumbnail">
+                                                                <img id='imageMaterialEdit{{$loop->index}}' alt="..."
+                                                                    width="150" height="200"
+                                                                    src="{{$item->MATERIALS_IMG}}" class="img-fluid">
                                                                 <!-- /.form-group -->
                                                             </div>
                                                             <div class="col-md-6">
 
                                                                 <div class="form-group">
-                                                                    <label for="exampleFormControlFile1">Thêm
+                                                                    <label>Thêm
                                                                         ảnh</label>
-                                                                    <input type="file" class="form-control-file"
-                                                                        name="image" >
+                                                                    <div class="custom-file">
+                                                                        <input type="file" class="custom-file-input"
+                                                                            id="photoMateralEdit{{$loop->index}}"
+                                                                            onchange="previewFileMaterialEdit{{$loop->index}}()">
+                                                                        <label class="custom-file-label"
+                                                                            for="photoMateralEdit{{$loop->index}}">Chọn
+                                                                            file...</label>
+                                                                        <div class="invalid-feedback">Example
+                                                                            invalid custom file feedback</div>
+                                                                    </div>
+                                                                    <span class="text-danger"
+                                                                        id="statusEmptyFileImgEditMaterial{{$loop->index}}"></span>
+                                                                    <input type="hidden" class="form-control"
+                                                                        name="materials_image"
+                                                                        id='imageMaterialEditUrl{{$loop->index}}'>
                                                                 </div>
+                                                                <button
+                                                                    onclick='uploadImageMaterialEdit{{$loop->index}}()'
+                                                                    class="btn btn-primary mt-2" type="button">Thêm
+                                                                    ảnh</button>
                                                                 <!-- /.form-group -->
                                                             </div>
                                                         </div>
                                                         <!-- /.card-body -->
                                                     </div>
+                                                    <script>
+                                                        function uploadImageMaterialEdit{{$loop->index}}() {
+
+
+                                                        if (document.getElementById("photoMateralEdit{{$loop->index}}").files.length != 0) {
+                                                            const ref = firebase.storage().ref();
+
+                                                            const file = document.querySelector('#photoMateralEdit{{$loop->index}}').files[0];
+                                                            const name = new Date() + '-' + file.name;
+                                                            const metadata = {
+                                                                contentType: file.type
+                                                            }
+
+                                                            const task = ref.child(name).put(file, metadata);
+
+                                                            task
+                                                                .then(snapshot => snapshot.ref.getDownloadURL())
+                                                                .then(url => {
+                                                                    const image = document.querySelector('#imageMaterialEdit{{$loop->index}}');
+                                                                    image.src = url;
+                                                                    const textInput = document.getElementById('imageMaterialEditUrl{{$loop->index}}')
+                                                                    textInput.value = url;
+                                                                    document.getElementById('statusEmptyFileImgEditMaterial{{$loop->index}}').innerHTML = 'Thêm thành công'
+                                                                })
+                                                        } else {
+                                                            document.getElementById('statusEmptyFileImgEditMaterial{{$loop->index}}').innerHTML = "Chưa chọn ảnh"
+                                                        }
+                                                        }
+
+                                                        function previewFileMaterialEdit{{$loop->index}}() {
+                                                        var preview = document.querySelector('#imageMaterialEdit{{$loop->index}}');
+                                                        var file = document.querySelector('#photoMateralEdit{{$loop->index}}').files[0];
+
+                                                        var reader = new FileReader();
+
+                                                        reader.onloadend = function () {
+                                                            preview.src = reader.result;
+                                                        }
+
+                                                        if (file) {
+                                                            reader.readAsDataURL(file);
+                                                        } else {
+                                                            preview.src = "https://via.placeholder.com/150x200";
+                                                        }
+                                                        }
+                                                    </script>
+
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -386,11 +496,12 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Danh mục:</label>
-                                                            <p>{{$item->categorymaterials->CATEGORYMATERIAL_NAME}}</p>
+                                                                <p>{{$item->categorymaterials->CATEGORYMATERIAL_NAME}}
+                                                                </p>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Giá mua vào:</label>
-                                                            <p>{{$item->MATERIALS_PRICE}}</p>
+                                                                <p>{{$item->MATERIALS_PRICE}}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -415,14 +526,13 @@
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-md-4">
-                                                            <img src="uploads/{{$item->MATERIALS_IMG}}" alt="..."
+                                                            <img src="{{$item->MATERIALS_IMG}}" alt="..."
                                                                 class="img-thumbnail">
                                                             <!-- /.form-group -->
                                                         </div>
 
                                                     </div>
                                                     <!-- /.card-body -->
-
                                                 </div>
                                             </div>
                                         </div>
@@ -439,43 +549,71 @@
                         <tfoot>
                             <tr>
                                 <th>STT</th>
-                                <th>Mã nhân viên</th>
-                                <th>Tên nhân viên</th>
-                                <th>Chức vụ</th>
-                                <th>Điện thoại</th>
+                                <th>Mã nguyên liệu</th>
+                                <th>Tên nguyên liệu</th>
+                                <th>Giá nguyên liệu</th>
+                                <th>Ngày thêm</th>
                                 <th>Loại nguyên liệu</th>
                                 <th></th>
                             </tr>
                         </tfoot>
 
                     </table>
-
+                    @if ( Session::has('statusMaterialWarning') )
+                    <div class="alert alert-warning alert-dismissible mt-2" role="alert">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong>{{ Session::get('statusMaterialWarning') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                    @if (Session::has('statusMaterialSuccess'))
+                    <div class="alert alert-success alert-dismissible mt-2" role="alert">
+                        <i class="fas fa-check-circle"></i> <strong>{{ Session::get('statusMaterialSuccess') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                    @if (Session::has('statusMaterialError'))
+                    <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong>{{ Session::get('statusMaterialError') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                    @if (Session::has('statusMaterialEditSuccess'))
+                    <div class="alert alert-success alert-dismissible mt-2" role="alert">
+                        <i class="fas fa-check-circle"></i>
+                        <strong>{{ Session::get('statusMaterialEditSuccess') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                    @if (Session::has('statusMaterialEditError'))
+                    <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong>{{ Session::get('statusMaterialEditError') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                    @if (Session::has('statusMaterialDestroySuccess'))
+                    <div class="alert alert-success alert-dismissible mt-2" role="alert">
+                        <i class="fas fa-check-circle"></i>
+                        <strong>{{ Session::get('statusMaterialDestroySuccess') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+                    @if (Session::has('statusMaterialDestroyError'))
+                    <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong>{{ Session::get('statusMaterialDestroyError') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
                     <div class="d-flex justify-content-end mt-4">
                         {{$materials->links()}}
                         <?php //Hiển thị thông báo thành công?>
 
                     </div>
                 </div>
-                @if ( session('success') )
-                <div class="alert alert-success alert-dismissible m-2" role="alert" id="success-alert">
-                    <strong>{{ session('success') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                </div>
-                @endif
 
-                <?php //Hiển thị thông báo lỗi?>
-                @if ( session('error') )
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>{{ session('error') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                </div>
-                @endif
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -485,5 +623,7 @@
     <!-- /.row -->
 </section>
 <!-- /.content -->
+
 </div>
+<script src="{{asset('js/uploadfirebase.js')}}"></script>
 @endsection

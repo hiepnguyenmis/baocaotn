@@ -34,6 +34,7 @@ class BillDetailControllers extends Controller
                         ->join('bills','billdetail.BILLDETAIL_ID','=','bills.BILL_ID')
                         ->where('billdetail.BILLDETAIL_ID','=',$bill_id)
                         ->get();
+                        
             return view('page.admin.BillDetailPage',[
                 'customers'=>$customers,
                 'billdetail'=>$billdetail,
@@ -47,7 +48,6 @@ class BillDetailControllers extends Controller
             $error = 'Mã hóa đơn không đúng';
             return $error;
         }
-
 
     }
 }

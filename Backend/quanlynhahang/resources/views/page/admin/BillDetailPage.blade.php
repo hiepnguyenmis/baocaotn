@@ -108,6 +108,7 @@
                                         <tbody>
                                             @php
                                              $total=null;
+                                             $no=1;
                                             @endphp
                                             @foreach ($billdetail as $item)
                                             @php
@@ -115,15 +116,15 @@
                                                 $total+=$intoMoney;
                                             @endphp
                                             <tr>
-                                                <th scope="row"></th>
+                                            <th scope="row">{{$no++}}</th>
                                                 <td>{{$item->FOOD_NAME}}</td>
                                                 <td>{{$item->FOOD_UNIT}}</td>
                                                 <td>{{$item->BILLDETAIL_AMOUNT}}</td>
-                                                <td>{{$item->BILLDETAIL_PRICE}}</td>
-                                                <td>{{$intoMoney}}</td>
+                                                <td>{{number_format($item->BILLDETAIL_PRICE,0,',','.')}} đ</td>
+                                                <td>{{number_format($intoMoney,0,',','.')}} đ</td>
                                             </tr>
                                             @endforeach
-                                        <span class="text-danger">Tổng hóa đơn: {{$total}}</span>
+                                        <span class="text-danger">Tổng hóa đơn: {{number_format($total,0,',','.')}} đ</span>
                                         </tbody>
                                     </table>
                                 </div>
@@ -184,9 +185,9 @@
                      $print_total+=$print_intoMoney;
                   @endphp
                   @endforeach
-                  <p>Tổng Tiền Hàng: {{$print_total}}  đ</p>
+                  <p>Tổng Tiền Hàng: {{number_format($print_total,0,',','.')}}  đ</p>
                   <p>Giảm Giá: 0 đ</p>
-                  <p style="font-size: 20px"><b>Đã thanh toán: {{$print_total}} đ</b></p>
+                  <p style="font-size: 20px"><b>Đã thanh toán: {{number_format($print_total,0,',','.')}} đ</b></p>
                   <p>Thuế: 0%</p>
                   <hr>
                 </div>
@@ -213,6 +214,7 @@
               <tbody>
                   @php
                   $print_total=null;
+                  $no=1;
                   @endphp
                   @foreach ($billdetail as $item)
                   @php
@@ -222,14 +224,14 @@
                 <tr  style="line-height: 1em">
                   <br>
                   <br>
-                  <td> </td>
+                <td> {{$no++}}</td>
 
                   <td>{{$item->FOOD_NAME}}</td>
                   <td>
                       {{$item->BILLDETAIL_AMOUNT}}
                   </td>
-                  <td>{{$item->BILLDETAIL_PRICE}}</td>
-                  <td>{{$print_intoMoney}}</td>
+                  <td>{{number_format($item->BILLDETAIL_PRICE,0,',','.')}} đ</td>
+                  <td>{{number_format($print_intoMoney,0,',','.')}} đ</td>
                 </tr>
                 @endforeach
               </tbody>

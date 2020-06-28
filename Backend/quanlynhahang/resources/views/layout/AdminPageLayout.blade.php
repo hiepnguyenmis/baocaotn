@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
+
     <title>AdminLTE 3 | Dashboard 2</title>
 
     <!-- Font Awesome Icons -->
@@ -22,6 +23,14 @@
     <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
 
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-storage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+ https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 
@@ -65,7 +74,7 @@
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="admin/admin/dist/img/user8-128x128.jpg" alt="User Avatar"
+                            <img src="{{asset('admin/admin/dist/img/user8-128x128.jpg')}}" alt="User Avatar"
                                     class="img-size-50 img-circle mr-3">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
@@ -210,7 +219,7 @@
                         <li class="nav-header">THỐNG KÊ</li>
 
                         <li class="nav-item">
-                            <a href="pages/gallery.html" class="nav-link">
+                            <a href="{{route('Thongkehoadon')}}" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>
                                     Thống kê Hóa đơn
@@ -218,7 +227,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/gallery.html" class="nav-link">
+                            <a href="{{route('Thongkedoanhthu')}}" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>
                                     Thống kê Doanh thu
@@ -272,17 +281,16 @@
 
     <!-- PAGE PLUGINS -->
     <!-- jQuery Mapael -->
-    <script src="{{asset('plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
-    <script src="{{asset('plugins/raphael/raphael.min.js')}}"></script>
-    <script src="{{asset('plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
-    <script src="{{asset('plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
+    <script src="{{asset('admin/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+    <script src="{{asset('admin/plugins/raphael/raphael.min.js')}}"></script>
+    <script src="{{asset('admin/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
+    <script src="{{asset('admin/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
     <!-- ChartJS -->
-    <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
 
     <!-- PAGE SCRIPTS -->
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-    <script src="{{asset('plugins/dist/js/pages/dashboard2.js')}}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{asset('admin/plugins/dist/js/pages/dashboard2.js')}}"></script>
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js">
@@ -290,30 +298,10 @@
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
     </script>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-storage.js"></script>
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+<script>
+    $('div.alert').not('.alert-important').delay(4000).fadeOut(350);
+</script>
 
-    <script>
-        // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyDafnWdR5joLbVJNn0GRbZASnQHXwd7Od0",
-    authDomain: "do-an-tot-nghiep-1d016.firebaseapp.com",
-    databaseURL: "https://do-an-tot-nghiep-1d016.firebaseio.com",
-    projectId: "do-an-tot-nghiep-1d016",
-    storageBucket: "do-an-tot-nghiep-1d016.appspot.com",
-    messagingSenderId: "972500526572",
-    appId: "1:972500526572:web:f688e857e17c464c3f0cc9",
-    measurementId: "G-B8VZ57Y6D4"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-  
-    </script>
 </body>
 
 </html>

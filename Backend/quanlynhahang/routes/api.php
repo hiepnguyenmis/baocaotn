@@ -60,3 +60,10 @@ Route::get('getcustomer','Api\Ordercontroller@GetCustomer')->name('createcustome
 Route::get('getonecustomer/{phone}','Api\Ordercontroller@GetOneCustomer')->name('createcustomer.CreateCustomer');
 
 
+//
+Route::get('getmonthbillofyear/{year}', 'Api\StatisticsApiControllers@GetMonthBillsOfYear')->name('getmonthbillofyear');
+Route::get('getbilldate/{year}', 'Api\StatisticsApiControllers@GetBillDate')->name('getbilldate');
+Route::get('getstatistics-revernue/{year}', 'Api\StatisticsApiControllers@GetStatisticsRevenue')->name('getstatistics-revernue');
+Route::get('getbillmonth/{year}/{month}', 'Api\StatisticsApiControllers@GetBillMonth')->name('getbillmonth');
+Route::get('getstatistics-revernue-month/{year}/{month}', 'Api\StatisticsApiControllers@GetStatisticsRevenueMonth')->name('getstatistics-revernue-month');
+//

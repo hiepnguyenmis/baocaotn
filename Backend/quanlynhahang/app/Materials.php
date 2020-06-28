@@ -24,7 +24,9 @@ class Materials extends Model
     public function CategoryMaterials(){
         return $this->belongsTo('App\CategoryMaterials','CATEGORYTYPE_ID','CATEGORYMATERIAL_ID');
     }
-
+    public function InputMaterial(){
+        return $this->belongsTo('App\Inputmaterial','MATERIALS_ID','MATERIALS_ID');
+    }
     public function FoodDetail(){
         return $this->hasMany('App\FoodDetail','MATERIAL_ID','FOOD_ID');
     }

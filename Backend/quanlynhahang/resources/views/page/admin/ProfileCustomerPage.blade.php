@@ -156,7 +156,7 @@
                                         <img class="img-circle img-bordered-sm" src="{{asset('image/smart-cart.png')}}"
                                             alt="user image">
                                         <span class="username">
-                                            <a href="#">Mã: {{$item->BILL_NO}}</a>
+                                            <a >Mã: {{$item->BILL_NO}}</a>
                                         </span>
                                         <span class="description">{{$item->BILL_DATE}}</span>
                                     </div>

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['prefix'=>'/quanly'], function(){
+Route::group(['prefix'=>'/trangquantri'], function(){
     Route::get('/thungan', function () {
         return view('page.booking.OrderPage');
     });
