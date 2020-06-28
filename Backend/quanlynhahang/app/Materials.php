@@ -16,7 +16,8 @@ class Materials extends Model
     'MATERIALS_PRICE',
     'MATERIALS_DATE',
     'MATERIALS_IMG',
-    'CATEGORYTYPE_ID'
+    'CATEGORYTYPE_ID',
+    'MATERIALS_STATUS'
     ];
     public $timestamps = false;
     public $incrementing = false;

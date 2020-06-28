@@ -234,7 +234,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Nhân Viên nghỉ việc</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Xóa nguyên liệu</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -261,8 +261,7 @@
                                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                     <div class="modal-content ">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="modalEditMaterialsTitle">Cập nhật thông tin nhân
-                                                viên</h5>
+                                            <h5 class="modal-title" id="modalEditMaterialsTitle">Cập nhật thông nguyên liệu</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -458,8 +457,7 @@
                                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                     <div class="modal-content ">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="modalEditMaterialsTitle">Chi tiết thông tin nhân
-                                                viên</h5>
+                                            <h5 class="modal-title" id="modalEditMaterialsTitle">Chi tiết thông tin nguyên liệu</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -538,8 +536,8 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                data-dismiss="modal">Đóng</button>
+
                                         </div>
                                     </div>
                                 </div>
