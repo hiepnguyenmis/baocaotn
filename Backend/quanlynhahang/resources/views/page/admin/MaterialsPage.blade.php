@@ -605,6 +605,13 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
+                    @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong>Thao tác thay đổi dữ liệu thất bại vui lòng kiểm tra lại!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
                     <div class="d-flex justify-content-end mt-4">
                         {{$materials->links()}}
                         <?php //Hiển thị thông báo thành công?>

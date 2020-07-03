@@ -86,7 +86,7 @@
                                         </td>
                                         <td>
                                             <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                {{number_format($item->BILL_TOTAL,2,',','.')}} vnđ</div>
+                                                {{number_format($item->BILL_TOTAL,0,',','.')}} vnđ</div>
                                         </td>
                                     </tr>
                                     @endforeach

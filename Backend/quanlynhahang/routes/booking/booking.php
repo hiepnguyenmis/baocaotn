@@ -18,7 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'/trangquantri'], function(){
     Route::get('/thungan', function () {
-        return view('page.booking.OrderPage');
+        if(Session::has('login')){
+
+            return view('page.booking.OrderPage');
+        }else{
+            return redirect('trangquantri/dang-nhap');
+        }
+
     });
 });
 

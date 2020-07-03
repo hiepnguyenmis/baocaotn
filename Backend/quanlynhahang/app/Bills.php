@@ -18,7 +18,9 @@ class Bills extends Model
         'CUSTOMER_ID',
         'TABLE_ID',
         'EMPLOYEE_ID',
-        'BILL_PROMOTION'
+        'BILL_PROMOTION',
+        'BILL_DELIVERYADDRESS',
+        'BILL_NOTE'
     ];
     public $timestamps = false;
     public $incrementing = false;

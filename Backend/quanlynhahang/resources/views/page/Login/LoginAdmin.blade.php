@@ -32,20 +32,24 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-50 p-b-90">
-				<form class="login100-form validate-form flex-sb flex-w">
-					<span class="login100-form-title p-b-51">
+				<form method="POST" action="dangnhap" class="login100-form validate-form flex-sb flex-w">
+                    @csrf
+                    <span class="login100-form-title p-b-51">
 						Đăng nhập nhân viên
 					</span>
 
-
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Tên đăng nhập là bắt buộc">
-						<input class="input100" type="text" name="username" placeholder="Tên đăng nhập">
+						<input class="input100" type="text" name="employee_username" placeholder="Tên đăng nhập">
 						<span class="focus-input100"></span>
 					</div>
-
+                    @if ($errors->has('employee_username'))
+                    <div style="color: red">
+                        {{ $errors->first('employee_username') }}
+                    </div>
+                    @endif
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Mật Khẩu là bắt buộc">
-						<input class="input100" type="password" name="pass" placeholder="Mật Khẩu">
+						<input class="input100" type="password" name="employee_password" placeholder="Mật Khẩu">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -58,14 +62,25 @@
 							</a>
 						</div>
 					</div>
-
+                    @if ($errors->has('employee_password'))
+                    <div style="color: red">
+                        {{ $errors->first('employee_password') }}
+                    </div>
+                    @endif
 					<div class="container-login100-form-btn m-t-17">
-						<button class="login100-form-btn bg-primary">
+						<button type="submit" class="login100-form-btn bg-primary">
 							Đăng Nhập
 						</button>
 					</div>
 
-				</form>
+                </form>
+                @if ( Session::has('errorLogin') )
+                <div class="alert alert-warning alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>{{ Session::get('errorLogin') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
 			</div>
 		</div>
 	</div>

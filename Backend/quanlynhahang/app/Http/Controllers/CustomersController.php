@@ -28,10 +28,14 @@ class CustomersController extends Controller
 {
     public function ListCustomers()
     {
-        $pageSize = 4;
-        $customers = Customers::where('CUSTOMER_STATUS', '=', 1)->paginate($pageSize);
+        if (Session::has('login')) {
+            $pageSize = 4;
+            $customers = Customers::where('CUSTOMER_STATUS', '=', 1)->paginate($pageSize);
 
-        return view('page.admin.CustomersPage', ['customers' => $customers, 'pageSize' => $pageSize]);
+            return view('page.admin.CustomersPage', ['customers' => $customers, 'pageSize' => $pageSize]);
+        } else {
+            return redirect('trangquantri/dang-nhap');
+        }
     }
     public function GetOneCustomer($customers_no)
     {
@@ -125,7 +129,7 @@ class CustomersController extends Controller
             $customers->CUSTOMER_EMAIL = $request->customer_email;
             $customers->CUSTOMER_PASSWORD = Hash::make($request->customer_password);
             $customers->CUSTOMER_STATUS = 1;
-            $customers->CUSTOMER_MARK=0;
+            $customers->CUSTOMER_MARK = 0;
 
             if ($request->has('agree-term')) {
                 $customers->save();
@@ -165,7 +169,7 @@ class CustomersController extends Controller
             $customers->CUSTOMER_EMAIL = $request->customer_email;
             $customers->CUSTOMER_PASSWORD = Hash::make($request->customer_password);
             $customers->CUSTOMER_STATUS = 1;
-            $customers->CUSTOMER_MARK=0;
+            $customers->CUSTOMER_MARK = 0;
             if ($request->has('agree-term')) {
                 $customers->save();
                 if ($customers) {
@@ -195,23 +199,23 @@ class CustomersController extends Controller
 
         ]);
         $customers_phone = $request->customer_phone;
-        $customers_password =$request->customer_password;
-        $login = Customers::where('customers.CUSTOMER_PHONE',$customers_phone)->get();
-        if($login!=null){
-            foreach($login as $item){
-                if(Hash::check($customers_password, $item->CUSTOMER_PASSWORD)){
-                    session()->put('customer_name',$item->CUSTOMER_NAME);
-                    session()->put('customer_no',$item->CUSTOMER_NO);
+        $customers_password = $request->customer_password;
+        $login = Customers::where('customers.CUSTOMER_PHONE', $customers_phone)->get();
+        if ($login != null) {
+            foreach ($login as $item) {
+                if (Hash::check($customers_password, $item->CUSTOMER_PASSWORD)) {
+                    session()->put('customer_name', $item->CUSTOMER_NAME);
+                    session()->put('customer_no', $item->CUSTOMER_NO);
                     return redirect('/');
                 }
-
             }
         }
         Session::flash('error', 'Tên tài khoản hoặc mật khẩu không đúng');
         return redirect('trang/dang-nhap');
     }
 
-    public function LogoutCustomer(){
+    public function LogoutCustomer()
+    {
         session()->forget('customer_name');
         session()->forget('customer_no');
         return redirect('/');

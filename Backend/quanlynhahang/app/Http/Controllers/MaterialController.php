@@ -24,21 +24,25 @@ class MaterialController extends Controller
 {
     public function ListMaterials()
     {
-        $pageSize = 4;
-        $materials = Materials::with('CategoryMaterials')
-            ->where('materials.MATERIALS_STATUS','=',1)
-            ->orderby('materials.MATERIALS_ID', 'DESC')
-            ->paginate($pageSize);
-        $categorymaterials = CategoryMaterials::all();
+        if (Session::has('login')) {
+            $pageSize = 4;
+            $materials = Materials::with('CategoryMaterials')
+                ->where('materials.MATERIALS_STATUS', '=', 1)
+                ->orderby('materials.MATERIALS_ID', 'DESC')
+                ->paginate($pageSize);
+            $categorymaterials = CategoryMaterials::all();
 
-        return view('page.admin.MaterialsPage', ['categorymaterials' => $categorymaterials, 'materials' => $materials, 'pageSize' => $pageSize]);
+            return view('page.admin.MaterialsPage', ['categorymaterials' => $categorymaterials, 'materials' => $materials, 'pageSize' => $pageSize]);
+        } else {
+            return redirect('trangquantri/dang-nhap');
+        }
     }
 
     protected function isDuplicate($materials_dupli)
     {
         $materials = Materials::all();
         foreach ($materials as $item) {
-            if ($item->MATERIALS_NAME == $materials_dupli && $item->MATERIALS_STATUS==1) {
+            if ($item->MATERIALS_NAME == $materials_dupli && $item->MATERIALS_STATUS == 1) {
                 return false;
             }
         }
@@ -75,7 +79,7 @@ class MaterialController extends Controller
             $materials->MATERIALS_PRICE = $request->material_price;
             $materials->MATERIALS_IMG = $request->material_image;
             $materials->CATEGORYTYPE_ID = $request->material_id;
-            $materials->MATERIALS_STATUS=1;
+            $materials->MATERIALS_STATUS = 1;
             $materials->MATERIALS_DATE = Carbon::now('Asia/Ho_Chi_Minh');
             $materials->save();
             if ($materials) {
@@ -112,7 +116,7 @@ class MaterialController extends Controller
         $materials->MATERIALS_PRICE = $request->material_price_edit;
         $materials->MATERIALS_DATE = Carbon::now('Asia/Ho_Chi_Minh');
         $materials->MATERIALS_IMG = $request->materials_image;
-        $materials->MATERIALS_STATUS=1;
+        $materials->MATERIALS_STATUS = 1;
         $materials->CATEGORYTYPE_ID = $request->category_material_id_edit;
         $materials->save();
         if ($materials) {
@@ -143,7 +147,7 @@ class MaterialController extends Controller
 
         try {
             $materials = Materials::find($materials_id);
-            $materials->MATERIALS_STATUS= 0;
+            $materials->MATERIALS_STATUS = 0;
             $materials->save();
             if ($materials) {
                 $success = 'Xóa thành công';

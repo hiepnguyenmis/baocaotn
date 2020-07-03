@@ -1,5 +1,6 @@
 @extends('layout.AdminPageLayout')
 @section('master-admin')
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -62,8 +63,7 @@
                                                 <div class="modal-body">
                                                     <div class="card card-default">
                                                         <div class="card-header">
-                                                            <h3 class="card-title">Thông tin cá nhân</h3>
-
+                                                            <h3 class="card-title">Thông tin cá nhân </h3>
                                                             <div class="card-tools">
                                                                 <button type="button" class="btn btn-tool"
                                                                     data-card-widget="collapse"><i
@@ -200,6 +200,7 @@
                                                                                 data-dropdown-css-class="select2-danger"
                                                                                 style="width: 100%;"
                                                                                 name="employees_position_id">
+                                                                                <option selected>---Chọn---</option>
                                                                                 @foreach ($position as $item)
                                                                                 <option value="{{$item->POSITION_ID}}">
                                                                                     {{$item->POSITION_NAME}}</option>
@@ -323,9 +324,12 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="" method="post">
+                                        <form action="{{route('xoaNV',['employees_id'=> $item->EMPLOYEES_ID])}}"
+                                            method="post">
+                                            @csrf
                                             <div class="modal-body">
-                                                Bạn có chắc chắn xác nhận nhân viên....
+                                                Bạn có chắc chắn xác nhận nhân viên <b>{{$item->EMPLOYEES_LASTNAME}}
+                                                    {{$item->EMPLOYEES_FIRSTNAME}}</b>
                                                 Nhân viên sẽ nghỉ việc từ ngày?
                                                 <div class="container">
                                                     <div class="row">
@@ -334,9 +338,13 @@
                                                                 <div class="input-group date" id="datetimepicker"
                                                                     data-target-input="nearest">
                                                                     <input type="datetime-local" class="form-control "
-                                                                        name="employees_endday" required />
+                                                                        name="employees_endday" />
 
                                                                 </div>
+                                                                @if ($errors->has('employees_endday'))
+                                                                <div style="color: red">
+                                                                    {{ $errors->first('employees_endday') }}</div>
+                                                                @endif
                                                             </div>
                                                         </div>
 
@@ -345,8 +353,8 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-primary "
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-secondary">Save changes</button>
+                                                    data-dismiss="modal">Đóng</button>
+                                                <button type="submit" class="btn btn-secondary">Lưu lại</button>
                                             </div>
                                         </form>
                                     </div>
@@ -364,6 +372,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
+
                                         <form
                                             action="{{ route('suadanhsachNV',['employees_id' => $item->EMPLOYEES_ID])}}"
                                             method="post" enctype="multipart/form-data">
@@ -389,12 +398,12 @@
                                                                 <div class="form-group">
                                                                     <label>Họ:</label>
                                                                     <input type="text" class="form-control"
-                                                                        placeholder="Enter email"
-                                                                        name='employees_lastname'
+                                                                        placeholder="Nguyễn"
+                                                                        name='employees_lastname_edit'
                                                                         value="{{$item->EMPLOYEES_LASTNAME}}">
-                                                                    @if ($errors->has('employees_lastname'))
+                                                                    @if ($errors->has('employees_lastname_edit'))
                                                                     <div style="color: red">
-                                                                        {{ $errors->first('employees_lastname') }}
+                                                                        {{ $errors->first('employees_lastname_edit') }}
                                                                     </div>
                                                                     @endif
                                                                 </div>
@@ -407,14 +416,13 @@
                                                                         <div class="input-group date" id="birthdayedit">
                                                                             <input type="datetime-local"
                                                                                 class="form-control "
-                                                                                data-target="#birthdayedit"
-                                                                                name="employees_birthday"
+                                                                                name="employees_birthday_edit"
                                                                                 value="{{$item->EMPLOYEES_BIRTHDAY}}" />
 
                                                                         </div>
-                                                                        @if ($errors->has('employees_birthday'))
+                                                                        @if ($errors->has('employees_birthday_edit'))
                                                                         <div style="color: red">
-                                                                            {{ $errors->first('employees_birthday') }}
+                                                                            {{ $errors->first('employees_birthday_edit') }}
                                                                         </div>
                                                                         @endif
                                                                     </div>
@@ -424,12 +432,13 @@
                                                                 <div class="form-group">
                                                                     <label for="phone">Số điện
                                                                         thoại:</label>
-                                                                    <input type="text" class="form-control" id="phone"
-                                                                        placeholder="0905075821" name="employees_phone"
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="0905075821"
+                                                                        name="employees_phone_edit"
                                                                         value="{{$item->EMPLOYEES_PHONE}}">
-                                                                    @if ($errors->has('employees_phone'))
+                                                                    @if ($errors->has('employees_phone_edit'))
                                                                     <div style="color: red">
-                                                                        {{ $errors->first('employees_phone') }}
+                                                                        {{ $errors->first('employees_phone_edit') }}
                                                                     </div>
                                                                     @endif
                                                                 </div>
@@ -441,14 +450,14 @@
                                                                             id="datetimepickerstartdateedit">
                                                                             <input type="datetime-local"
                                                                                 class="form-control "
-                                                                                name="employees_startday"
+                                                                                name="employees_startday_edit"
                                                                                 value="{{$item->EMPLOYEES_STARTDAY}}" />
 
                                                                         </div>
                                                                     </div>
-                                                                    @if ($errors->has('employees_startday'))
+                                                                    @if ($errors->has('employees_startday_edit'))
                                                                     <div style="color: red">
-                                                                        {{ $errors->first('employees_startday') }}
+                                                                        {{ $errors->first('employees_startday_edit') }}
                                                                     </div>
                                                                     @endif
 
@@ -460,7 +469,7 @@
                                                                             class="form-control select2 select2-danger"
                                                                             data-dropdown-css-class="select2-danger"
                                                                             style="width: 100%;"
-                                                                            name="employees_gender">
+                                                                            name="employees_gender_edit">
                                                                             <option selected='selected'
                                                                                 value="{{$item->EMPLOYEES_GENDER}}">
                                                                                 {{$item->EMPLOYEES_GENDER}}</option>
@@ -468,9 +477,9 @@
                                                                             <option value="Nữ">Nữ</option>
                                                                         </select>
                                                                     </div>
-                                                                    @if ($errors->has('employees_gender'))
+                                                                    @if ($errors->has('employees_gender_edit'))
                                                                     <div style="color: red">
-                                                                        {{ $errors->first('employees_gender') }}
+                                                                        {{ $errors->first('employees_gender_edit') }}
                                                                     </div>
                                                                     @endif
                                                                 </div>
@@ -479,12 +488,12 @@
                                                                 <div class="form-group">
                                                                     <label>Tên:</label>
                                                                     <input type="text" class="form-control"
-                                                                        placeholder="Enter email"
-                                                                        name="employees_lastname"
-                                                                        value="{{$item->EMPLOYEES_LASTNAME}}">
-                                                                    @if ($errors->has('employees_lastname'))
+                                                                        placeholder="Văn A"
+                                                                        name="employees_firstname_edit"
+                                                                        value="{{$item->EMPLOYEES_FIRSTNAME}}">
+                                                                    @if ($errors->has('employees_firstname_edit'))
                                                                     <div style="color: red">
-                                                                        {{ $errors->first('employees_lastname') }}
+                                                                        {{ $errors->first('employees_firstname_edit') }}
                                                                     </div>
                                                                     @endif
                                                                 </div>
@@ -493,49 +502,47 @@
                                                                 <div class="form-group">
                                                                     <label>Địa chỉ:</label>
                                                                     <input type="text" class="form-control"
-                                                                        placeholder="Enter email"
-                                                                        name="employees_address"
+                                                                        placeholder="Số 6 Trần Văn Ơn"
+                                                                        name="employees_address_edit"
                                                                         value="{{$item->EMPLOYEES_ADDRESS}}">
-                                                                    @if ($errors->has('employees_address'))
+                                                                    @if ($errors->has('employees_address_edit'))
                                                                     <div style="color: red">
-                                                                        {{ $errors->first('employees_address') }}
+                                                                        {{ $errors->first('employees_address_edit') }}
                                                                     </div>
                                                                     @endif
                                                                 </div>
                                                                 <!-- /.form-group -->
                                                                 <div class="form-group">
-                                                                    <div class="form-group">
-                                                                        <label>Chức
-                                                                            vụ:</label>
-                                                                        <select
-                                                                            class="form-control select2 select2-danger"
-                                                                            data-dropdown-css-class="select2-danger"
-                                                                            style="width: 100%;"
-                                                                            name="employees_position_id">
-                                                                            <option selected="selected"
-                                                                                value="{{$item->positions->POSITION_ID}}">
-                                                                                {{$item->positions->POSITION_NAME}}
-                                                                            </option>
-                                                                            @foreach ($position as $posi)
-                                                                            <option value="{{$item->POSITION_ID}}">
-                                                                                {{$posi->POSITION_NAME}}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                    @if ($errors->has('employees_position_id'))
-                                                                    <div style="color: red">
-                                                                        {{ $errors->first('employees_position_id') }}
-                                                                    </div>
-                                                                    @endif
+                                                                    <label>vị trí:</label>
+                                                                    <select name='employees_position_id_edit'
+                                                                        class="form-control select2 select2-danger"
+                                                                        data-dropdown-css-class="select2-danger"
+                                                                        style="width: 100%;">
+                                                                        <option selected
+                                                                            value="{{$item->positions->POSITION_ID}}">
+                                                                            {{$item->positions->POSITION_NAME}}
+                                                                        </option>
+                                                                        @foreach ($position as $positionItem)
+                                                                        <option value="{{$positionItem->POSITION_ID}}">
+                                                                            {{$positionItem->POSITION_NAME}}
+                                                                        </option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
+                                                                @if ($errors->has('employees_position_id_edit'))
+                                                                <div style="color: red">
+                                                                    {{ $errors->first('employees_position_id_edit') }}
+                                                                </div>
+                                                                @endif
                                                                 <div class="form-group">
                                                                     <label>Email:</label>
                                                                     <input type="text" class="form-control"
-                                                                        placeholder="Enter email" name="employees_mail"
+                                                                        placeholder="Enter email"
+                                                                        name="employees_mail_edit"
                                                                         value="{{$item->EMPLOYEES_EMAIL}}">
-                                                                    @if ($errors->has('employees_mail'))
+                                                                    @if ($errors->has('employees_mail_edit'))
                                                                     <div style="color: red">
-                                                                        {{ $errors->first('employees_mail') }}
+                                                                        {{ $errors->first('employees_mail_edit') }}
                                                                     </div>
                                                                     @endif
                                                                 </div>
@@ -545,62 +552,7 @@
                                                         <!-- /.card-body -->
                                                     </div>
                                                 </div>
-                                                <div class="card card-default">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">Thông tin tài khoản</h3>
 
-                                                        <div class="card-tools">
-                                                            <button type="button" class="btn btn-tool"
-                                                                data-card-widget="collapse"><i
-                                                                    class="fas fa-minus"></i></button>
-                                                            <button type="button" class="btn btn-tool"
-                                                                data-card-widget="remove"><i
-                                                                    class="fas fa-remove"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.card-header -->
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Email:</label>
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Enter email"
-                                                                        value="{{$item->EMPLOYEES_EMAIL}}"
-                                                                        name="employees_mail" disabled>
-                                                                </div>
-                                                                <!-- /.form-group -->
-                                                                <div class="form-group">
-                                                                    <label>Tên tài
-                                                                        khoản:</label>
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Enter email"
-                                                                        value="{{$item->EMPLOYEES_USERNAME}}" disabled>
-                                                                </div>
-                                                                <!-- /.form-group -->
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Đặt lại mật
-                                                                        khẩu:</label>
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Enter email"
-                                                                        name="employees_password">
-                                                                </div>
-                                                                <!-- /.form-group -->
-                                                                <div class="form-group">
-                                                                    <label>Nhập lại mật
-                                                                        khẩu:</label>
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Enter email">
-                                                                </div>
-                                                                <!-- /.form-group -->
-                                                            </div>
-
-                                                        </div>
-                                                        <!-- /.card-body -->
-                                                    </div>
-                                                </div>
                                                 <div class="card card-default">
                                                     <div class="card-header">
                                                         <h3 class="card-title">Hình ảnh</h3>
@@ -640,8 +592,9 @@
                                                                     <span class="text-danger"
                                                                         id="statusEmptyFileImgEditEmployees{{$loop->index}}"></span>
                                                                     <input type="hidden" class="form-control"
-                                                                        name="employees_image"
-                                                                        id='imageEmployeesEditUrl{{$loop->index}}'>
+                                                                        name="employees_image_edit"
+                                                                        id='imageEmployeesEditUrl{{$loop->index}}'
+                                                                        value='{{$item->EMPLOYEES_IMG}}'>
                                                                 </div>
                                                                 <button
                                                                     onclick='uploadImageEmployeesEdit{{$loop->index}}()'
@@ -652,60 +605,115 @@
                                                                     function uploadImageEmployeesEdit{{$loop->index}}() {
 
 
-    if (document.getElementById("photoEmployeesEdit{{$loop->index}}").files.length != 0) {
-        const ref = firebase.storage().ref();
+                                                                        if (document.getElementById("photoEmployeesEdit{{$loop->index}}").files.length != 0) {
+                                                                            const ref = firebase.storage().ref();
 
-        const file = document.querySelector('#photoEmployeesEdit{{$loop->index}}').files[0];
-        const name = new Date() + '-' + file.name;
-        const metadata = {
-            contentType: file.type
-        }
+                                                                            const file = document.querySelector('#photoEmployeesEdit{{$loop->index}}').files[0];
+                                                                            const name = new Date() + '-' + file.name;
+                                                                            const metadata = {
+                                                                                contentType: file.type
+                                                                            }
 
-        const task = ref.child(name).put(file, metadata);
+                                                                            const task = ref.child(name).put(file, metadata);
 
-        task
-            .then(snapshot => snapshot.ref.getDownloadURL())
-            .then(url => {
-                const image = document.querySelector('#imageEmployeesEdit{{$loop->index}}');
-                image.src = url;
-                const textInput = document.getElementById('imageEmployeesEditUrl{{$loop->index}}')
-                textInput.value = url;
-                document.getElementById('statusEmptyFileImgEditEmployees{{$loop->index}}').innerHTML = 'Thêm thành công'
-            })
-    } else {
-        document.getElementById('statusEmptyFileImgEditEmployees{{$loop->index}}').innerHTML = "Chưa chọn ảnh"
-    }
-}
-function previewFileEmployeesEdit{{$loop->index}}() {
-    var preview = document.querySelector('#imageEmployeesEdit{{$loop->index}}');
-    var file = document.querySelector('#photoEmployeesEdit{{$loop->index}}').files[0];
+                                                                            task
+                                                                                .then(snapshot => snapshot.ref.getDownloadURL())
+                                                                                .then(url => {
+                                                                                    const image = document.querySelector('#imageEmployeesEdit{{$loop->index}}');
+                                                                                    image.src = url;
+                                                                                    const textInput = document.getElementById('imageEmployeesEditUrl{{$loop->index}}')
+                                                                                    textInput.value = url;
+                                                                                    document.getElementById('statusEmptyFileImgEditEmployees{{$loop->index}}').innerHTML = 'Thêm thành công'
+                                                                                })
+                                                                        } else {
+                                                                            document.getElementById('statusEmptyFileImgEditEmployees{{$loop->index}}').innerHTML = "Chưa chọn ảnh"
+                                                                        }
+                                                                    }
+                                                                    function previewFileEmployeesEdit{{$loop->index}}() {
+                                                                        var preview = document.querySelector('#imageEmployeesEdit{{$loop->index}}');
+                                                                        var file = document.querySelector('#photoEmployeesEdit{{$loop->index}}').files[0];
 
-    var reader = new FileReader();
+                                                                        var reader = new FileReader();
 
-    reader.onloadend = function () {
-        preview.src = reader.result;
-    }
+                                                                        reader.onloadend = function () {
+                                                                            preview.src = reader.result;
+                                                                        }
 
-    if (file) {
-        reader.readAsDataURL(file);
-    } else {
-        preview.src = "";
-    }
-}
+                                                                        if (file) {
+                                                                            reader.readAsDataURL(file);
+                                                                        } else {
+                                                                            preview.src = "";
+                                                                        }
+                                                                    }
                                                                 </script>
                                                             </div>
                                                         </div>
                                                         <!-- /.card-body -->
                                                     </div>
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary float-right"
+                                                            onclick="do_save()">Lưu thông tin
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                        </form>
+                                        <div class="card card-default">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Thông tin tài khoản</h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool"
+                                                        data-card-widget="collapse"><i
+                                                            class="fas fa-minus"></i></button>
+                                                    <button type="button" class="btn btn-tool"
+                                                        data-card-widget="remove"><i class="fas fa-remove"></i></button>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Đóng</button>
-                                                <button type="submit" class="btn btn-primary" onclick="do_save()">Lưu
-                                                    lại</button>
-                                                <script>
-                                                    function do_save()
+                                            <!-- /.card-header -->
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Email:</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{$item->EMPLOYEES_EMAIL}}" disabled>
+                                                        </div>
+                                                        <!-- /.form-group -->
+                                                        <div class="form-group">
+                                                            <label>Tên tài
+                                                                khoản:</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{$item->EMPLOYEES_USERNAME}}" disabled>
+                                                        </div>
+                                                        <!-- /.form-group -->
+                                                    </div>
+                                                    <form
+                                                        action="{{route('resetpasword',['employees_id'=>$item->EMPLOYEES_ID,'employees_no'=>$item->EMPLOYEES_NO])}}"
+                                                        method="post">
+                                                        @csrf
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Đặt lại mật
+                                                                    khẩu:</label>
+                                                                <button type="submit" id='resetpassword'
+                                                                    class="form-control btn btn-primary">Đặt lại</a>
+                                                            </div>
+
+                                                            <!-- /.form-group -->
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+
+                                        <script>
+                                            function do_save()
                                                         {
                                                             if(Math.floor(Math.random() * 2)==1)
                                                             {
@@ -716,180 +724,248 @@ function previewFileEmployeesEdit{{$loop->index}}() {
                                                             console.log('failure');
                                                             return false;
                                                         }
-                                                </script>
+                                        </script>
+                                    </div>
+
+                                </div>
+                            </div>
+                </div>
+                <div class="modal fade" id="{{$modalDetailEmployees}}" tabindex="-1" role="dialog"
+                    aria-labelledby="modalEditEmployeesCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalEditEmployeesTitle">Chi tiết thông tin nhân
+                                    viên</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="card card-default">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Thông tin cá nhân</h3>
+
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                                    class="fas fa-minus"></i></button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                                    class="fas fa-remove"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Mã nhân viên:</label>
+                                                    <p>{{$item->EMPLOYEES_NO}}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Họ:</label>
+                                                    <p>{{$item->EMPLOYEES_LASTNAME}}</p>
+                                                </div>
+                                                <!-- /.form-group -->
+
+                                                <div class="form-group">
+                                                    <label>Ngày
+                                                        sinh:</label>
+                                                    <p>{{$item->EMPLOYEES_BIRTHDAY}}</p>
+                                                </div>
+                                                <!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <label for="phone">Số điện
+                                                        thoại:</label>
+                                                    <p>{{$item->EMPLOYEES_PHONE}}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Ngày làm
+                                                        việc</label>
+
+                                                    <p>{{$item->EMPLOYEES_STARTDAY}}</p>
+                                                </div>
                                             </div>
-                                        </form>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Tên:</label>
+                                                    <p>{{$item->EMPLOYEES_FIRSTNAME}}</p>
+                                                </div>
+
+                                                <!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <label>Địa chỉ:</label>
+                                                    <p>{{$item->EMPLOYEES_ADDRESS}}</p>
+                                                </div>
+                                                <!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label>Chức
+                                                            vụ:</label>
+                                                        <p>{{$item->positions->POSITION_NAME}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Email:</label>
+                                                    <p>{{$item->EMPLOYEES_EMAIL}}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label>Giới
+                                                            tính:</label>
+                                                        <p>{{$item->EMPLOYEES_GENDER}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+
+                                <div class="card card-default">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Hình ảnh</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                                    class="fas fa-minus"></i></button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                                    class="fas fa-remove"></i></button>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <img src="{{$item->EMPLOYEES_IMG}}" alt="..." class="img-thumbnail">
+                                                <!-- /.form-group -->
+                                            </div>
+
+                                        </div>
+                                        <!-- /.card-body -->
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="{{$modalDetailEmployees}}" tabindex="-1" role="dialog"
-                                aria-labelledby="modalEditEmployeesCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                    <div class="modal-content ">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalEditEmployeesTitle">Chi tiết thông tin nhân
-                                                viên</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="card card-default">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Thông tin cá nhân</h3>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 
-                                                    <div class="card-tools">
-                                                        <button type="button" class="btn btn-tool"
-                                                            data-card-widget="collapse"><i
-                                                                class="fas fa-minus"></i></button>
-                                                        <button type="button" class="btn btn-tool"
-                                                            data-card-widget="remove"><i
-                                                                class="fas fa-remove"></i></button>
-                                                    </div>
-                                                </div>
-                                                <!-- /.card-header -->
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Họ:</label>
-                                                                <p>{{$item->EMPLOYEES_LASTNAME}}</p>
-                                                            </div>
-                                                            <!-- /.form-group -->
-
-                                                            <div class="form-group">
-                                                                <label>Ngày
-                                                                    sinh:</label>
-                                                                <p>{{$item->EMPLOYEES_BIRTHDAY}}</p>
-                                                            </div>
-                                                            <!-- /.form-group -->
-                                                            <div class="form-group">
-                                                                <label for="phone">Số điện
-                                                                    thoại:</label>
-                                                                <p>{{$item->EMPLOYEES_PHONE}}</p>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Ngày làm
-                                                                    việc</label>
-
-                                                                <p>{{$item->EMPLOYEES_STARTDAY}}</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Tên:</label>
-                                                                <p>{{$item->EMPLOYEES_FIRSTNAME}}</p>
-                                                            </div>
-
-                                                            <!-- /.form-group -->
-                                                            <div class="form-group">
-                                                                <label>Địa chỉ:</label>
-                                                                <p>{{$item->EMPLOYEES_ADDRESS}}</p>
-                                                            </div>
-                                                            <!-- /.form-group -->
-                                                            <div class="form-group">
-                                                                <div class="form-group">
-                                                                    <label>Chức
-                                                                        vụ:</label>
-                                                                    <p>{{$item->positions->POSITION_NAME}}</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Email:</label>
-                                                                <p>{{$item->EMPLOYEES_EMAIL}}</p>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="form-group">
-                                                                    <label>Giới
-                                                                        tính:</label>
-                                                                    <p>{{$item->EMPLOYEES_GENDER}}</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.card-body -->
-                                                </div>
-                                            </div>
-
-                                            <div class="card card-default">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Hình ảnh</h3>
-
-                                                    <div class="card-tools">
-                                                        <button type="button" class="btn btn-tool"
-                                                            data-card-widget="collapse"><i
-                                                                class="fas fa-minus"></i></button>
-                                                        <button type="button" class="btn btn-tool"
-                                                            data-card-widget="remove"><i
-                                                                class="fas fa-remove"></i></button>
-                                                    </div>
-                                                </div>
-                                                <!-- /.card-header -->
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <img src="{{$item->EMPLOYEES_IMG}}" alt="..."
-                                                                class="img-thumbnail">
-                                                            <!-- /.form-group -->
-                                                        </div>
-
-                                                    </div>
-                                                    <!-- /.card-body -->
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>STT</th>
-                                <th>Mã nhân viên</th>
-                                <th>Tên nhân viên</th>
-                                <th>Chức vụ</th>
-                                <th>Điện thoại</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-
-                    </table>
-
-                    <div class="d-flex justify-content-end mt-4">
-                        {{$employees->links()}}
-                        <?php //Hiển thị thông báo thành công?>
-
+                        </div>
                     </div>
+                </div>
+                @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Tên nhân viên</th>
+                        <th>Chức vụ</th>
+                        <th>Điện thoại</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+
+                </table>
+                @if ( Session::has('statusEmployeesWarningPhone') )
+                <div class="alert alert-warning alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesWarningPhone') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if ( Session::has('statusEmployeesWarningEmail') )
+                <div class="alert alert-warning alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesWarningEmail') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (Session::has('statusEmployeesSuccess'))
+                <div class="alert alert-success alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesSuccess') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (Session::has('statusEmployeesError'))
+                <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesError') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (Session::has('statusEmployeesEditSuccess'))
+                <div class="alert alert-success alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesEditSuccess') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (Session::has('statusEmployeesEditError'))
+                <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesEditError') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (Session::has('statusEmployeesResetSuccess'))
+                <div class="alert alert-success alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesResetSuccess') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (Session::has('statusEmployeesResetError'))
+                <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesResetError') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (Session::has('statusEmployeesDeleteSuccess'))
+                <div class="alert alert-success alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesDeleteSuccess') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (Session::has('statusEmployeesDeleteError'))
+                <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>{{ Session::get('statusEmployeesDeleteError') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible mt-2" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>Thao tác thay đổi dữ liệu thất bại vui lòng kiểm tra lại!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                <div class="d-flex justify-content-end mt-4">
+                    {{$employees->links()}}
+                    <?php //Hiển thị thông báo thành công?>
 
                 </div>
 
-                <?php //Hiển thị thông báo lỗi?>
-
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+
+            <?php //Hiển thị thông báo lỗi?>
+
+            <!-- /.card-body -->
         </div>
-        <!-- /.col -->
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
     </div>
     <!-- /.row -->
 </section>
-@if ( Session::has('error_status_employees') )
-<div class="alert alert-danger alert-dismissible" role="alert">
-    <strong>{{ Session::get('error_status_employees') }}</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
-    </button>
-</div>
-@endif
+
 <script src="{{asset('js/uploadfirebase.js')}}"></script>
 <!-- /.content -->
 </div>
+
 @endsection

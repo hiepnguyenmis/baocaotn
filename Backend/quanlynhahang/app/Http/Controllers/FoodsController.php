@@ -25,15 +25,19 @@ class FoodsController extends Controller
 {
     public function ListFoods()
     {
-        $pageSize = 4;
-        $foods = Foods::with('Materials', 'CategoryFoods',)
-            ->orderby('foods.FOOD_ID','DESC')
-            ->where('foods.FOOD_STATUS', 1)
-            ->paginate($pageSize);
-        $materials = Materials::all();
-        $categoryfoods = CategoryFoods::all();
-        // return $foods;
-        return view('page.admin.FoodsPage', ['foods' => $foods, 'categoryfoods' => $categoryfoods, 'materials' => $materials, 'pageSize' => $pageSize]);
+        if (Session::has('login')) {
+            $pageSize = 4;
+            $foods = Foods::with('Materials', 'CategoryFoods',)
+                ->orderby('foods.FOOD_ID', 'DESC')
+                ->where('foods.FOOD_STATUS', 1)
+                ->paginate($pageSize);
+            $materials = Materials::all();
+            $categoryfoods = CategoryFoods::all();
+            // return $foods;
+            return view('page.admin.FoodsPage', ['foods' => $foods, 'categoryfoods' => $categoryfoods, 'materials' => $materials, 'pageSize' => $pageSize]);
+        } else {
+            return redirect('trangquantri/dang-nhap');
+        }
     }
     protected function isDuplicate($foods_dupli)
     {
@@ -79,7 +83,7 @@ class FoodsController extends Controller
             $foods->FOOD_UNIT = $request->food_unit;
             $foods->FOOD_STATUS = 1;
             $foods->FOOD_IMG = $request->foods_image;
-            $foods->FOOD_TYPE=$request->food_type;
+            $foods->FOOD_TYPE = $request->food_type;
             $foods->FOOD_DATE = Carbon::now('Asia/Ho_Chi_Minh');
             $foods->CATEGORYFOODS_ID = $request->food_category_id;
 
@@ -128,12 +132,12 @@ class FoodsController extends Controller
         $foods->FOOD_UNIT = $request->food_unit_edit;
         $foods->FOOD_STATUS = 1;
         $foods->FOOD_IMG = $request->foods_image_edit;
-        $foods->FOOD_TYPE=$request->food_type_edit;
+        $foods->FOOD_TYPE = $request->food_type_edit;
         $foods->FOOD_DATE = Carbon::now('Asia/Ho_Chi_Minh');
         $foods->CATEGORYFOODS_ID = $request->food_category_id_edit;
         // dd($request->food_name_edit ,$request->food_price_edit,$request->foods_image_edit,$request->food_category_id_edit);
 
-        $foods->save( );
+        $foods->save();
         if ($foods) {
             $success = 'Thay đổi thành công';
             Session::flash('statusFoodsEditSuccess', $success);

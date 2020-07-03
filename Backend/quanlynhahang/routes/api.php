@@ -67,3 +67,4 @@ Route::get('getstatistics-revernue/{year}', 'Api\StatisticsApiControllers@GetSta
 Route::get('getbillmonth/{year}/{month}', 'Api\StatisticsApiControllers@GetBillMonth')->name('getbillmonth');
 Route::get('getstatistics-revernue-month/{year}/{month}', 'Api\StatisticsApiControllers@GetStatisticsRevenueMonth')->name('getstatistics-revernue-month');
 //
+// -----------------------------------------

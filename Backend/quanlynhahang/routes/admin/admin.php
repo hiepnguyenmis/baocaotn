@@ -14,62 +14,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('trangquanly', function () {
-//     return view('page.admin.Dashboard');
-// });
 
-// Route::get('quanlynhanvien', function () {
-//     return view('page.admin.EmployeesPage');
-// });
-// Route::get('quanlynguyenlieu', function () {
-// //     return view('page.admin.EmloyeesPage');
-// // });
-// Route::get('quanlynguyenlieu', function () {
-//     return view('page.admin.EmloyeesPage');
-// });
 
-// Route::get('quanlythucdon', function () {
-//     return view('page.admin.Dashboard');
-// });
-
-// Route::get('quanlykhachhang', function () {
-//     return view('page.admin.Dashboard');
-// });
-
-// Route::get('thongkedoanhthu', function () {
-//     return view('page.admin.Dashboard');
-// });
-
-// Route::get('thongkedoanhthu', function () {
-//     return view('page.admin.Dashboard');
-// });
-
-// Route::get('thongkedoanhthu', function () {
-//     return view('page.admin.Dashboard');
-// });
-
-// Route::get('thongkehoadon', function () {
-//     return view('page.admin.Dashboard');
-// });
-// Route::get('test', function () {
-//     return view('page.admin.BillDetailPage');
-// });
 Route::group(['prefix' => '/trangquantri'], function () {
-
+    //index
+    // Route::get('/', function () {
+    //     return view('page.admin.IndexAdmin');
+    // })->name('/');
+    Route::get('/', 'IndexAdminController@GetIndex')->name('/');
     // Login
-    Route::get('dang-nhap', function () {
-        return view('page.Login.LoginAdmin');
-    })->name('dang-nhap');
+    Route::get('dang-nhap','EmployeesController@GetAdmin')->name('dang-nhap');
+    Route::get('dang-xuat-admin', 'EmployeesController@LogoutAdmin')->name('dang-xuat-admin');
     Route::post('dangnhap', 'EmployeesController@LoginAdmin')->name('dangnhap');
 
 
-    //Route::get('test','CustomersController@TestBill')->name('test');
+    //Route::get('test','EmployeesController@ListEmployees')->name('test');
     // Employees
     Route::get('danhsachNV', 'EmployeesController@ListEmployees')->name('danhsachNV');
     Route::post('themdanhsachNV', 'EmployeesController@AddEmployees')->name('themdanhsachNV');
     Route::post('suadanhsachNV/{employees_id}', 'EmployeesController@EditEmployees')->name('suadanhsachNV');
-    Route::post('xoaNV/{employees_id}', 'EmployeesController@EditEmployees')->name('xoaNV');
+    Route::post('xoaNV/{employees_id}', 'EmployeesController@DeleteEmployees')->name('xoaNV');
     Route::get('timkiemNV', 'EmployeesController@SearchEmployee')->name('timkiemNV');
+    Route::post('resetpasword/{employees_id}/{employees_no}', 'EmployeesController@ResetPassWord')->name('resetpasword');
 
     //Material
     Route::get('DSNguyenLieu', 'MaterialController@ListMaterials')->name('DSNguyenLieu');
@@ -103,8 +69,20 @@ Route::group(['prefix' => '/trangquantri'], function () {
     Route::get('Timkiemhoadonthang', 'StatisticsControllers@SearchBillThisMonth')->name('Timkiemhoadonthang');
     Route::get('Timkiemhoadon', 'StatisticsControllers@SearchAllBill')->name('Timkiemhoadon');
 
+    // Order Procesing
+
+    Route::get('quanlydonhang','OrderProcessingController@GetAllOrder')->name('quanlydonhang');
+    Route::get('Timkiemdondangxuly','OrderProcessingController@SearchOrderProcessing')->name('Timkiemdondangxuly');
+    Route::get('Timkiemdondanggiao','OrderProcessingController@SearchOrderShipping')->name('Timkiemdondanggiao');
+
+    // ----
+    Route::get('chitietdondangxuly/{bill_no}','OrderProcessingController@DetailOrderProcessing')->name('chitietdondangxuly');
+    Route::get('Chitietdondangcho/{bill_no}','OrderProcessingController@DetailOrderWaiting')->name('Chitietdondangcho');
+    Route::get('Chitietdondangvanchuyen/{bill_no}','OrderProcessingController@DetailOrderShipping')->name('Chitietdondangvanchuyen');
+    Route::post('Kiemtradonhang/{bill_id}','OrderProcessingController@OrderCheckout')->name('Kiemtradonhang');
+    Route::post('Xacnhandonhang/{bill_id}','OrderProcessingController@OrderConfirm')->name('Xacnhandonhang');
+
 });
 
-// ajax
 
 
