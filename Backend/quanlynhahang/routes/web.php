@@ -19,11 +19,10 @@ Route::get('/', function () {
 Route::group(['prefix'=>'/trang'], function(){
     Route::get('/lienhe', function () {
         return view('page.index.Contact');
-    });
+    })->name('lienhe');
 
-    Route::get('/thucdon', function () {
-        return view('page.index.Menu');
-    });
+    Route::get('/thucdon', 'UserOrder@GetDataMenu')->name('thucdon');
+    Route::get('/giohang', 'UserOrder@GetCart')->name('giohang');
 
     Route::get('/story', function () {
         return view('page.index.Story');
@@ -39,6 +38,11 @@ Route::group(['prefix'=>'/trang'], function(){
     Route::post('dangky','CustomersController@RegisterCustomer')->name('dangky');
     Route::post('dangnhap','CustomersController@LoginCustomer')->name('dangnhap');
     Route::get('dangxuat','CustomersController@LogoutCustomer')->name('dangxuat');
+
+
+    ///
+
+
 });
 
 // Auth::routes();

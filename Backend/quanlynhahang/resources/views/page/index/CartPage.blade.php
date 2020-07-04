@@ -108,13 +108,14 @@
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Breadcumb Area Start ***** -->
-    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url({{asset('index/img/bg-img/hero-5.jpg')}})">
+    <div class="breadcumb-area bg-img bg-overlay"
+        style="background-image: url({{asset('index/img/bg-img/hero-5.jpg')}})">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-content">
-                        <h2>Menu</h2>
-                        <a href="#menu" id="menubtn" class="btn caviar-btn"><span></span> Special</a>
+                        <h2>Giỏ Hàng</h2>
+
                     </div>
                 </div>
             </div>
@@ -126,38 +127,50 @@
     <section class="caviar-regular-page section-padding-100">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-8">
-                    <div class="regular-page-content">
-                        <div class="post-title">
-                            <h2>Proin et sem cursus, placerat odio quis, consectetur turpis</h2>
-                            <a href="#">Maecenas sit amet quam magna</a>
+                <div class="col-12 col-md-11">
+                    <div class="post-title">
+                        <h2>Thông tin đặt hàng</h2>
+                    </div>
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body p-0 ">
+                            <div class="table-responsive">
+                                <table class="table table-bordered m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Tên món ăn</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="pages/examples/invoice.html">OR9842</a></td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/80" width="80" height='80'
+                                                    alt="">
+                                            </td>
+                                            <td><span class="badge badge-success">Shipped</span></td>
+                                            <td>
+                                                <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                                    90,80,90,-70,61,-83,63</div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
                         </div>
-                        <div class="post-content">
-                            <p>Sed commodo augue eu diam tincidunt, sit amet auctor lectus semper. Mauris porttitor diam
-                                at fringilla tempor. Integer molestie rhoncus nisi a euismod. Etiam scelerisque eu enim
-                                et vestibulum. Mauris finibus, eros a faucibus varius, dui risus mattis massa, sed
-                                lobortis ante ante eget justo. Nam eu dolor lorem. Praesent blandit leo sit amet velit
-                                accumsan ultrices. Vestibulum nec libero vel sapien dictum euismod eu ac justo.</p>
-                            <blockquote>
-                                <img src="{{asset('index/img/icons/quotation-mark.svg')}}" alt="">
-                                <div class="blockquote-content">
-                                    <h6>Quisque sagittis non ex eget vestibulum. Sed nec ultrices dui. Cras et sagittis
-                                        erat. Maecenas pulvinar, turpis in dictum tincidunt, dolor nibh lacinia lacus,
-                                        quis.</h6>
-                                    <p>Liam Neeson</p>
-                                </div>
-                            </blockquote>
-                            <p>Nulla mattis massa eu turpis aliquet accumsan. Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Maecenas laoreet nunc sed felis vestibulum pulvinar. Nunc odio est,
-                                blandit ut faucibus non, congue nec augue. Duis vitae vulputate nunc. Sed mi lectus,
-                                ultricies ut volutpat luctus, vestibulum ut nunc. Vestibulum sed lorem malesuada,
-                                dapibus ante pharetra, pretium mauris. Sed eleifend sit amet felis id fringilla.
-                                Suspendisse nec erat vel lacus commodo imperdiet non quis risus. Pellentesque habitant
-                                morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed ac interdum
-                                elit, ac pellentesque felis. Curabitur aliquet at sapien dapibus laoreet. Sed in justo
-                                eu sem pellentesque lobortis. In hac habitasse platea dictumst. Nam pellentesque eros ut
-                                auctor fermentum. Vestibulum ut risus pharetra.</p>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All
+                                Orders</a>
                         </div>
+                        <!-- /.card-footer -->
                     </div>
                 </div>
             </div>

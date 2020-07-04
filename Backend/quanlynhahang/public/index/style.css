@@ -1143,9 +1143,9 @@ li {
     margin-bottom: 0;
 }
 
-.dish-value > h3 {
+.dish-value > h5 {
     color: #ff0000;
-    font-size: 30px;
+    font-size: 20px;
     margin-bottom: 0;
 }
 

@@ -241,7 +241,7 @@
                         <img src="{{asset('index/img/menu-img/dish-1.png')}}" alt="">
                         <div class="dish-info">
                             <h6 class="dish-name">Lorem Ipsum Dolor Sit Amet</h6>
-                            <p class="dish-price">$45</p>
+                            <p class="dish-price">100.000 đ</p>
                         </div>
                     </div>
                 </div>

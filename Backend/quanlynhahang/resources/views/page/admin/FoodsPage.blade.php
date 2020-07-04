@@ -90,6 +90,19 @@
 
                                                                     </div>
                                                                     <div class="form-group">
+                                                                        <label>Là món đặt biệt:</label>
+
+                                                                        @if ($count>=3) <input type="checkbox" value='1'
+                                                                            id="customCheck" name="is_special"
+                                                                            disabled="disabled">
+                                                                        @endif
+                                                                        @if ($count<3)
+                                                                        <input type="checkbox" value='1'
+                                                                        id="customCheck" name="is_special">
+                                                                        @endif
+
+                                                                    </div>
+                                                                    <div class="form-group">
                                                                         <label>Danh mục:</label>
                                                                         <select
                                                                             class="form-control select2 select2-danger"
@@ -378,8 +391,8 @@
                                                                             Bữa tối
                                                                         </option>
                                                                         @endif
-                                                                        @if ($item->FOOD_TYPE==3)
-                                                                        <option value="" selected>
+                                                                        @if ($item->FOOD_TYPE==4)
+                                                                        <option value="4" selected>
                                                                             Thức uống
                                                                         </option>
                                                                         @endif

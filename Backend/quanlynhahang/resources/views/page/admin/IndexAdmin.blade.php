@@ -44,7 +44,7 @@
 
                     </div>
                     <div class="col-4">
-                        <img src="https://photocross.net/wp-content/uploads/2020/03/bo-cuc-chup-anh-chan-dung.jpg" height="150" width="150" class=" rounded-circle  mx-auto d-block" alt="...">
+                        <img src="https://photocross.net/wp-content/uploads/2020/03/bo-cuc-chup-anh-chan-dung.jpg" height="150" width="150" class="img-responsive rounded-circle  mx-auto d-block" alt="...">
                     </div>
                     <div class="col-4">
 
