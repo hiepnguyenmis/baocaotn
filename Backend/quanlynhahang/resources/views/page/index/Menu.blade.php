@@ -174,7 +174,7 @@
                                     <div class="dish-description">
                                         <h3>{{$item->FOOD_NAME}} </h3>
                                         <p>{{$item->FOOD_DESCRIPTION}}</p>
-                                        <p><button type="submit" class="btn btn-sm btn-warning">Thêm vào giỏ</button>
+                                        <p><a href="{{route('themgiohang',['id_food'=>$item->FOOD_ID])}}" class="btn btn-sm btn-warning">Thêm vào giỏ</a>
                                         </p>
                                     </div>
                                     <div class="dish-value">

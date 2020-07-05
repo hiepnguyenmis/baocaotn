@@ -23,6 +23,13 @@ Route::group(['prefix'=>'/trang'], function(){
 
     Route::get('/thucdon', 'UserOrder@GetDataMenu')->name('thucdon');
     Route::get('/giohang', 'UserOrder@GetCart')->name('giohang');
+    Route::get('/themgiohang/{id_food}', 'UserOrder@AddToCart')->name('themgiohang');
+    Route::post('updatecart/{id_session}', 'UserOrder@UpadateCart')->name('updatecart');
+    Route::post('removefromcart/{id_session}', 'UserOrder@RemoveCart')->name('removefromcart');
+
+    Route::get('/xacnhandonhang', 'CheckoutControllers@GetDataCheckout')->name('xacnhandonhang');
+    Route::get('/Kiem-tra-thong-tin-thanh-toan-dien-tu', 'PayPalCheckout@GetCheckoutPaypal')->name('Kiem-tra-thong-tin-thanh-toan-dien-tu');
+
 
     Route::get('/story', function () {
         return view('page.index.Story');

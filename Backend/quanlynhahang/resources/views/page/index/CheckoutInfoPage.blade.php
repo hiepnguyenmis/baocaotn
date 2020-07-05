@@ -13,14 +13,14 @@
 
     <!-- Favicon -->
     <link rel="icon" href="{{asset('index/img/core-img/favicon.ico')}}">
-    <link rel="stylesheet" href="{{asset("admin/plugins/fontawesome-free/css/all.min.css")}}">
-
 
     <!-- Core Stylesheet -->
     <link href="{{asset('index/style.css')}}" rel="stylesheet">
 
     <!-- Responsive CSS -->
     <link href="{{asset('index/css/responsive/responsive.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 
@@ -116,8 +116,8 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-content">
-                        <h2>Giỏ Hàng</h2>
-
+                        <h2>Menu</h2>
+                        <a href="#menu" id="menubtn" class="btn caviar-btn"><span></span> Special</a>
                     </div>
                 </div>
             </div>
@@ -126,14 +126,18 @@
     <!-- ***** Breadcumb Area End ***** -->
 
     <!-- ***** Regular Page Area Start ***** -->
-    <section class="caviar-regular-page section-padding-100">
+    <section class="caviar-regular-page  section-padding-100 bg-light">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-11">
-                    <div class="post-title">
-                        <h2>Thông tin đặt hàng</h2>
+                <div class="col-12 ">
+                    <div class="post-title mb-3">
+                        <h2>Xác nhận đơn hàng</h2>
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Thông tin đơn hàng</span>
+                            <span class="badge badge-secondary badge-pill">1</span>
+                        </h4>
                     </div>
-                    <div class="card">
+                    <div class="card p-2">
                         <!-- /.card-header -->
                         <div class="card-body p-0 ">
                             <div class="table-responsive">
@@ -147,7 +151,6 @@
                                             <th>Số lượng</th>
                                             <th>Đơn giá</th>
                                             <th>Thành tiền</th>
-                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -160,7 +163,7 @@
                                         $total += $details['FOOD_PRICE'] * $details['QUANTITY'];
                                         @endphp
                                         <tr>
-                                            <td>{{$loop->index}}</td>
+                                            <td>{{$loop->index +1}}</td>
                                             <td>
                                                 @if ($details['FOOD_IMG']==null)
                                                 <img src="https://via.placeholder.com/80" width="80" height='80' alt="">
@@ -172,35 +175,11 @@
                                             </td>
                                             <td>{{$details['FOOD_NAME']}}</td>
                                             <td>
-                                                <form action="{{route('updatecart',['id_session'=>$id_session])}}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <div class="row">
-                                                        <div class="col-11 col-sm-8">
-                                                            <input type="number" value="{{ $details['QUANTITY'] }}"
-                                                                class="form-control form-control-sm " name='quantity' min='1' max='20' />
-
-                                                        </div>
-                                                        <div class="col-11 col-sm-3">
-                                                            <button class="btn btn-warning btn-sm update-cart" type="submit"><i
-                                                                class="fas fa-sync-alt"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                                {{ $details['QUANTITY'] }}
                                             </td>
                                             <td>{{number_format($details['FOOD_PRICE'],0,',','.')}} đ</td>
-                                            <td>{{number_format($details['FOOD_PRICE'] * $details['QUANTITY'],0,',','.')}} đ</td>
-                                            <td>
-
-
-
-                                                <form method="POST"
-                                                    action="{{route('removefromcart',['id_session'=>$id_session])}}">
-                                                    @csrf
-                                                    <button class="btn btn-danger btn-sm remove-from-cart"
-                                                        type="submit"><i class="fas fa-trash-alt"></i></button>
-                                                </form>
-                                            </td>
+                                            <td>{{number_format($details['FOOD_PRICE'] * $details['QUANTITY'],0,',','.')}}
+                                                đ</td>
                                         </tr>
                                         @endforeach
                                         @endif
@@ -212,24 +191,124 @@
                         </div>
 
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div>
-                                        <span> Tổng đơn hàng: {{number_format($total,0,',','.')}} đ </span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-success float-right">Thanh toán</a>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- /.card-footer -->
                     </div>
+                    <!-- /.card-footer -->
                 </div>
+
+
             </div>
+            <div class="row">
+                <main class="mt-4 container-fluid">
+
+                    <div class="row post-title mb-3">
+
+                        <h4 class="col-8 d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Thông tin khách hàng</span>
+                            <span class="badge badge-secondary badge-pill">2</span>
+                        </h4>
+                    </div>
+                    <div class="row">
+
+                        <!--Grid column-->
+                        <div class="col-md-7 mb-4">
+
+                            <!--Card-->
+                            <div class="card">
+
+                                <!--Card content-->
+                                <form class="card-body">
+                                    <div class="md-form mb-2">
+                                        <label for="name-customer" class="">Tên khách hàng</label>
+                                        <input type="text" id="name-customer" name='CUSTOMER_NAME' class="form-control">
+
+                                    </div>
+
+                                    <!--email-->
+                                    <div class="md-form mb-2">
+                                        <label for="email-customer" class="">Email</label>
+                                        <input type="text" id="email-customer" name='CUSTOMER_EMAIL' class="form-control">
+                                    </div>
+                                    <div class="md-form mb-2">
+                                        <label for="address-customer" class="">Địa chỉ</label>
+                                        <input type="text" id="address-customer" name='CUATOMER_ADDRESS' class="form-control">
+
+                                    </div>
+                                    <!--address-2-->
+                                    <div class="md-form mb-2">
+                                        <label for="phone-customer" class="">Số điện thoại</label>
+
+                                        <input type="text" id="phone-customer" name='CUSTOMER_PHONE' class="form-control"
+                                            >
+                                    </div>
+                                    <div class="md-form mb-2">
+                                        <label for="phonedelivery-customer" class="">Số điện thoại nhận hàng</label>
+
+                                        <input type="text" id="phonedelivery-customer" name='CUSTOMER_PHONEDELIVERY' class="form-control"
+                                            placeholder="Apartment or suite">
+                                        <small for="phonedelivery-customer" class="text-success">Không nhập nếu sử dụng số điện thoại mặc định</small>
+                                    </div>
+                                    <hr>
+                                    <div class="d-block my-3">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" id="customRadioPayPal"
+                                                name="example1" value="1">
+                                            <label class="custom-control-label" for="customRadio">Paypal</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" id="customRadioCOD"
+                                                name="example1" value="0">
+                                            <label class="custom-control-label" for="customRadio">Thanh toán khi nhận hàng</label>
+                                        </div>
+                                    </div>
+                                    <hr class="mb-4">
+                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to
+                                        checkout</button>
+
+                                </form>
+                            </div>
+                            <!--/.Card-->
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-5 mb-4">
+
+                            <!-- Heading -->
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Thanh toán</span>
+                                <span class="badge badge-secondary badge-pill">3</span>
+                            </h4>
+
+                            <!-- Cart -->
+                            <ul class="list-group mb-3 z-depth-1">
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div>
+                                        <h6 class="my-0">Tổng đơn hàng</h6>
+
+                                    </div>
+                                    <span class="text-muted">{{number_format($total,0,',','.')}} đ</span>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <div class="text-success">
+                                        <h6 class="my-0">Khuyến mãi</h6>
+                                        <small>Khách hàng thành viên</small>
+                                    </div>
+                                    <span class="text-success">-$5</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Tổng cộng (VNĐ)</span>
+                                    <strong class='text-danger'>$20</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+                </main>
+            </div>
+        </div>
         </div>
     </section>
     <!-- ***** Regular Page Area End ***** -->

@@ -20,7 +20,8 @@ class Bills extends Model
         'EMPLOYEE_ID',
         'BILL_PROMOTION',
         'BILL_DELIVERYADDRESS',
-        'BILL_NOTE'
+        'BILL_NOTE',
+        'PHONE_DELIVERY'
     ];
     public $timestamps = false;
     public $incrementing = false;

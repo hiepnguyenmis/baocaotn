@@ -204,8 +204,11 @@ class CustomersController extends Controller
         if ($login != null) {
             foreach ($login as $item) {
                 if (Hash::check($customers_password, $item->CUSTOMER_PASSWORD)) {
+
                     session()->put('customer_name', $item->CUSTOMER_NAME);
                     session()->put('customer_no', $item->CUSTOMER_NO);
+                    session()->put('customer_email', $item->CUSTOMER_EMAIL);
+                    session()->put('customer_phone', $item->CUSTOMER_PHONE);
                     return redirect('/');
                 }
             }
