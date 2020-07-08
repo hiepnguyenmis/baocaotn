@@ -66,6 +66,8 @@ class EmployeesController extends Controller
             return redirect('trangquantri/');
         }
         return view('page.Login.LoginAdmin');
+
+
     }
     protected function LoginAdmin(Request $request)
     {
@@ -83,18 +85,20 @@ class EmployeesController extends Controller
         $employee_password = $request->employee_password;
 
         $login = Employees::where('employees.EMPLOYEES_USERNAME', $employee_username)->get();
-        if ($login != null) {
+        if ($login->count()>0) {
             foreach ($login as $item) {
                 if (Hash::check($employee_password, $item->EMPLOYEES_PASSWORD)) {
                     session()->put('employee_fistname', $item->EMPLOYEES_FISTNAME);
                     session()->put('employee_lastname', $item->EMPLOYEES_LASTNAME);
                     session()->put('employee_no', $item->EMPLOYEES_NO);
-                    session()->put('login', Hash::make($item->EMPLOYEES_ID));
-                    session()->put('igmanage',$item->EMPLOYEES_ISMANAGE);
-                    if ($item->EMPLOYEES_ISMANAGE == 1) {
 
+                    session()->put('igmanage',$item->EMPLOYEES_ISMANAGE);
+
+                    if ($item->EMPLOYEES_ISMANAGE == 1) {
+                        session()->put('cashier', Hash::make($item->EMPLOYEES_ID));
                         return redirect('trangquantri/thungan');
                     } else {
+                        session()->put('login', Hash::make($item->EMPLOYEES_ID));
                         return redirect('trangquantri/');
                     }
                 }

@@ -216,50 +216,73 @@
                             <div class="card">
 
                                 <!--Card content-->
-                                <form class="card-body">
+                                <form class="card-body" method="POST" action="xacnhandonhang">
+                                    @csrf
+                                    <input type="hidden" id="name-customer" name='CHECK_CUSTOMER_ID' value=' {{Session::get('customer_id')}}' class="form-control">
+
                                     <div class="md-form mb-2">
                                         <label for="name-customer" class="">Tên khách hàng</label>
-                                        <input type="text" id="name-customer" name='CUSTOMER_NAME' class="form-control">
+                                        <input type="text" id="name-customer" value=' {{Session::get('customer_name')}}' name='CHECK_CUSTOMER_NAME'
+                                            class="form-control" disabled>
 
                                     </div>
 
                                     <!--email-->
                                     <div class="md-form mb-2">
                                         <label for="email-customer" class="">Email</label>
-                                        <input type="text" id="email-customer" name='CUSTOMER_EMAIL' class="form-control">
+                                        <input type="text" id="email-customer" name='CHECK_CUSTOMER_EMAIL'
+                                    class="form-control" value=' {{Session::get('customer_email')}}' disabled>
                                     </div>
-                                    <div class="md-form mb-2">
-                                        <label for="address-customer" class="">Địa chỉ</label>
-                                        <input type="text" id="address-customer" name='CUATOMER_ADDRESS' class="form-control">
-
-                                    </div>
-                                    <!--address-2-->
                                     <div class="md-form mb-2">
                                         <label for="phone-customer" class="">Số điện thoại</label>
 
-                                        <input type="text" id="phone-customer" name='CUSTOMER_PHONE' class="form-control"
-                                            >
+                                        <input type="text" id="phone-customer" name='CHECK_CUSTOMER_PHONE'
+                                            class="form-control" value=' {{Session::get('customer_phone')}}' disabled>
                                     </div>
                                     <div class="md-form mb-2">
-                                        <label for="phonedelivery-customer" class="">Số điện thoại nhận hàng</label>
+                                        <label for="address-customer" class="">Địa chỉ</label>
+                                        <input type="text" id="address-customer" name='CHECK_CUATOMER_ADDRESS'
+                                            class="form-control">
 
-                                        <input type="text" id="phonedelivery-customer" name='CUSTOMER_PHONEDELIVERY' class="form-control"
-                                            placeholder="Apartment or suite">
-                                        <small for="phonedelivery-customer" class="text-success">Không nhập nếu sử dụng số điện thoại mặc định</small>
                                     </div>
+                                    @if ($errors->has('CHECK_CUATOMER_ADDRESS'))
+                                    <div style="color: red">
+                                        {{ $errors->first('CHECK_CUATOMER_ADDRESS') }}
+                                    </div>
+                                    @endif
+                                    <div class="md-form mb-2">
+                                        <label for="phonedelivery-customer" class="">Số điện thoại nhận hàng</label>
+                                        <input type="text" id="phonedelivery-customer"
+                                            name='CHECK_CUSTOMER_PHONEDELIVERY' class="form-control">
+                                        <small for="phonedelivery-customer" class="text-success">Không nhập nếu sử dụng
+                                            số điện thoại mặc định</small>
+                                    </div>
+
+                                    <div class="md-form mb-2">
+                                        <label for="address-customer" class="">Ghi chú</label>
+                                        <textarea rows="4" cols="50" type="text" id="address-customer" name='CHECK_NOTE'
+                                            class="form-control"></textarea>
+
+                                    </div>
+                                    <!--address-2-->
+
+
                                     <hr>
                                     <div class="d-block my-3">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="customRadioPayPal"
-                                                name="example1" value="1">
-                                            <label class="custom-control-label" for="customRadio">Paypal</label>
+                                        <div class="custom-control ">
+                                            <input type="radio" id="customRadioPayPal" name="CHECK_PAY" value="1">
+                                            <label for="customRadioPayPal">Paypal</label>
                                         </div>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="customRadioCOD"
-                                                name="example1" value="0">
-                                            <label class="custom-control-label" for="customRadio">Thanh toán khi nhận hàng</label>
+                                        <div class="custom-control ">
+                                            <input type="radio" id="customRadioCOD" name="CHECK_PAY" value="0">
+                                            <label for="customRadioCOD">Thanh toán khi nhận hàng</label>
                                         </div>
                                     </div>
+                                    @if ($errors->has('CHECK_PAY'))
+                                    <div style="color: red">
+                                        {{ $errors->first('CHECK_PAY') }}
+                                    </div>
+                                    @endif
                                     <hr class="mb-4">
                                     <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to
                                         checkout</button>

@@ -21,7 +21,9 @@ class Bills extends Model
         'BILL_PROMOTION',
         'BILL_DELIVERYADDRESS',
         'BILL_NOTE',
-        'PHONE_DELIVERY'
+        'PHONE_DELIVERY',
+        'BILL_PAID'
+
     ];
     public $timestamps = false;
     public $incrementing = false;
@@ -39,7 +41,7 @@ class Bills extends Model
 
     }
     public function Customers(){
-        return $this->belongsTo('App/Customers','CUSTOMER_ID','BILL_ID');
+        return $this->belongsTo('App\Customers','CUSTOMER_ID','CUSTOMER_ID');
 
     }
     public function Foods(){

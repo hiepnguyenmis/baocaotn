@@ -27,8 +27,10 @@ Route::group(['prefix'=>'/trang'], function(){
     Route::post('updatecart/{id_session}', 'UserOrder@UpadateCart')->name('updatecart');
     Route::post('removefromcart/{id_session}', 'UserOrder@RemoveCart')->name('removefromcart');
 
-    Route::get('/xacnhandonhang', 'CheckoutControllers@GetDataCheckout')->name('xacnhandonhang');
-    Route::get('/Kiem-tra-thong-tin-thanh-toan-dien-tu', 'PayPalCheckout@GetCheckoutPaypal')->name('Kiem-tra-thong-tin-thanh-toan-dien-tu');
+    Route::post('/xacnhandonhang', 'CheckoutControllers@Checkout')->name('xacnhandonhang');
+
+    Route::get('xacnhandonhang', 'CheckoutControllers@GetDataCheckout')->name('xacnhandonhang');
+    Route::get('/Kiem-tra-thong-tin-thanh-toan-dien-tu', 'CheckoutSuccessController@GetCheckoutPaypal')->name('Kiem-tra-thong-tin-thanh-toan-dien-tu');
 
 
     Route::get('/story', function () {

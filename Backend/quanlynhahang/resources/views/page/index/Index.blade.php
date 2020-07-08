@@ -112,7 +112,7 @@
                             </div>
                             @endif
                             <div class="caviar-search-btn">
-                                <a id="search-btn" href="#"><i class="fas fa-shopping-cart" aria-hidden="true"></i></a>
+                            <a id="search-btn" href="{{route('giohang')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </nav>
@@ -303,15 +303,8 @@
                         <div class="caviar-testimonials-slides owl-carousel">
                             <!-- Single Testimonial Area -->
                             <div class="single-testimonial">
-                                <div class="testimonial-thumb-name d-flex align-items-center">
-                                    <img src="{{asset('index/img/testimonial-img/3.jpg')}}" alt="">
-                                    <div class="tes-name">
-                                        <h5>Robert Jonson</h5>
-                                        <p>lorem ipsum</p>
-                                    </div>
-                                </div>
-                                <p>Sed commodo augue eu diam tincidunt, sit amet auctor lectus semper. Mauris porttitor
-                                    diam at fringilla tempor. Integer molestie rhoncus nisi a euismod.</p>
+                                <img src="{{asset('index/img/testimonial-img/3.jpg')}}" alt="">
+
                             </div>
                             <!-- Single Testimonial Area -->
                             <div class="single-testimonial">

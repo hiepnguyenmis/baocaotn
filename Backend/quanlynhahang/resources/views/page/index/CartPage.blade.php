@@ -139,7 +139,6 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered m-0">
                                     <thead>
-
                                         <tr>
                                             <th>#</th>
                                             <th>Hình ảnh</th>
@@ -220,11 +219,9 @@
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-success float-right">Thanh toán</a>
+                                    <a href="{{route('xacnhandonhang')}}" class="btn btn-sm btn-success float-right">Thanh toán</a>
                                 </div>
                             </div>
-
-
                         </div>
                         <!-- /.card-footer -->
                     </div>

@@ -121,8 +121,9 @@ class StatisticsControllers extends Controller
                 $countBillYesterday = $item->BILL_COUNT_TODAY;
             }
             $percentDate = 0;
-            if ($totalAllBillToday != 0) {
+            if ($totalAllBillToday != null) {
                 $percentDate = (($totalAllBillToday - $totalAllBillYesterday) / $totalAllBillYesterday) * 100;
+                
             }
 
             // month
@@ -359,7 +360,7 @@ class StatisticsControllers extends Controller
             $countBillLastMonth = $item->BILL_COUNT_LAST_MONTH;
         }
         $percentMonth = 0;
-        if ($totalAllBillThisMonth != 0) {
+        if ($totalAllBillThisMonth != null) {
             $percentMonth = (($totalAllBillThisMonth - $totalAllBillLastonth) / $totalAllBillLastonth) * 100;
         }
         //all
@@ -484,7 +485,7 @@ class StatisticsControllers extends Controller
             $countBillYesterday = $item->BILL_COUNT_TODAY;
         }
         $percentDate = 0;
-        if ($totalAllBillToday != 0) {
+        if ($totalAllBillToday != null) {
             $percentDate = (($totalAllBillToday - $totalAllBillYesterday) / $totalAllBillYesterday) * 100;
         }
         // month

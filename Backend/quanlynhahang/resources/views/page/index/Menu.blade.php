@@ -107,7 +107,7 @@
                             </div>
                             @endif
                             <div class="caviar-search-btn">
-                                <a  href="#"><i class="fas fa-shopping-cart" aria-hidden="true"></i></a>
+                                <a  href="{{route('giohang')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </nav>

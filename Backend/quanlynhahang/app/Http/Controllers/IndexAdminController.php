@@ -10,7 +10,7 @@ class IndexAdminController extends Controller
     public function GetIndex()
     {
         if(Session::has('login')){
-            
+
             return view('page.admin.IndexAdmin');
         }
         return redirect('trangquantri/dang-nhap');

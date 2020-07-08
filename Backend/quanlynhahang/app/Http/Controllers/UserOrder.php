@@ -19,7 +19,8 @@ class UserOrder extends Controller
                 'foods.FOOD_STATUS',
                 'foods.FOOD_TYPE',
                 'foods.FOOD_IMG',
-                'foods.FOOD_PRICE'
+                'foods.FOOD_PRICE',
+                
 
             )->get());
         $foodspecial = collect(Foods::where('foods.FOOD_STATUS', '=', 1)
@@ -99,7 +100,7 @@ class UserOrder extends Controller
             $cart = session()->get('cart');
 
             $cart[$id_session]["QUANTITY"] = $request->quantity;
-            
+
             session()->put('cart', $cart);
 
             session()->flash('success', 'Cart updated successfully');
