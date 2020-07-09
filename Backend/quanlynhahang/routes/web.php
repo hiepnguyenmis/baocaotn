@@ -48,8 +48,10 @@ Route::group(['prefix'=>'/trang'], function(){
     Route::post('dangnhap','CustomersController@LoginCustomer')->name('dangnhap');
     Route::get('dangxuat','CustomersController@LogoutCustomer')->name('dangxuat');
 
+    //Profile
 
-    ///
+    Route::get('trangcanhan/{customers_no}','ProfileUseControllers@GetProfile')->name('trangcanhan');
+    Route::get('trangcanhan/chitiethoadon/{bill_no}','BillDetailUserController@DetailOrderUser')->name('trangcanhan/chitiethoadon');
 
 
 });

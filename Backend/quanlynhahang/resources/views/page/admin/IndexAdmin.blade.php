@@ -64,7 +64,7 @@
                 </div>
                 <div class="row mt-5">
 
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-gradient-primary">
                             <div class="inner">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
@@ -109,20 +109,7 @@
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>Thiết đặt</h3>
 
-                                <p>Giao diện, Tài nguyên</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-cogs"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">Đi tới <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
                     <!-- ./col -->
                 </div>
                 <div class="row">

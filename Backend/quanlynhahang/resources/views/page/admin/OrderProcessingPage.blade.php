@@ -53,7 +53,7 @@
                             <a class="nav-link text-primary" href=" {{route('Thongkedoanhthu')}}"> <i class="fas fa-chart-line text-primary"></i>  Trang thống kê</a>
                         </li>
                     </ul>
-                   
+
                 </div>
                 <img class="img-bordered mr-2 rounded-circle img-bordered-sm img-thumbnail img-fluid"
                     src="{{asset('image/smart-cart.png')}}" alt="user image">
@@ -312,7 +312,7 @@
                                         <td>{{$item->CUSTOMER_PHONE}}</td>
                                         <td>
                                             @if ($item->BILL_STATUS==4)
-                                            <span class="badge badge-success">Đang giao hàng</span>
+                                            <span class="badge badge-success">Hoàn thành</span>
                                             @endif
 
                                         </td>

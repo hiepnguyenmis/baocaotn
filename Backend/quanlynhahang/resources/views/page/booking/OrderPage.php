@@ -14,18 +14,7 @@
     <title>Document</title>
 
     <script src="<?php echo asset('angularjs/lib/angular.min.js') ?>"></script>
-    <?php
-
-    if(!Session::has('login')){
-        echo "<script>
-        window.location='dang-nhap';
-    </script>";
-    }else{
-        echo "<script>
-        window.location='dang-nhap';
-    </script>";
-    }
-?>
+    
 </head>
 
 <body class="bg-light">
