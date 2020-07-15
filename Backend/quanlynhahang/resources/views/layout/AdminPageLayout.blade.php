@@ -1,4 +1,11 @@
 
+@if(!Session::has('login'))
+@php
+    echo '<script>
+        window.location="dang-nhap"
+    </script>'
+@endphp
+@endif
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +15,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-    <title>AdminLTE 3 | Dashboard 2</title>
+    <title>Caviar | Trang quản lý</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{asset("admin/plugins/fontawesome-free/css/all.min.css")}}">
@@ -47,11 +54,12 @@
                 </li>
 
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Phòng/Bàn</a>
+                    <a class="nav-link text-primary" href=" {{route('/')}}"> <i <i
+                                    class="fas fa-home text-primary"></i> Trang chủ</a>
                 </li>
             </ul>
             <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
+            {{-- <ul class="navbar-nav ml-auto">
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
 
@@ -142,17 +150,16 @@
                     <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
                             class="fas fa-th-large"></i></a>
                 </li>
-            </ul>
+            </ul> --}}
         </nav>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src=" {{asset("admin/dist/img/AdminLTELogo.png")}}" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <a href="index3.html" class="brand-link text-justify">
+
+                <span class="brand-text font-weight-light ">Caviar</span>
             </a>
 
             <!-- Sidebar -->
@@ -160,10 +167,11 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{Session::get('employee_image')}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a > {{Session::get('employee_lastname')}}
+                            {{Session::get('employee_firstname')}}!</a>
                     </div>
                 </div>
 
@@ -175,7 +183,7 @@
 
                         <li class="nav-item has-treeview">
                             <a class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
+                                <i class="fas fa-box"></i>
                                 <p>
                                     Hàng Hóa
                                     <i class="fas fa-angle-left right"></i>
@@ -194,17 +202,12 @@
                                         <p>Món ăn</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{route('Thucdon')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh mục</p>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('danhsachNV')}}" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="fas fa-people-carry"></i>
                                 <p>
                                     Quản lý Nhân viên
                                 </p>
@@ -212,7 +215,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('Khachhang')}}" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="fas fa-users"></i>
                                 <p>
                                     Quản lý Khách hàng
                                 </p>
@@ -222,7 +225,7 @@
 
                         <li class="nav-item">
                             <a href="{{route('Thongkehoadon')}}" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="fas fa-chart-pie"></i>
                                 <p>
                                     Thống kê Hóa đơn
                                 </p>
@@ -230,12 +233,33 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('Thongkedoanhthu')}}" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="fas fa-table"></i>
                                 <p>
                                     Thống kê Doanh thu
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-header">BÁN HÀNG</li>
+
+                        <li class="nav-item">
+                            <a href="{{route('quanlydonhang')}}" class="nav-link">
+                                <i class="fas fa-box-open"></i>
+                                <p>
+                                    Quản lý đơn hàng online
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-header">HỆ THỐNG</li>
+
+                        <li class="nav-item">
+                            <a href="{{route('dang-xuat-admin')}}" class="nav-link">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <p>
+                                    Đăng xuất
+                                </p>
+                            </a>
+                        </li>
+
 
                 </nav>
                 <!-- /.sidebar-menu -->

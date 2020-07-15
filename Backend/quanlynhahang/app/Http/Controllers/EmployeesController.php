@@ -89,14 +89,16 @@ class EmployeesController extends Controller
         if ($login != null) {
             foreach ($login as $item) {
                 if (Hash::check($employee_password, $item->EMPLOYEES_PASSWORD)) {
-                    session()->put('employee_fistname', $item->EMPLOYEES_FISTNAME);
+                    session()->put('employee_firstname', $item->EMPLOYEES_FIRSTNAME);
                     session()->put('employee_lastname', $item->EMPLOYEES_LASTNAME);
                     session()->put('employee_no', $item->EMPLOYEES_NO);
-
+                    session()->put('employee_id', $item->EMPLOYEES_ID);
+                    session()->put('employee_image', $item->EMPLOYEES_IMG);
+                    session()->put('login', Hash::make($item->EMPLOYEES_ID));
                     session()->put('igmanage',$item->EMPLOYEES_ISMANAGE);
 
-                    if ($item->EMPLOYEES_ISMANAGE == 1) {
-                        session()->put('login', Hash::make($item->EMPLOYEES_ID));
+                    if ($item->EMPLOYEES_ISMANAGE == 0) {
+
                         return redirect('trangquantri/thungan');
                     } else {
 
@@ -171,7 +173,7 @@ class EmployeesController extends Controller
                 $employees->EMPLOYEES_STARTDAY = $request->employees_startday;
                 $employees->EMPLOYEES_BIRTHDAY = $request->employees_birthday;
                 $employees->EMPLOYEES_GENDER = $request->employees_gender;
-                $employees->EMPLOYEES_AGE = null;
+
 
                 $employees->save();
 
@@ -250,7 +252,7 @@ class EmployeesController extends Controller
     {
         $pageSize = 4;
         $search = $request->get('search');
-        $employees = Employees::whereColumn('EMPLOYEES_NO', 'LIKE', "%$search%")->orWhere('EMPLOYEES_LASTNAME', 'LIKE', "%$search%")->with('Positions')->paginate($pageSize);
+        $employees = Employees::where('EMPLOYEES_NO', 'LIKE', "%$search%")->with('Positions')->paginate($pageSize);
 
         $position = Positions::all();
         // dd($employees);

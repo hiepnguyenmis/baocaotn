@@ -17,13 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix'=>'/trangquantri'], function(){
-    Route::get('/thungan', function () {
-        if(!Session::has('login')){
-            return redirect('trangquantri/dang-nhap');
+    Route::get('thungan', 'OrderControllers@GetPageOrder')->name('thungan');
+    // Route::get('/thungan', function () {
+    //     if(!Session::has('login')){
+    //         return redirect('trangquantri/dang-nhap');
 
-        }
-        session()->put('cashier', Hash::make(200));
-            return view('page.booking.OrderPage');
-    });
+    //     }
+    //     session()->put('cashier', Hash::make(200));
+    //
+    // });
 });
 

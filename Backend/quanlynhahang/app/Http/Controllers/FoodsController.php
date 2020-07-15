@@ -164,9 +164,16 @@ class FoodsController extends Controller
         $foods = Foods::where('FOOD_NO', 'LIKE', "%$search%")->orWhere('FOOD_NAME', 'LIKE', "%$search%")->with('Materials', 'CategoryFoods')->paginate($pageSize);
         $materials = Materials::all();
         $categoryfoods = CategoryFoods::all();
+        $countfoods = Foods::where('foods.FOOD_STATUS', 1)
+        ->where('foods.FOOD_ISSPECIAL','=',1)
+        ->select(DB::raw('count(FOOD_ISSPECIAL) as COUNT_ISSPECIAL'))
+        ->get();
 
-        return view('page.admin.FoodsPage', ['foods' => $foods, 'categoryfoods' => $categoryfoods, 'materials' => $materials, 'pageSize' => $pageSize]);
-    }
+        foreach ($countfoods as $item){
+            $count=$item->COUNT_ISSPECIAL;
+        }
+            return view('page.admin.FoodsPage', ['foods' => $foods, 'categoryfoods' => $categoryfoods, 'materials' => $materials,'count'=>$count, 'pageSize' => $pageSize]);
+        }
 
     public function DeleteFoods($foods_id, Request $request)
     {

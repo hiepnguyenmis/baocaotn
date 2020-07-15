@@ -63,7 +63,7 @@
             <div class="row h-100">
                 <div class="col-12 h-100">
                     <nav class="h-100 navbar navbar-expand-lg align-items-center">
-                        <a class="navbar-brand" href="index.html">caviar</a>
+                        <a class="navbar-brand" href="/">caviar</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#caviarNav"
                             aria-controls="caviarNav" aria-expanded="false" aria-label="Toggle navigation"><span
                                 class="fa fa-bars"></span></button>
@@ -84,9 +84,7 @@
                                     <a class="nav-link" href="#menu">Thực đơn</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#reservation">Đặt bàn</a>
-                                </li>
+
                             </ul>
                             <!-- Search Btn -->
 
@@ -97,9 +95,12 @@
                                     {{Session::get('customer_name')}}
                                 </a>
 
+                                @php
+                                    $customer_no=Session::get('customer_no');
+                                @endphp
                                 <div class="dropdown-menu" aria-labelledby="dropdownInforUser">
-                                    <a class="dropdown-item" href="#">Thông tin khách hàng</a>
-                                    <a class="dropdown-item" href="#">Thông tin đơn hàng</a>
+                                    <a class="dropdown-item" href="{{route('trangcanhan',['customers_no'=>$customer_no])}}">Thông tin khách hàng</a>
+
                                     <a class="dropdown-item" href="{{route('dangxuat')}}">Đăng xuất</a>
                                 </div>
                             </div>
@@ -112,7 +113,14 @@
                             </div>
                             @endif
                             <div class="caviar-search-btn">
-                            <a id="search-btn" href="{{route('giohang')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i></a>
+                                @php
+                                $countItem=0;
+                                if(Session::has('cart')){
+                                    $ArrayItem=Session::get('cart');
+                                    $countItem=count($ArrayItem);
+                                }
+                                @endphp
+                            <a id="search-btn" href="{{route('giohang')}}"><i class="fas fa-shopping-cart" aria-hidden="true"> {{$countItem}} </i></a>
                             </div>
                         </div>
                     </nav>
@@ -139,11 +147,10 @@
                     <div class="row h-100 align-items-center">
                         <div class="col-11 col-md-6 col-lg-4">
                             <div class="hero-content">
-                                <h2>Lorem Ipsum</h2>
-                                <p>Morbi sed porta diam. Sed pulvinar cursus lorem, consectetur iaculis dolor
-                                    scelerisque non. Praesent bibendum mauris risus, non aliquam tellus consectetur nec.
+                                <h2>Giới thiệu</h2>
+                                <p>Quán có vị trí đẹp, nằm ngay cửa ngõ vào thành phố Đà Lạt. Nằm trên một ngọn đồi, 4 hướng đều là không gian mở. Quán xây dựng là một biệt thự kiểu Pháp có phần hiện đại. Tận dụng mọi không gian rất trang nhã, nghệ thuật. Đồ ăn ngon. Hương vị kiểu Châu âu đúng chất và ít béo. Cách bày trí món ăn rất .
                                 </p>
-                                <a href="#" class="btn caviar-btn"><span></span> Reservation</a>
+                                <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span> Reservation</a>
                             </div>
                         </div>
                     </div>
@@ -159,11 +166,11 @@
                     <div class="row h-100 align-items-center">
                         <div class="col-11 col-md-6 col-lg-4">
                             <div class="hero-content">
-                                <h2>Lorem Ipsum</h2>
-                                <p>Morbi sed porta diam. Sed pulvinar cursus lorem, consectetur iaculis dolor
-                                    scelerisque non. Praesent bibendum mauris risus, non aliquam tellus consectetur nec.
+                                <h2>Giới thiệu</h2>
+                                <p>Quán có vị trí đẹp, nằm ngay cửa ngõ vào thành phố Đà Lạt. Nằm trên một ngọn đồi, 4 hướng đều là không gian mở. Quán xây dựng là một biệt thự kiểu Pháp có phần hiện đại. Tận dụng mọi không gian rất trang nhã, nghệ thuật. Đồ ăn ngon. Hương vị kiểu Châu âu đúng chất và ít béo. Cách bày trí món ăn rất .
                                 </p>
-                                <a href="#" class="btn caviar-btn"><span></span> Reservation</a>
+                            <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span> Thực đơn</a>
+
                             </div>
                         </div>
                     </div>
@@ -188,15 +195,13 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-5 ml-md-auto">
                     <div class="section-heading">
-                        <h2>About Us</h2>
+                        <h2>Về chúng tôi</h2>
                     </div>
                     <div class="about-us-content">
                         <span>restaurant style</span>
-                        <p>Sed commodo augue eu diam tincidunt, sit amet auctor lectus semper. Mauris porttitor diam at
-                            fringilla tempor. Integer molestie rhoncus nisi a euismod. Etiam scelerisque eu enim et
-                            vestibulum. Mauris finibus, eros a faucibus varius, dui risus mattis massa, sed lobortis
-                            ante ante eget justo. Nam eu dolor lorem. Praesent blandit leo sit amet velit accumsan
-                            ultrices. Vestibulum nec libero vel sapien dictum euismod eu ac justo.</p>
+                        <p>Được thành lập từ tình yêu, niềm đam mê bất tận với các món ăn và nếp văn hóa của người dân Nam Bộ, Nhà hàng Phương Nam đã chính thức đi vào hoạt động tháng 12/2010 (tại địa chỉ số 2 ngõ 69 Chùa Láng – Hà Nội), mang một làn gió ẩm thực mới đến với người Hà Nội.Chỉ sau 2 năm hoạt động, với tiêu chí, luôn nỗ lực không ngừng để có những món ăn ngon, nhân viên phục vụ thân thiện và dịch vụ tốt làm hài lòng mọi quý khách hàng (ngay cả những thực khách khó tính nhất), Nhà hàng Phương Nam đã mở rộng quy mô hoạt động, thành lập cơ sở 2 tại 13 Mai Hắc Đế và cơ sở 3 tại 35 Dịch Vọng Hậu, giúp thỏa mãn “cơn nghiện” của nhiều tín đồ mê đồ ăn Nam Bộ hơn nữa.
+
+</p>
                     </div>
                 </div>
             </div>
@@ -205,11 +210,8 @@
                 <div class="row align-items-center pt-200">
                     <div class="col-12 col-md-6 col-lg-5">
                         <div class="about-us-content">
-                            <span>our chef</span>
-                            <p>Sed commodo augue eu diam tincidunt, sit amet auctor lectus semper. Mauris porttitor diam
-                                at fringilla tempor. Integer molestie rhoncus nisi a euismod. Etiam scelerisque eu enim
-                                et vestibulum. Mauris finibus, eros a faucibus varius, dui risus mattis massa, sed
-                                lobortis ante ante eget justo.</p>
+
+                            <p>Đến với nhà hàng, khách sẽ thấy được không gian thoáng đãng, có những phòng riêng biệt dành cho hội họp hay sinh nhật với màu trầm và xanh lá chủ đạo. Sẽ gợi nhớ cho những người con xa quê cảm nhận được như mình đang trở về quê nhà.</p>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 ml-md-auto">
@@ -229,16 +231,16 @@
             <div class="row">
                 <div class="col-12 menu-heading">
                     <div class="section-heading text-center">
-                        <h2>Special</h2>
+                        <h2>Đặt biệt</h2>
                     </div>
                     <!-- btn -->
-                    <a href="menu.html" class="btn caviar-btn"><span></span> View The Menu</a>
+                <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span> Xem menu</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="caviar-single-dish wow fadeInUp" data-wow-delay="0.5s">
-                        <img src="{{asset('index/img/menu-img/dish-1.png')}}" alt="">
+                        <img class="rounded" src="{{asset('index/img/menu-img/dish-1.png')}}" alt="">
                         <div class="dish-info">
                             <h6 class="dish-name">Lorem Ipsum Dolor Sit Amet</h6>
                             <p class="dish-price">100.000 đ</p>
@@ -298,37 +300,21 @@
                 <div class="col-12">
                     <div class="testimonials-content">
                         <div class="section-heading text-center">
-                            <h2>Testimonials</h2>
+                            <h2>Hình Ảnh</h2>
                         </div>
                         <div class="caviar-testimonials-slides owl-carousel">
                             <!-- Single Testimonial Area -->
                             <div class="single-testimonial">
-                                <img src="{{asset('index/img/testimonial-img/3.jpg')}}" alt="">
+                                <img src="{{asset('image/IMG_0398-scaled.jpg')}}" alt="">
 
                             </div>
                             <!-- Single Testimonial Area -->
                             <div class="single-testimonial">
-                                <div class="testimonial-thumb-name d-flex align-items-center">
-                                    <img src="{{asset('index/img/testimonial-img/2.jpg')}}" alt="">
-                                    <div class="tes-name">
-                                        <h5>Clara Hudson</h5>
-                                        <p>lorem ipsum</p>
-                                    </div>
-                                </div>
-                                <p>Sed commodo augue eu diam tincidunt, sit amet auctor lectus semper. Mauris porttitor
-                                    diam at fringilla tempor. Integer molestie rhoncus nisi a euismod.</p>
+                                <img src="{{asset('image/IMG_0415-scaled.jpg')}}" alt="">
                             </div>
                             <!-- Single Testimonial Area -->
                             <div class="single-testimonial">
-                                <div class="testimonial-thumb-name d-flex align-items-center">
-                                    <img src="{{asset('index/img/testimonial-img/1.jpg')}}" alt="">
-                                    <div class="tes-name">
-                                        <h5>Jane Black</h5>
-                                        <p>lorem ipsum</p>
-                                    </div>
-                                </div>
-                                <p>Sed commodo augue eu diam tincidunt, sit amet auctor lectus semper. Mauris porttitor
-                                    diam at fringilla tempor. Integer molestie rhoncus nisi a euismod.</p>
+                                <img src="{{asset('image/sesan2.jpg')}}" alt="">
                             </div>
                         </div>
                     </div>
@@ -339,41 +325,7 @@
     <!-- ****** Testimonials Area End ****** -->
 
     <!-- ****** Reservation Area Start ****** -->
-    <section class="caviar-reservation-area d-md-flex align-items-center" id="reservation">
-        <div class="reservation-form-area d-flex justify-content-end">
-            <div class="reservation-form">
-                <div class="section-heading">
-                    <h2>Reservation</h2>
-                </div>
-                <form action="#">
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <input type="time" class="form-control">
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <input type="text" class="form-control" placeholder="Select Persons">
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <input type="text" class="form-control" placeholder="Last name">
-                        </div>
-                        <div class="col-12">
-                            <textarea name="reservation-message" class="form-control" id="reservationMessage" cols="30"
-                                rows="10" placeholder="Your Message"></textarea>
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn caviar-btn"><span></span> Reserve Your Desk</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="reservation-side-thumb wow fadeInRightBig" data-wow-delay="0.5s">
-            <img src="{{asset('index/img/bg-img/hero-3.jpg')}}" alt="">
-        </div>
-    </section>
+
     <!-- ****** Reservation Area End ****** -->
 
     <!-- ****** Footer Area Start ****** -->
@@ -396,7 +348,7 @@
         </div>
     </footer>
     <!-- ****** Footer Area End ****** -->
-
+    <script>!function(s,u,b,i,z){var r,m;s[i]||(s._sbzaccid=z,s[i]=function(){s[i].q.push(arguments)},s[i].q=[],s[i]("setAccount",z),r=function(e){return e<=6?5:r(e-1)+r(e-3)},(m=function(e){var t,n,c;5<e||s._subiz_init_2094850928430||(t="https://",t+=0===e?"widget."+i+".xyz":1===e?"storage.googleapis.com":"sbz-"+r(10+e)+".com",t+="/sbz/app.js?accid="+z,n=u.createElement(b),c=u.getElementsByTagName(b)[0],n.async=1,n.src=t,c.parentNode.insertBefore(n,c),setTimeout(m,2e3,e+1))})(0))}(window,document,"script","subiz","acqsmuingzvizsalqyuv");</script>
     <!-- Jquery-2.2.4 js -->
     <script src="{{asset('index/js/jquery/jquery-2.2.4.min.js')}}"></script>
 

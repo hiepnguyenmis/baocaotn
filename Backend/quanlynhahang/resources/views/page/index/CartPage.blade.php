@@ -14,7 +14,7 @@
     <!-- Favicon -->
     <link rel="icon" href="{{asset('index/img/core-img/favicon.ico')}}">
     <link rel="stylesheet" href="{{asset("admin/plugins/fontawesome-free/css/all.min.css")}}">
-
+    <link rel="stylesheet" href="{{asset('index/fontawesome/css/all.css')}}">
 
     <!-- Core Stylesheet -->
     <link href="{{asset('index/style.css')}}" rel="stylesheet">
@@ -36,22 +36,7 @@
     </div>
 
     <!-- ***** Search Form Area ***** -->
-    <div class="caviar-search-form d-flex align-items-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="search-close-btn" id="closeBtn">
-                        <i class="pe-7s-close-circle" aria-hidden="true"></i>
-                    </div>
-                    <form action="#" method="get">
-                        <input type="search" name="caviarSearch" id="search"
-                            placeholder="Search Your Favourite Dish ...">
-                        <input type="submit" class="d-none" value="submit">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- ***** Header Area Start ***** -->
     <header class="header_area" id="header">
@@ -59,47 +44,63 @@
             <div class="row h-100">
                 <div class="col-12 h-100">
                     <nav class="h-100 navbar navbar-expand-lg align-items-center">
-                        <a class="navbar-brand" href="index.html">caviar</a>
+                        <a class="navbar-brand" href="/">caviar</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#caviarNav"
                             aria-controls="caviarNav" aria-expanded="false" aria-label="Toggle navigation"><span
                                 class="fa fa-bars"></span></button>
                         <div class="collapse navbar-collapse" id="caviarNav">
                             <ul class="navbar-nav ml-auto" id="caviarMenu">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="index.html">Home</a>
-                                        <a class="dropdown-item" href="menu.html">Menu</a>
-                                        <a class="dropdown-item" href="regular-page.html">Regular Page</a>
-                                        <a class="dropdown-item" href="contact.html">Contact</a>
-                                    </div>
+                                    <a class="nav-link" href="#home">Trang chủ <span
+                                            class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#about">About Us</a>
+                                    <a class="nav-link" href="#about">Về chúng tôi</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#awards">Các chứng nhận</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#menu">Menu</a>
+                                    <a class="nav-link" href="#menu">Thực đơn</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#awards">Awards</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#testimonial">Testimonials</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#reservation">Reservation</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
+
+
                             </ul>
                             <!-- Search Btn -->
+
+                            @if ( Session::has('customer_name') )
+                            <div class="dropdown show ml-5">
+                                <a class="text-white dropdown-toggle" href="#" role="button" id="dropdownInforUser"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{Session::get('customer_name')}}
+                                </a>
+                                @php
+                                $customer_no=Session::get('customer_no');
+                                @endphp
+                                <div class="dropdown-menu" aria-labelledby="dropdownInforUser">
+                                    <a class="dropdown-item" href="{{route('trangcanhan',['customers_no'=>$customer_no])}}">Thông tin khách hàng</a>
+
+                                    <a class="dropdown-item" href="{{route('dangxuat')}}">Đăng xuất</a>
+                                </div>
+                            </div>
+                            @endif
+                            @if (!Session::has('customer_name') )
+                            <div class="ml-5">
+                                <a class="text-white " href="{{route('dang-nhap')}}">
+                                    Đăng nhập
+                                </a>
+                            </div>
+                            @endif
                             <div class="caviar-search-btn">
-                                <a id="search-btn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                @php
+                                $countItem=0;
+                                if(Session::has('cart')){
+                                    $ArrayItem=Session::get('cart');
+                                    $countItem=count($ArrayItem);
+                                }
+                                @endphp
+                            <a id="search-btn" href="{{route('giohang')}}"><i class="fas fa-shopping-cart" aria-hidden="true"> {{$countItem}} </i></a>
                             </div>
                         </div>
                     </nav>
@@ -159,7 +160,7 @@
                                         $total += $details['FOOD_PRICE'] * $details['QUANTITY'];
                                         @endphp
                                         <tr>
-                                            <td>{{$loop->index}}</td>
+                                            <td>{{$loop->index+1}}</td>
                                             <td>
                                                 @if ($details['FOOD_IMG']==null)
                                                 <img src="https://via.placeholder.com/80" width="80" height='80' alt="">
@@ -251,7 +252,7 @@
         </div>
     </footer>
     <!-- ***** Footer Area End ***** -->
-
+    <script>!function(s,u,b,i,z){var r,m;s[i]||(s._sbzaccid=z,s[i]=function(){s[i].q.push(arguments)},s[i].q=[],s[i]("setAccount",z),r=function(e){return e<=6?5:r(e-1)+r(e-3)},(m=function(e){var t,n,c;5<e||s._subiz_init_2094850928430||(t="https://",t+=0===e?"widget."+i+".xyz":1===e?"storage.googleapis.com":"sbz-"+r(10+e)+".com",t+="/sbz/app.js?accid="+z,n=u.createElement(b),c=u.getElementsByTagName(b)[0],n.async=1,n.src=t,c.parentNode.insertBefore(n,c),setTimeout(m,2e3,e+1))})(0))}(window,document,"script","subiz","acqsmuingzvizsalqyuv");</script>
     <!-- jQuery-2.2.4 js -->
     <script src="{{asset('index/js/jquery/jquery-2.2.4.min.js')}}"></script>
     <!-- Popper js -->

@@ -19,7 +19,7 @@ $(document).ready(function () {
     $('#approx-time').text('Thống kê đến ' + date + '/' + monthCurrrent + '/' + year);
     console.log('Thống kê từ: 1 tháng 1 năm ' + year + '- Đến ' + date + ' tháng ' + monthCurrrent + ' năm' + year);
 
-    $('#approx-month-time').text('Thống kê đến ' + date + '/' + monthCurrrent + '/' + year);
+    $('#approx-month-time').text('Thống kê đến'+ date + '/' + monthCurrrent + '/' + year);
 
     $('.dropdown-statatics').text(year)
     $(".bill-statistics").click(function () {
@@ -28,7 +28,7 @@ $(document).ready(function () {
 
         console.log(year);
         year = $(this).text()
-        $('#approx-time').text('Thống kê đến ' + date + '/' + monthCurrrent + '/' + year);
+        $('#approx-time').text('Thống kê đến hết'  + year);
         $('.dropdown-statatics').text(year)
         $.ajax({
             method: "GET",
@@ -54,12 +54,7 @@ $(document).ready(function () {
                             label: '# Doanh thu',
                             data: sumBillMonth,
                             backgroundColor: [
-                                'rgba(255, 255, 255, 0.2)',
-                                'rgba(255, 255, 255, 0.2)',
-                                'rgba(255, 255, 255, 0.2)',
-                                'rgba(255, 255, 255, 0.2)',
-                                'rgba(255, 255, 255, 0.2)',
-                                'rgba(255, 255, 255, 0.2)'
+                                'rgba(100,149,237, 1)',
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)',
@@ -102,7 +97,7 @@ $(document).ready(function () {
                     return item.totalProfit;
                 });
                 var revelarYear = numeral(arrayRevelarYear[0]).format('0,0[.]00 ');
-                var costYear = numeral(arrayCostYear[0]).format('0,0[.]00 ');
+                var costYear = numeral(arrayCostYear[0]).format('0[.]00 ');
                 var profitYear = numeral(arrayProfitYear[0]).format('0,0[.]00 ');
                 console.log(revelarYear);
 

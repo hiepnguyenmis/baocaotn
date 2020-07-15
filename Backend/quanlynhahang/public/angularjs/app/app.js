@@ -18,6 +18,7 @@ app.controller('OrderControler', function ($scope, $http) {
         $scope.getAllBill();
         $scope.employees();
         id_table = null;
+
         $scope.GetBillWithTable(table);
         // $scope.GetBillWithDetail();
         $scope.GetAllIdBillStatusFalse();
@@ -31,6 +32,43 @@ app.controller('OrderControler', function ($scope, $http) {
             url: baseUrl + 'gettable'
         }).then(function mySuccess(response) {
             $scope.tables = response.data;
+            $http({
+                method: 'GET',
+                url: baseUrl + 'getallbillswithtable'
+            }).then(function mySuccess(e) {
+                var id_table = e.data;
+                $http({
+                    method: 'GET',
+                    url: baseUrl + 'getstatustable'
+                }).then(function mySuccess(response) {
+                    $scope.idTableSatus = response.data;
+                    angular.forEach($scope.tables, function (table) {
+                        var check = 0;
+                        angular.forEach($scope.idTableSatus, function (idbilltable) {
+
+                            if (table.TABLE_ID == idbilltable.TABLE_ID) {
+                                check = 1;
+
+                                table.tableColor= {
+                                    "background-color" : "#2DCE89"
+                                  }
+                            }
+
+                        });
+
+                        if(check==0){
+                            table.tableColor= {
+                                "background-color" : "white"
+                              }
+                        }
+
+                    });
+
+                });
+
+            });
+
+
             $scope.loading = false;
         });
     }
@@ -86,6 +124,12 @@ app.controller('OrderControler', function ($scope, $http) {
         } else {
             $scope.tableIndex = idTable;
             $scope.GetBillWithTable(idTable);
+            $http({
+                method: 'GET',
+                url: baseUrl + 'getonetable/'+idTable
+            }).then(function mySuccess(response){
+                $scope.tableName=response.data[0].TABLE_NO;
+            });
         }
 
     }
@@ -207,7 +251,7 @@ app.controller('OrderControler', function ($scope, $http) {
     console.log($scope.ArrayBill);
     $scope.DeleteBillEmpty = function (id_table) {
         $http.delete(baseUrl + 'deletebill/' + id_table).then((response) => {
-            alert('Xóa thành công');
+            $scope.tableName=null;
         }, (err) => {
             alert('Lỗi thay đổi trạng thái');
         });
@@ -233,10 +277,11 @@ app.controller('OrderControler', function ($scope, $http) {
     }
 
     $scope.GetBillOfTable = function (table) {
-        
+        $scope.tableName = table.TABLE_NO;
         if (table.TABLE_STATUS == 0) {
             $scope.postBills(table.TABLE_ID);
             $scope.tableIndex = table.TABLE_ID;
+
             console.log($scope.tableIndex);
             $scope.putTable(table.TABLE_ID, 1);
 
@@ -424,6 +469,36 @@ app.controller('OrderControler', function ($scope, $http) {
                     $scope.putTable(idTable, 0);
                     $scope.GetBillWithTable(idTable);
                     $scope.getonebill = {};
+                    var numberPhoneCustomer = $scope.checkPhoneCus;
+
+                    $scope.rankCustomer = '';
+                    let promotionPersent = 0;
+                    $scope.promotion = '';
+                    $promotionTotal = null;
+                    $scope.total = 0;
+                    $scope.allPromotionOfBill = 0;
+                    $scope.customerbyphone = {};
+                    $http({
+                        method: 'GET',
+                        url: baseUrl + 'getonecustomer/' + numberPhoneCustomer
+                    }).then(function mySuccess(response) {
+                        var customerbyphone = response.data[0];
+                        console.log(customerbyphone.CUSTOMER_MARK);
+                        let data = {
+                            "CUSTOMER_MARK": customerbyphone.CUSTOMER_MARK + 1
+
+                        }
+                        console.log(data);
+                        $http.put(baseUrl + 'updatecusromer/' + customerbyphone.CUSTOMER_ID, data).then((response) => {
+
+                            $scope.GetBillWithTable(idTable);
+                            $scope.loadingCreateBillDetail = true
+                            $scope.checkPhoneCus = '';
+                        }, (err) => {
+                            return;
+                        });
+                    });
+
                     console.log('done');
                 }, (err) => {
                     return;
@@ -582,7 +657,7 @@ app.controller('OrderControler', function ($scope, $http) {
             } else {
                 $scope.getonebill = [];
             }
-
+            $scope.newPromotion = '';
         });
 
     }
@@ -616,7 +691,7 @@ app.controller('OrderControler', function ($scope, $http) {
     $scope.MergeBillWithBill = function () {
         var mergebillwith = document.getElementById('mergebillwith').value;
         var mergebillwithbill = document.getElementById('mergebillwithbill').value;
-        if(mergebillwith!=mergebillwithbill){
+        if (mergebillwith != mergebillwithbill) {
             $http({
                 method: 'GET',
                 url: baseUrl + 'getonebill/' + mergebillwith
@@ -678,19 +753,20 @@ app.controller('OrderControler', function ($scope, $http) {
                                 });
 
                             });
-                        }else{
-                            $scope.mergeStatus='Hóa đơn không có chi tiết hóa đơn';
+                        } else {
+                            $scope.mergeStatus = 'Hóa đơn không có chi tiết hóa đơn';
                         }
-                    }else{
-                        $scope.mergeStatus='Hóa đơn không có chi tiết hóa đơn';
+                    } else {
+                        $scope.mergeStatus = 'Hóa đơn không có chi tiết hóa đơn';
                     }
                 });
 
             });
-        }else{
-            $scope.mergeStatus='Trùng hóa đơn';
+        } else {
+            $scope.mergeStatus = 'Trùng hóa đơn';
         }
         console.log($scope.mergeStatus);
+        
     }
 
 });

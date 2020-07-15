@@ -15,9 +15,37 @@ class CheckoutControllers extends Controller
 {
     public function GetDataCheckout()
     {
+        $total=0;
+        $customer_id=Session::get('customer_id');
+        $cart = session()->get('cart');
         if (Session::has('customer_no')) {
             if(Session::has('cart')){
-                return view('page.index.CheckoutInfoPage');
+                $customer_mark=Customers::where('customers.CUSTOMER_ID',$customer_id)->select('customers.CUSTOMER_MARK')->get();
+                if ($cart){
+                    foreach (session('cart') as $id_session => $details){
+                        $total += $details['FOOD_PRICE'] * $details['QUANTITY'];
+
+                    }
+
+                }
+                foreach($customer_mark as $item){
+                    $promotion=$item->CUSTOMER_MARK;
+                }
+                if ($promotion < 2) {
+                    $promotionPersent = 0;
+
+                } else if ($promotion >= 2 && $promotion < 10) {
+                    $promotionPersent = 5;
+
+                } else if ($promotion >= 10 && $promotion < 20) {
+                    $promotionPersent = 10;
+
+                } else if ($promotion >= 20) {
+                    $promotionPersent = 20;
+
+                }
+                $promotionforProtentialCustomer = $total * ($promotionPersent / 100);
+                return view('page.index.CheckoutInfoPage',['promotionPersent'=>$promotionPersent,'promotion'=>$promotion,'promotionforProtentialCustomer'=>$promotionforProtentialCustomer]);
 
             }
             return redirect('trang/thucdon');
@@ -33,7 +61,7 @@ class CheckoutControllers extends Controller
             'CHECK_PAY'=>'required'
 
         ], [
-
+            
             'CHECK_CUATOMER_ADDRESS.required' => 'Không bỏ trống trường này',
             'CHECK_PAY.required' => 'Không bỏ trống trường này',
         ]);
@@ -84,15 +112,19 @@ class CheckoutControllers extends Controller
                 $promotionPersent = 20;
 
             }
+
+            $phoneCustomer=null;
+            if(!$request->CHECK_CUSTOMER_PHONEDELIVERY){
+
+                $phoneCustomer=$request->CHECK_CUSTOMER_PHONE;
+            }else{
+                $phoneCustomer=$request->CHECK_CUSTOMER_PHONEDELIVERY;
+            }
             $promotionforProtentialCustomer = $total * ($promotionPersent / 100);
+
             $bill->BILL_PROMOTION=$promotionforProtentialCustomer;
             $bill->BILL_DELIVERYADDRESS=$request->CHECK_CUATOMER_ADDRESS;
-
-            if($request->CHECK_CUSTOMER_PHONEDELIVERY==null){
-                $bill->PHONE_DELIVERY=$request->CHECK_CUSTOMER_PHONE;
-            }else{
-                $bill->PHONE_DELIVERY=$request->CHECK_CUSTOMER_PHONEDELIVERY;
-            }
+            $bill->PHONE_DELIVERY=$phoneCustomer;
             $bill->BILL_NOTE= $request->CHECK_NOTE;
             $bill->BILL_PAID=0;
 
@@ -103,16 +135,13 @@ class CheckoutControllers extends Controller
             foreach($getBillId as $item){
                 $billId=$item->BILL_ID;
             }
-
             foreach($foods as $key=> $item){
-
                 $billDetail= new BillDetails();
                 $billDetail->BILLDETAIL_ID=$billId;
                 $billDetail->FOOD_ID=$item['FOOD_ID'];
                 $billDetail->BILLDETAIL_PRICE=$item['FOOD_PRICE'];
                 $billDetail->BILLDETAIL_AMOUNT=$item['QUANTITY'];
                 $billDetail->save();
-                
             }
 
             $customer=Customers::findOrFail( $customer_id);
@@ -151,6 +180,7 @@ class CheckoutControllers extends Controller
             $bill->BILL_DELIVERYADDRESS=$request->CHECK_CUATOMER_ADDRESS;
 
             if($request->CHECK_CUSTOMER_PHONEDELIVERY==null){
+
                 $bill->PHONE_DELIVERY=$request->CHECK_CUSTOMER_PHONE;
             }else{
                 $bill->PHONE_DELIVERY=$request->CHECK_CUSTOMER_PHONEDELIVERY;

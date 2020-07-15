@@ -130,7 +130,7 @@ class CustomersController extends Controller
             $customers->CUSTOMER_PASSWORD = Hash::make($request->customer_password);
             $customers->CUSTOMER_STATUS = 1;
             $customers->CUSTOMER_MARK = 0;
-
+            $customers->CUSTOMER_IMG='https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jul%2013%202020%2001%3A11%3A16%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-user.png?alt=media&token=12ab1038-a9b4-4a60-849d-f0873779de12';
             if ($request->has('agree-term')) {
                 $customers->save();
                 if ($customers) {

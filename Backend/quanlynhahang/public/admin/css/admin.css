@@ -3,7 +3,7 @@
   display: none;
 }
 .bg-img{
-    background-image: linear-gradient(rgb(133, 152, 255), rgb(118, 172, 252), rgb(143, 159, 252), rgba(94, 113, 228, 0.397)), url("../../LoginCustomer/images/body-bg.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.932), rgba(44, 43, 43, 0.863), rgba(34, 18, 18, 0.37), rgba(217, 222, 247, 0.397)), url("../../LoginCustomer/images/body-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }

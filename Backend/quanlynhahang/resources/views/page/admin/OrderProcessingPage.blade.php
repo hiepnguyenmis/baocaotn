@@ -16,6 +16,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset("admin/dist/css/adminlte.min.css")}}">
     <link rel="stylesheet" href="{{asset('admin/css/admin.css')}}">
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet"
@@ -34,11 +35,11 @@
 
 </head>
 
-<body class="bg-light">
+<body class="bg-light bg-img">
     <header class="mb-3">
         <nav class="navbar navbar-expand-lg  navbar navbar-white navbar-light  shadow-sm">
             <div class="container">
-                <a class="navbar-brand">Brand</a>
+                <a class="navbar-brand">Caviar</a>
 
                 <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -47,21 +48,45 @@
                 <div id="my-nav" class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                        <a class="nav-link text-warning" href=" {{route('danhsachNV')}}"> <i class="fas fa-table text-warning"></i>  Trang quản lý</a>
+                            <a class="nav-link text-primary" href=" {{route('/')}}"> <i <i
+                                    class="fas fa-home text-primary"></i> Trang chủ</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link text-primary" href=" {{route('Thongkedoanhthu')}}"> <i class="fas fa-chart-line text-primary"></i>  Trang thống kê</a>
+                            <a class="nav-link text-warning" href=" {{route('danhsachNV')}}"> <i
+                                    class="fas fa-table text-warning"></i> Trang quản lý</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link text-success" href=" {{route('Thongkedoanhthu')}}"> <i
+                                    class="fas fa-chart-line text-success"></i> Trang thống kê</a>
                         </li>
                     </ul>
 
                 </div>
+
                 <img class="img-bordered mr-2 rounded-circle img-bordered-sm img-thumbnail img-fluid"
-                    src="{{asset('image/smart-cart.png')}}" alt="user image">
-                <span class="mr-2">Xin chào, Admin!</span>
-                <span data-toggle="tooltip" data-placement="left" title="Đăng xuất"><i
-                        class="fas fa-arrow-right"></i></span>
+                    src="{{Session::get('employee_image')}}" alt="user image">
+                <span class="mr-2">Xin chào, {{Session::get('employee_lastname')}}
+                    {{Session::get('employee_firstname')}}!</span>
+                <a href="{{route('dang-xuat-admin')}}" data-toggle="tooltip" data-placement="top"
+                    title="Đăng xuất"><span data-toggle="tooltip" data-placement="left" title="Đăng xuất"><i
+                            class="fas fa-arrow-right"></i></span></a>
             </div>
         </nav>
+        <section class="content-header">
+            <div class="container">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="text-white">Quản Lý Đơn Hàng</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{route('/')}}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active text-white">Quản lý đơn hàng</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
     </header>
     <div class="container">
         <div class="row">
@@ -118,9 +143,26 @@
                                             </div>
                                         </td>
                                         <td>
-                                        <a href="{{route('Chitietdondangcho',['bill_no'=>$item->BILL_NO])}}" class="btn btn-sm btn-info">
-                                                Chi tiết
-                                            </a>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <a href="{{route('Chitietdondangcho',['bill_no'=>$item->BILL_NO])}}"
+                                                        class="btn btn-sm btn-info">
+                                                        Chi tiết
+                                                    </a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <form
+                                                        action="{{route('xoadonhangcho',['bill_id'=>$item->BILL_ID])}}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-warning">
+                                                            Hủy
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+
                                         </td>
                                     </tr>
                                     @endforeach
@@ -220,9 +262,10 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-info" href="{{route('chitietdondangxuly',['bill_no'=>$item->BILL_NO])}}">
+                                            <a class="btn btn-sm btn-info"
+                                                href="{{route('chitietdondangxuly',['bill_no'=>$item->BILL_NO])}}">
                                                 Chi tiết
-                                        </a>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -312,7 +355,7 @@
                                         <td>{{$item->CUSTOMER_PHONE}}</td>
                                         <td>
                                             @if ($item->BILL_STATUS==4)
-                                            <span class="badge badge-success">Hoàn thành</span>
+                                            <span class="badge badge-success">Đang giao hàng</span>
                                             @endif
 
                                         </td>
@@ -329,10 +372,11 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-info" href="{{route('Chitietdondangvanchuyen',['bill_no'=>$item->BILL_NO])}}"
-                                                >
+                                            <a class="btn btn-sm btn-info"
+                                                href="{{route('Chitietdondangvanchuyen',['bill_no'=>$item->BILL_NO])}}">
                                                 Chi tiết
-                                        </a>
+                                            </a>
+
                                         </td>
                                     </tr>
                                     @endforeach

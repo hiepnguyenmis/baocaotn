@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-header">
                     <form action="timkiemNL" method="GET" class="form-inline">
-                        <input class="form-control mr-sm-2" name='search' type="search" placeholder="Search"
+                        <input class="form-control mr-sm-2" name='search' type="search" placeholder="NL2020107358, Rau củ,..."
                             aria-label="Search">
                     </form>
                 </div>

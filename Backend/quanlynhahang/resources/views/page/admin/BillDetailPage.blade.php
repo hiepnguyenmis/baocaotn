@@ -47,12 +47,12 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Mã khách hàng:</label>
-                                    <p>{{$customer->CUSTOMER_NO}}</p>
+                                        <p>{{$customer->CUSTOMER_NO}}</p>
 
                                     </div>
                                     <div class="form-group">
                                         <label>Tên khách hàng:</label>
-                                    <p>{{$customer->CUSTOMER_NAME}}</p>
+                                        <p>{{$customer->CUSTOMER_NAME}}</p>
                                     </div>
                                     <div class="form-group">
                                         <label>Email:</label>
@@ -71,8 +71,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Địa chỉ nhận hàng:</label>
-                                    <p>{{$customer->CUSTOMER_ADDRESS}}</p>
+                                        <p>{{$customer->CUSTOMER_ADDRESS}}</p>
                                     </div>
+
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -107,16 +108,16 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                             $total=null;
-                                             $no=1;
+                                            $total=null;
+                                            $no=1;
                                             @endphp
                                             @foreach ($billdetail as $item)
                                             @php
-                                                $intoMoney=$item->BILLDETAIL_AMOUNT * $item->BILLDETAIL_PRICE;
-                                                $total+=$intoMoney;
+                                            $intoMoney=$item->BILLDETAIL_AMOUNT * $item->BILLDETAIL_PRICE;
+                                            $total+=$intoMoney;
                                             @endphp
                                             <tr>
-                                            <th scope="row">{{$no++}}</th>
+                                                <th scope="row">{{$no++}}</th>
                                                 <td>{{$item->FOOD_NAME}}</td>
                                                 <td>{{$item->FOOD_UNIT}}</td>
                                                 <td>{{$item->BILLDETAIL_AMOUNT}}</td>
@@ -124,7 +125,15 @@
                                                 <td>{{number_format($intoMoney,0,',','.')}} đ</td>
                                             </tr>
                                             @endforeach
-                                        <span class="text-danger">Tổng hóa đơn: {{number_format($total,0,',','.')}} đ</span>
+                                            <span class="text-danger mr-1">Tổng Hóa đơn:
+                                                {{number_format($total,0,',','.')}} đ </span>
+                                            @foreach ($findBillid as $billId)
+                                            <span class="text-danger mr-1">Tổng hóa đơn:
+                                                {{number_format($billId->BILL_PROMOTION,0,',','.')}} đ</span>
+                                            <span class="text-danger">Tổng :
+                                                {{number_format($total-$billId->BILL_PROMOTION,0,',','.')}} đ</span>
+
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -135,7 +144,7 @@
                 </div>
                 <div class="card-footer">
                     <button type="button" class="btn btn-primary float-right" onclick="printJS('form-bill', 'html')"><i
-                        class="fas fa-print mr-1"></i>In hóa đơn</button>
+                            class="fas fa-print mr-1"></i>In hóa đơn</button>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -241,6 +250,7 @@
   </div>
   <!-- end print -->
   </form>
+
 
 
 @endsection

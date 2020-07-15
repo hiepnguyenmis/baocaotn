@@ -35,22 +35,7 @@
     </div>
 
     <!-- ***** Search Form Area ***** -->
-    <div class="caviar-search-form d-flex align-items-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="search-close-btn" id="closeBtn">
-                        <i class="pe-7s-close-circle" aria-hidden="true"></i>
-                    </div>
-                    <form action="#" method="get">
-                        <input type="search" name="caviarSearch" id="search"
-                            placeholder="Search Your Favourite Dish ...">
-                        <input type="submit" class="d-none" value="submit">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- ***** Header Area Start ***** -->
     <header class="header_area" id="header">
@@ -58,15 +43,14 @@
             <div class="row h-100">
                 <div class="col-12 h-100">
                     <nav class="h-100 navbar navbar-expand-lg align-items-center">
-                        <a class="navbar-brand" href="index.html">caviar</a>
+                        <a class="navbar-brand" href="/">caviar</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#caviarNav"
                             aria-controls="caviarNav" aria-expanded="false" aria-label="Toggle navigation"><span
                                 class="fa fa-bars"></span></button>
                         <div class="collapse navbar-collapse" id="caviarNav">
                             <ul class="navbar-nav ml-auto" id="caviarMenu">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#home">Trang chủ <span
-                                            class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#about">Về chúng tôi</a>
@@ -76,12 +60,10 @@
                                     <a class="nav-link" href="#awards">Các chứng nhận</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#menu">Thực đơn</a>
+                                    <a class="nav-link" href="{{route('thucdon')}}">Thực đơn</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#reservation">Đặt bàn</a>
-                                </li>
+
                             </ul>
                             <!-- Search Btn -->
 
@@ -91,10 +73,14 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{Session::get('customer_name')}}
                                 </a>
-
+                                @php
+                                $customer_no=Session::get('customer_no');
+                                @endphp
                                 <div class="dropdown-menu" aria-labelledby="dropdownInforUser">
-                                    <a class="dropdown-item" href="#">Thông tin khách hàng</a>
-                                    <a class="dropdown-item" href="#">Thông tin đơn hàng</a>
+                                    <a class="dropdown-item"
+                                        href="{{route('trangcanhan',['customers_no'=>$customer_no])}}">Thông
+                                        tin khách hàng</a>
+
                                     <a class="dropdown-item" href="{{route('dangxuat')}}">Đăng xuất</a>
                                 </div>
                             </div>
@@ -107,7 +93,15 @@
                             </div>
                             @endif
                             <div class="caviar-search-btn">
-                                <a  href="{{route('giohang')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i></a>
+                                @php
+                                $countItem=0;
+                                if(Session::has('cart')){
+                                $ArrayItem=Session::get('cart');
+                                $countItem=count($ArrayItem);
+                                }
+                                @endphp
+                                <a id="" href="{{route('giohang')}}"><i class="fas fa-shopping-cart" aria-hidden="true">
+                                        {{$countItem}} </i></a>
                             </div>
                         </div>
                     </nav>
@@ -124,8 +118,8 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-content">
-                        <h2>Menu</h2>
-                        <a href="#menu" id="menubtn" class="btn caviar-btn"><span></span> Special</a>
+                        <h2>Thực đơn</h2>
+                        <a href="#menu" id="menubtn" class="btn caviar-btn"><span></span> Đặt biệt</a>
                     </div>
                 </div>
             </div>
@@ -145,10 +139,10 @@
                 <div class="col-10">
                     <div class="caviar-projects-menu">
                         <div class="text-center portfolio-menu">
-                            <button class="active" data-filter="*">All</button>
-                            <button data-filter=".breakfast">breakfast</button>
-                            <button data-filter=".lunch">lunch</button>
-                            <button data-filter=".dinner">dinner</button>
+                            <button class="active" data-filter="*">Tất cả</button>
+                            <button data-filter=".breakfast">Điểm tâm sáng</button>
+                            <button data-filter=".lunch">Bữa trưa</button>
+                            <button data-filter=".dinner">Bữa tối</button>
                         </div>
                     </div>
                     <div class="caviar-menu-slides owl-carousel clearfix">
@@ -168,18 +162,31 @@
                             @endphp
                             <div class="single_menu_item {{$type}} wow fadeInUp">
                                 <div class="d-sm-flex align-items-center">
-                                    <div class="dish-thumb">
-                                        <img src="{{asset('index/img/menu-img/dish-1.png')}}" alt="">
+                                    <div class="dish-thumb  " style="width: 50em !important; height: 50 !important;">
+                                        <img height="90" width="90" mx-auto d-block" src="{{$item->FOOD_IMG}}" alt="">
                                     </div>
-                                    <div class="dish-description">
+                                    <div class="dish-description ml-2">
                                         <h3>{{$item->FOOD_NAME}} </h3>
                                         <p>{{$item->FOOD_DESCRIPTION}}</p>
-                                        <p><a href="{{route('themgiohang',['id_food'=>$item->FOOD_ID])}}" class="btn btn-sm btn-warning">Thêm vào giỏ</a>
-                                        </p>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p><a href="{{route('themgiohang',['id_food'=>$item->FOOD_ID])}}"
+                                                            class="btn btn-sm btn-warning">Thêm vào giỏ</a>
+
+                                                    </p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="dish-value ">
+                                                        <h5 class="font-weight-bold">
+                                                            {{number_format($item->FOOD_PRICE,0,',','.')}} đ</h5>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="dish-value">
-                                        <h5>{{($item->FOOD_PRICE/1000).'K'}}</h5>
-                                    </div>
+
                                 </div>
                             </div>
                             @endforeach
@@ -210,7 +217,7 @@
                         <img src="{{asset('index/img/menu-img/dish-1.png')}}" alt="">
                         <div class="dish-info">
                             <h6 class="dish-name">{{$item->FOOD_NAME}}</h6>
-                        <p class="dish-price">{{($item->FOOD_PRICE/1000)."K"}}</p>
+                            <p class="dish-price">{{($item->FOOD_PRICE/1000)."K"}}</p>
                         </div>
                     </div>
                 </div>
@@ -252,4 +259,8 @@
     <script src="{{asset('index/js/others/plugins.js')}}"></script>
     <!-- Active js -->
     <script src="{{asset('index/js/active.js')}}"></script>
+
+    <script>
+        !function(s,u,b,i,z){var r,m;s[i]||(s._sbzaccid=z,s[i]=function(){s[i].q.push(arguments)},s[i].q=[],s[i]("setAccount",z),r=function(e){return e<=6?5:r(e-1)+r(e-3)},(m=function(e){var t,n,c;5<e||s._subiz_init_2094850928430||(t="https://",t+=0===e?"widget."+i+".xyz":1===e?"storage.googleapis.com":"sbz-"+r(10+e)+".com",t+="/sbz/app.js?accid="+z,n=u.createElement(b),c=u.getElementsByTagName(b)[0],n.async=1,n.src=t,c.parentNode.insertBefore(n,c),setTimeout(m,2e3,e+1))})(0))}(window,document,"script","subiz","acqsmuingzvizsalqyuv");
+    </script>
 </body>

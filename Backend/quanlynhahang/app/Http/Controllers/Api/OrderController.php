@@ -71,7 +71,7 @@ class OrderController extends Controller
     }
 
     public function GetFoods(){
-        $foods=Foods::all();
+        $foods=Foods::where('foods.FOOD_STATUS','=',1)->get();
         return response()->json($foods);
     }
 
@@ -193,4 +193,20 @@ class OrderController extends Controller
         return response()->json($customer);
     }
 
+    public function UpdateCustomer(Request $request,$id_customer){
+        $customer = Customers::findOrFail($id_customer);
+        $customer->update($request->all());
+        return $customer;
+    }
+
+    public function GetallBillsWithTable()
+    {
+        $id_table= Bills::where('bills.BILL_STATUS','=',0)->select('bills.TABLE_ID')->get();
+        return response()->json($id_table);
+    }
+    public function GetStatusTable()
+    {
+        $id_table= Tables::where('tables.TABLE_STATUS','=',1)->select('tables.TABLE_ID')->get();
+        return response()->json($id_table);
+    }
 }

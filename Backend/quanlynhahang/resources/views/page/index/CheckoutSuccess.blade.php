@@ -91,7 +91,7 @@
             <div class="row h-100">
                 <div class="col-12 h-100">
                     <nav class="h-100 navbar navbar-expand-lg align-items-center">
-                        <a class="navbar-brand" href="index.html">caviar</a>
+                        <a class="navbar-brand" href="/">caviar</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#caviarNav"
                             aria-controls="caviarNav" aria-expanded="false" aria-label="Toggle navigation"><span
                                 class="fa fa-bars"></span></button>
@@ -112,9 +112,7 @@
                                     <a class="nav-link" href="#menu">Thực đơn</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#reservation">Đặt bàn</a>
-                                </li>
+
                             </ul>
                             <!-- Search Btn -->
 
@@ -124,10 +122,13 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{Session::get('customer_name')}}
                                 </a>
-
+                                @php
+                                $customer_no=Session::get('customer_no');
+                                @endphp
                                 <div class="dropdown-menu" aria-labelledby="dropdownInforUser">
-                                    <a class="dropdown-item" href="#">Thông tin khách hàng</a>
-                                    <a class="dropdown-item" href="#">Thông tin đơn hàng</a>
+                                    <a class="dropdown-item" href="{{route('trangcanhan',['customers_no'=>$customer_no])}}">Thông
+                                        tin khách hàng</a>
+
                                     <a class="dropdown-item" href="{{route('dangxuat')}}">Đăng xuất</a>
                                 </div>
                             </div>
@@ -140,7 +141,15 @@
                             </div>
                             @endif
                             <div class="caviar-search-btn">
-                            <a id="search-btn" href="{{route('giohang')}}"><i class="fas fa-shopping-cart" aria-hidden="true"></i></a>
+                                @php
+                                $countItem=0;
+                                if(Session::has('cart')){
+                                $ArrayItem=Session::get('cart');
+                                $countItem=count($ArrayItem);
+                                }
+                                @endphp
+                                <a id="search-btn" href="{{route('giohang')}}"><i class="fas fa-shopping-cart"
+                                        aria-hidden="true"> {{$countItem}} </i></a>
                             </div>
                         </div>
                     </nav>
@@ -157,8 +166,8 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-content">
-                        <h2>Menu</h2>
-                        <a href="#menu" id="menubtn" class="btn caviar-btn"><span></span> Special</a>
+                        <h2>Kết quả giao dịch</h2>
+
                     </div>
                 </div>
             </div>
@@ -334,6 +343,7 @@
                                                                 <tr>
                                                                     <th>Khuyến mãi</th>
                                                                     <td>{{number_format($item->BILL_PROMOTION ,0,',','.')}}
+                                                                        đ
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -354,9 +364,11 @@
                                                 <div class="row no-print">
                                                     <div class="col-12">
 
-                                                        <a type="button" href='http://127.0.0.1:8000/trang/thucdon' class="btn btn-primary float-right"
+                                                        <a type="button" href='{{route('thucdon')}}'
+                                                            class="btn btn-primary float-right"
                                                             style="margin-right: 5px;">
-                                                            <i class="fas fa-external-link-square-alt"></i> Trở về giỏ hàng
+                                                            <i class="fas fa-external-link-square-alt"></i> Trở về trang
+                                                            thực đơn
                                                         </a>
                                                     </div>
                                                 </div>

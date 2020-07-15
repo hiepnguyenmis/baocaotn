@@ -33,7 +33,7 @@
                         <div class="text-center">
 
                             <img class="profile-user-img img-fluid img-circle"
-                                src="../../uploads/{{$customer->CUSTOMER_IMG}}" alt="User profile picture">
+                                src="{{$customer->CUSTOMER_IMG}}" alt="User profile picture">
                         </div>
 
                         <h3 class="profile-username text-center">{{$customer->CUSTOMER_NAME}}</h3>

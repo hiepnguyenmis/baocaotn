@@ -81,7 +81,7 @@ Route::group(['prefix' => '/trangquantri'], function () {
     Route::get('Chitietdondangvanchuyen/{bill_no}','OrderProcessingController@DetailOrderShipping')->name('Chitietdondangvanchuyen');
     Route::post('Kiemtradonhang/{bill_id}','OrderProcessingController@OrderCheckout')->name('Kiemtradonhang');
     Route::post('Xacnhandonhang/{bill_id}','OrderProcessingController@OrderConfirm')->name('Xacnhandonhang');
-
+    Route::post('xoadonhangcho/{bill_id}', 'OrderProcessingController@DeleteBill')->name('xoadonhangcho');
 });
 
 

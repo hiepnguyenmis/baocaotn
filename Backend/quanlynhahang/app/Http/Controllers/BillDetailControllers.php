@@ -28,6 +28,7 @@ class BillDetailControllers extends Controller
                         'BILL_NO',
                         'BILL_DATE',
                         'POSITION_NAME',
+                        'BILL_PROMOTION',
                         'EMPLOYEES_LASTNAME',
                         'EMPLOYEES_FIRSTNAME'
                     )->get();

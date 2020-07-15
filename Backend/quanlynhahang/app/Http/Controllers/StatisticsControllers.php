@@ -123,7 +123,7 @@ class StatisticsControllers extends Controller
             $percentDate = 0;
             if ($totalAllBillToday != null) {
                 $percentDate = (($totalAllBillToday - $totalAllBillYesterday) / $totalAllBillYesterday) * 100;
-                
+
             }
 
             // month

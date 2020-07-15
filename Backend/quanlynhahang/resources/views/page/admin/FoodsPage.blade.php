@@ -9,7 +9,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="trangquanly">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Quản lý ,ón ăn</li>
+                    <li class="breadcrumb-item active">Quản lý món ăn</li>
                 </ol>
             </div>
         </div>
@@ -81,7 +81,7 @@
                                                                     <div class="form-group">
                                                                         <label>Tên món ăn:</label>
                                                                         <input type="text" class="form-control"
-                                                                            placeholder="Thịt heo đùi" name='food_name'>
+                                                                            placeholder="Steak" name='food_name'>
                                                                         @if ($errors->has('food_name'))
                                                                         <div style="color: red">
                                                                             {{ $errors->first('food_name') }}

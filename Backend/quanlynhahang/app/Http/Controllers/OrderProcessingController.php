@@ -148,7 +148,7 @@ class OrderProcessingController extends Controller
     {
         $bilInfor = Bills::join('billdetail', 'bills.BILL_ID', '=', 'billdetail.BILLDETAIL_ID')
             ->join('customers', 'bills.CUSTOMER_ID', '=', 'customers.CUSTOMER_ID')
-            ->join('employees', 'bills.EMPLOYEE_ID', '=', 'employees.EMPLOYEES_ID')
+
             ->whereNotNull('bills.BILL_NO')
             ->where('bills.BILL_NO', '=', $bill_no)
             ->groupby(
@@ -164,8 +164,7 @@ class OrderProcessingController extends Controller
                 'bills.BILL_NO',
                 'bills.BILL_STATUS',
                 'bills.BILL_NOTE',
-                'employees.EMPLOYEES_LASTNAME',
-                'employees.EMPLOYEES_FIRSTNAME',
+
                 'bills.BILL_PROMOTION',
                 'bills.BILL_PAID'
             )
@@ -182,8 +181,7 @@ class OrderProcessingController extends Controller
                 'bills.BILL_NO',
                 'bills.BILL_STATUS',
                 'bills.BILL_NOTE',
-                'employees.EMPLOYEES_LASTNAME',
-                'employees.EMPLOYEES_FIRSTNAME',
+
                 'bills.BILL_PROMOTION',
                 'bills.BILL_PAID',
                 DB::raw('SUM(billdetail.BILLDETAIL_PRICE* billdetail.BILLDETAIL_AMOUNT) as BILL_TOTAL')
@@ -334,5 +332,14 @@ class OrderProcessingController extends Controller
             ->get();
 
         return view('page.admin.BillDetailShippingPage', ['bilInforShipping' => $bilInforShipping, 'billdetailShipping' => $billdetailShipping]);
+    }
+
+    public function DeleteBill($bill_id)
+    {   $billdetail=BillDetails::where('billdetail.BILLDETAIL_ID', $bill_id)->get();
+        foreach($billdetail as $itemBill){
+            $bills= BillDetails::findOrFail($itemBill->BILLDETAIL_ID)->delete();
+        }
+        $bills= Bills::findOrFail($bill_id)->delete();
+        return redirect()->back();
     }
 }

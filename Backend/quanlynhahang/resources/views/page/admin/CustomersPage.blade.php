@@ -48,13 +48,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ( $customers as $item )
+                            @foreach ( $customers as $key=> $item )
                             <?php
                                 $modalDeleteCustomer= "modal-Delete-Customers".$item->CUSTOMER_NO;
                             ?>
                             @if ($item->CUSTOMER_STATUS ==1)
                                 <tr>
-                                    <td></td>
+                                    <td>{{($customers->currentpage()-1) * $customers->perpage() + $key + 1}}</td>
                                     <td>{{$item->CUSTOMER_NO}}</td>
                                     <td>{{$item->CUSTOMER_NAME}}</td>
                                     <td>{{$item->CUSTOMER_PHONE}}</td>

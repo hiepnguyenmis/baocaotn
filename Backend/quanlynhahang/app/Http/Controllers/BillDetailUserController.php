@@ -12,7 +12,7 @@ class BillDetailUserController extends Controller
     public function DetailOrderUser($bill_no)
     {
 
-        $bilInfor = Bills::join('billdetail', 'bills.BILL_ID', '=', 'billdetail.BILLDETAIL_ID')
+        $billInfor = Bills::join('billdetail', 'bills.BILL_ID', '=', 'billdetail.BILLDETAIL_ID')
             ->join('customers', 'bills.CUSTOMER_ID', '=', 'customers.CUSTOMER_ID')
 
             ->whereNotNull('bills.BILL_NO')

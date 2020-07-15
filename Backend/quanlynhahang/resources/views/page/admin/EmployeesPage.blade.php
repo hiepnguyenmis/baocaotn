@@ -24,7 +24,7 @@
             <div class="card">
                 <div class="card-header">
                     <form action="timkiemNV" method="GET" class="form-inline">
-                        <input class="form-control mr-sm-2" name='search' type="search" placeholder="Search"
+                        <input class="form-control mr-sm-2" name='search' type="search" placeholder="Mã hoặc tên nguyên liệu"
                             aria-label="Search">
                     </form>
                 </div>
@@ -80,7 +80,7 @@
                                                                     <div class="form-group">
                                                                         <label>Họ:</label>
                                                                         <input type="text" class="form-control"
-                                                                            placeholder="Enter email"
+                                                                            placeholder="Nguyễn"
                                                                             name='employees_lastname'>
                                                                         @if ($errors->has('employees_lastname'))
                                                                         <div style="color: red">
@@ -169,7 +169,7 @@
                                                                     <div class="form-group">
                                                                         <label>Tên:</label>
                                                                         <input type="text" class="form-control"
-                                                                            placeholder="Enter email"
+                                                                            placeholder="Văn Hiệp"
                                                                             name="employees_firstname">
                                                                         @if ($errors->has('employees_firstname'))
                                                                         <div style="color: red">
@@ -182,7 +182,7 @@
                                                                     <div class="form-group">
                                                                         <label>Địa chỉ:</label>
                                                                         <input type="text" class="form-control"
-                                                                            placeholder="Enter email"
+                                                                            placeholder=" Số 6 Trần Văn Ơn, Tp.Thủ Dầu Một, T.Bình Dương"
                                                                             name="employees_address">
                                                                         @if ($errors->has('employees_address'))
                                                                         <div style="color: red">
@@ -217,7 +217,7 @@
                                                                     <div class="form-group">
                                                                         <label>Email:</label>
                                                                         <input type="text" class="form-control"
-                                                                            placeholder="Enter email"
+                                                                            placeholder="vanhiep1998@gmail.com"
                                                                             name="employees_mail">
                                                                     </div>
                                                                     @if ($errors->has('employees_mail'))
@@ -287,7 +287,7 @@
                             @php
                             $temp=1;
                             @endphp
-                            @foreach ( $employees as $item )
+                            @foreach ( $employees as $key => $item )
                             <?php
 
                             $modalEditEmployees= "modal-Edit-Employees".$item->EMPLOYEES_ID;
@@ -297,7 +297,7 @@
                             ?>
 
                             <tr>
-                                <td></td>
+                                <td>{{($employees->currentpage()-1) * $employees->perpage() + $key + 1}}</td>
                                 <td>{{$item->EMPLOYEES_NO}}</td>
                                 <td>{{$item->EMPLOYEES_LASTNAME}} {{$item->EMPLOYEES_FIRSTNAME}}</td>
                                 <td>{{$item->positions->POSITION_NAME}}</td>

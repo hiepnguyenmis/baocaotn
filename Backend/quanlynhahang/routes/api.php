@@ -43,6 +43,8 @@ Route::get('getidbilloftable/{id}','Api\OrderController@GetIDBillOfTable')->name
 Route::get('getonebill/{id}','Api\OrderController@GetOneBill')->name('getonebill');
 Route::get('find/{id}','Api\OrderController@GetOneBill')->name('getonebill');
 Route::get('findfoodinbilldetail/{id_bill}/{id_food}','Api\OrderController@FindBillinBillDetail')->name('findfoodinbilldetail');
+Route::get('getallbillswithtable','Api\OrderController@GetallBillsWithTable')->name('getallbillswithtable');
+Route::get('getstatustable','Api\OrderController@GetStatusTable')->name('getstatustable');
 
 Route::post('createbill','Api\Ordercontroller@CreateBill')->name('createbill.CreateBill');
 Route::delete('deletebill/{id}','Api\OrderController@DeleteBill')->name('deletebill');
@@ -58,6 +60,7 @@ Route::put('updatebilldetail/{id_billdetail}/{id_food}','Api\Ordercontroller@Upd
 Route::post('createcustomer','Api\Ordercontroller@CreateCustomer')->name('createcustomer.CreateCustomer');
 Route::get('getcustomer','Api\Ordercontroller@GetCustomer')->name('createcustomer.CreateCustomer');
 Route::get('getonecustomer/{phone}','Api\Ordercontroller@GetOneCustomer')->name('createcustomer.CreateCustomer');
+Route::put('updatecusromer/{id_customer}','Api\Ordercontroller@UpdateCustomer')->name('updatecusromer');
 
 
 //

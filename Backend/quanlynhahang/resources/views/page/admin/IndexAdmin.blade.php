@@ -44,7 +44,7 @@
 
                     </div>
                     <div class="col-4">
-                        <img src="https://photocross.net/wp-content/uploads/2020/03/bo-cuc-chup-anh-chan-dung.jpg" height="150" width="150" class="img-responsive rounded-circle  mx-auto d-block" alt="...">
+                        <img src="{{Session::get('employee_image')}}" height="150" width="150" class="img-responsive rounded-circle  mx-auto d-block" alt="...">
                     </div>
                     <div class="col-4">
 
@@ -55,7 +55,7 @@
 
                     </div>
                     <div class="col-4 text-center">
-                        <h2>Xin chào! Nguyễn Văn Hiệp</h2>
+                    <h2 class="text-white">Xin chào! {{Session::get('employee_lastname')}} {{Session::get('employee_firstname')}}</h2>
 
                     </div>
                     <div class="col-4">
