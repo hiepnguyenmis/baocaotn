@@ -40,22 +40,7 @@
     </div>
 
     <!-- ***** Search Form Area ***** -->
-    <div class="caviar-search-form d-flex align-items-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="search-close-btn" id="closeBtn">
-                        <i class="pe-7s-close-circle" aria-hidden="true"></i>
-                    </div>
-                    <form action="#" method="get">
-                        <input type="search" name="caviarSearch" id="search"
-                            placeholder="Search Your Favourite Dish ...">
-                        <input type="submit" class="d-none" value="submit">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- ***** Header Area Start ***** -->
     <header class="header_area" id="header">
@@ -83,8 +68,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#menu">Thực đơn</a>
                                 </li>
-
-
                             </ul>
                             <!-- Search Btn -->
 
@@ -150,7 +133,7 @@
                                 <h2>Giới thiệu</h2>
                                 <p>Quán có vị trí đẹp, nằm ngay cửa ngõ vào thành phố Đà Lạt. Nằm trên một ngọn đồi, 4 hướng đều là không gian mở. Quán xây dựng là một biệt thự kiểu Pháp có phần hiện đại. Tận dụng mọi không gian rất trang nhã, nghệ thuật. Đồ ăn ngon. Hương vị kiểu Châu âu đúng chất và ít béo. Cách bày trí món ăn rất .
                                 </p>
-                                <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span> Reservation</a>
+                                <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span> Xem thực đơn</a>
                             </div>
                         </div>
                     </div>
@@ -169,7 +152,7 @@
                                 <h2>Giới thiệu</h2>
                                 <p>Quán có vị trí đẹp, nằm ngay cửa ngõ vào thành phố Đà Lạt. Nằm trên một ngọn đồi, 4 hướng đều là không gian mở. Quán xây dựng là một biệt thự kiểu Pháp có phần hiện đại. Tận dụng mọi không gian rất trang nhã, nghệ thuật. Đồ ăn ngon. Hương vị kiểu Châu âu đúng chất và ít béo. Cách bày trí món ăn rất .
                                 </p>
-                            <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span> Thực đơn</a>
+                            <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span>Xem thực đơn</a>
 
                             </div>
                         </div>
@@ -234,37 +217,25 @@
                         <h2>Đặt biệt</h2>
                     </div>
                     <!-- btn -->
-                <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span> Xem menu</a>
+                <a href="{{route('thucdon')}}" class="btn caviar-btn"><span></span> Xem Tất cả thực đơn</a>
                 </div>
             </div>
             <div class="row">
+                @foreach ($foodspecial->chunk(3) as $chunk)
+                @foreach ($chunk as $item)
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="caviar-single-dish wow fadeInUp" data-wow-delay="0.5s">
-                        <img class="rounded" src="{{asset('index/img/menu-img/dish-1.png')}}" alt="">
+                        <img src="{{asset('index/img/menu-img/dish-1.png')}}" alt="">
                         <div class="dish-info">
-                            <h6 class="dish-name">Lorem Ipsum Dolor Sit Amet</h6>
-                            <p class="dish-price">100.000 đ</p>
+                            <h6 class="dish-name">{{$item->FOOD_NAME}}</h6>
+                            <p class="dish-price">{{($item->FOOD_PRICE/1000)."K"}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="caviar-single-dish wow fadeInUp" data-wow-delay="1s">
-                        <img src="{{asset('index/img/menu-img/dish-2.png')}}" alt="">
-                        <div class="dish-info">
-                            <h6 class="dish-name">Lorem Ipsum</h6>
-                            <p class="dish-price">$45</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="caviar-single-dish wow fadeInUp" data-wow-delay="1.5s">
-                        <img src="{{asset('index/img/menu-img/dish-3.png')}}" alt="">
-                        <div class="dish-info">
-                            <h6 class="dish-name">Lorem Ipsum Dolor Sit Amet</h6>
-                            <p class="dish-price">$45</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                @endforeach
+
+
             </div>
         </div>
     </section>
@@ -274,12 +245,8 @@
     <section class="caviar-awards-area" id="awards">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-12 col-md-2">
-                    <div class="section-heading">
-                        <h2>Awards</h2>
-                    </div>
-                </div>
-                <div class="col-12 col-md-9 ml-md-auto">
+
+                <div class="col-12 ml-md-auto">
                     <div class="caviar-awards d-sm-flex justify-content-between">
                         <img src="{{asset('index/img/awards-img/a-1.png')}}" alt="">
                         <img src="{{asset('index/img/awards-img/a-2.png')}}" alt="">

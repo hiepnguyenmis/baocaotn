@@ -12,6 +12,7 @@ class IndexAdminController extends Controller
         if(Session::has('login')){
 
             return view('page.admin.IndexAdmin');
+            
         }
         return redirect('trangquantri/dang-nhap');
     }

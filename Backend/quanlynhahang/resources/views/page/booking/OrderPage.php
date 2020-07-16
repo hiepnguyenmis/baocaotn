@@ -232,10 +232,7 @@ if(!isset($_SESSION["check_employee"])){
                                                                             </div>
                                                                             <span class="text-warning">{{mergeStatus}}</span>
                                                                         </form>
-
                                                                     </div>
-
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -384,27 +381,18 @@ if(!isset($_SESSION["check_employee"])){
                                                     </p>
                                                     <div class="collapse" id="inforCustomer">
                                                         <div class="card card-body">
-                                                            <ng-form name='addCustomer'>
+                                                            <form name='addCustomer' ng-submit="AddNewCustomer()">
                                                                 <div class="form-group row">
                                                                     <label for="phoneCustomer" class="col-sm-5 col-form-label">Số điện thoại:</label>
                                                                     <div class="col-sm-7">
-                                                                        <input type="email" class="form-control" ng-model='phoneCustomer' id="phoneCustomer" disabled>
+                                                                        <input type="phone" class="form-control" ng-model='phoneCustomer' id="phoneCustomer" disabled>
                                                                     </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <label for="nameCustomer" class="col-sm-5 col-form-label">Tên khách hàng(<span class="text-danger">*</span>):</label>
-                                                                    <div class="col-sm-7">
-                                                                        <input type="text" class="form-control" id="nameCustomer" name='nameCustomer' ng-model='nameCustomer' placeholder="Password" ng-required="true">
-                                                                    </div>
+                                                                    {{notificationCreate}}
                                                                 </div>
 
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-10">
-                                                                        <button type="submit" ng-disabled="addCustomer.nameCustomer.$invalid" class="btn btn-primary">Thêm</button>
-                                                                    </div>
-                                                                </div>
-                                                            </ng-form>
-                                                            <small class="text-danger">* Trường bắt buộc</small>
+                                                                <button class="btn btn-primary" type="submit">Thêm</button>
+                                                            </form>
+
                                                         </div>
                                                     </div>
                                                 </div>

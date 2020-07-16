@@ -20,8 +20,6 @@ class UserOrder extends Controller
                 'foods.FOOD_TYPE',
                 'foods.FOOD_IMG',
                 'foods.FOOD_PRICE',
-                
-
             )->get());
         $foodspecial = collect(Foods::where('foods.FOOD_STATUS', '=', 1)
             ->where('foods.FOOD_TYPE', '<>', 4)

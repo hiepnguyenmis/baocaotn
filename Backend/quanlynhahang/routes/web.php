@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('page.index.Index');
-});
+Route::get('/','IndexControllers@GetIndex')->name('/');
 Route::group(['prefix'=>'/trang'], function(){
     Route::get('/lienhe', function () {
         return view('page.index.Contact');

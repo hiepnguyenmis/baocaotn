@@ -50,18 +50,18 @@
                         <div class="collapse navbar-collapse" id="caviarNav">
                             <ul class="navbar-nav ml-auto" id="caviarMenu">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#home">Trang chủ <span
+                                    <a class="nav-link" href="{{route('/')}}#home">Trang chủ <span
                                             class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#about">Về chúng tôi</a>
+                                    <a class="nav-link" href="{{route('/')}}#about">Về chúng tôi</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#awards">Các chứng nhận</a>
+                                <a class="nav-link" href="{{route('/')}}/#awards">Các chứng nhận</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#menu">Thực đơn</a>
+                                    <a class="nav-link" href="{{route('thucdon')}}">Thực đơn</a>
                                 </li>
 
 
@@ -116,8 +116,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-content">
-                        <h2>Menu</h2>
-                        <a href="#menu" id="menubtn" class="btn caviar-btn"><span></span> Special</a>
+                        <h2>Trang cá nhân</h2>
                     </div>
                 </div>
             </div>
@@ -203,11 +202,11 @@
                                     <ul class="nav nav-pills">
                                         <li class="nav-item"><a class="nav-link active" href="#activity"
                                                 data-toggle="tab">Đơn hàng chờ xử lý</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Đơn
+                                        <li class="nav-item"><a class="nav-link" href="#all" data-toggle="tab">Đơn
                                                 hàng đang xử lý</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Đơn
                                                 hàng đang vận chuyển</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#all" data-toggle="tab">Đơn hàng
+                                        <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Đơn hàng
                                                 hoàn thành</a></li>
                                     </ul>
                                 </div><!-- /.card-header -->

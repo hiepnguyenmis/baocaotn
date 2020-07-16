@@ -61,7 +61,19 @@ app.controller('OrderControler', function ($scope, $http) {
                                 "background-color" : "white"
                               }
                         }
-
+                        $http({
+                            method: 'GET',
+                            url: baseUrl + 'getbillwithtable/' + table.TABLE_ID
+                        }).then(function mySuccess(response){
+                            const {
+                                foods
+                            } = response.data[0];
+                            if(IsEmptyObject(foods)){
+                                table.tableColor= {
+                                    "background-color" : "red"
+                                  }
+                            }
+                        });
                     });
 
                 });
@@ -353,6 +365,7 @@ app.controller('OrderControler', function ($scope, $http) {
                         });
                     }
                     $scope.GetAllIdBillStatusFalse()
+                    $scope.getTable()
                 });
             }
         });
@@ -441,7 +454,21 @@ app.controller('OrderControler', function ($scope, $http) {
         }
 
     }
+    $scope.AddNewCustomer = function () {
+        $scope.phoneCustomer;
+        data={
+            'CUSTOMER_PHONE':$scope.phoneCustomer
+        };
+        $http.post(baseUrl + 'createcustomer', data).then((response) => {
+            console.log(false);
+            $scope.loadingmerge = true;
+            $scope.notificationCreate='Thêm thành công'
+        }, (err) => {
+            $scope.notificationCreate='Thêm thất bại'
+            return;
+        });
 
+    }
     $scope.PayBill = function () {
 
         var idTable = $scope.tableIndex;
@@ -590,9 +617,7 @@ app.controller('OrderControler', function ($scope, $http) {
 
     }
 
-    $scope.AddNewCustomer = function () {
 
-    }
 
     $scope.AddPromotion = function () {
         var idTable = $scope.tableIndex;
@@ -727,7 +752,7 @@ app.controller('OrderControler', function ($scope, $http) {
                                         }
                                         $scope.putBill(itemBillMerge.pivot.BILLDETAIL_ID, itemBillMerge.FOOD_ID, data);
                                         $scope.DeleteBillDetailWithBillId(itemmergeByBill.pivot.BILLDETAIL_ID, itemmergeByBill.FOOD_ID);
-
+                                        $scope.mergeStatus='';
 
                                     } else {
                                         let dataMerge = {
@@ -748,6 +773,7 @@ app.controller('OrderControler', function ($scope, $http) {
                                             $scope.CreateBillDetailWithData(dataMerge)
                                             $scope.DeleteBillDetailWithBillId(itemmergeByBill.pivot.BILLDETAIL_ID, itemmergeByBill.FOOD_ID);
                                         }
+                                        $scope.mergeStatus='';
                                     }
 
                                 });
@@ -766,7 +792,7 @@ app.controller('OrderControler', function ($scope, $http) {
             $scope.mergeStatus = 'Trùng hóa đơn';
         }
         console.log($scope.mergeStatus);
-        
+
     }
 
 });

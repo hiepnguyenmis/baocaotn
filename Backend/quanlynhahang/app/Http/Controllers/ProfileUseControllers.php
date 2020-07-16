@@ -17,8 +17,8 @@ class ProfileUseControllers extends Controller
                 ->where('customers.CUSTOMER_NO','=',$customers_no)
                 ->groupby('bills.BILL_ID', 'bills.BILL_PAID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS')
                 ->select('bills.BILL_ID', 'bills.BILL_PAID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS', DB::raw('SUM(billdetail.BILLDETAIL_PRICE* billdetail.BILLDETAIL_AMOUNT) as BILL_TOTAL'))
-
                 ->paginate(10, ['*'], 'billWaitting');
+                
         $billProcessing = Bills::join('billdetail', 'bills.BILL_ID', '=', 'billdetail.BILLDETAIL_ID')
                 ->join('customers', 'bills.CUSTOMER_ID', '=', 'customers.CUSTOMER_ID')
                 ->whereNotNull('bills.BILL_NO')

@@ -53,11 +53,11 @@
                                     <a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#about">Về chúng tôi</a>
+                                    <a class="nav-link" href="{{route('/')}}#about">Về chúng tôi</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#awards">Các chứng nhận</a>
+                                    <a class="nav-link" href="{{route('/')}}#awards">Các chứng nhận</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('thucdon')}}">Thực đơn</a>

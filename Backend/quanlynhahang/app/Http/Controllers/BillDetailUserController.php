@@ -54,7 +54,7 @@ class BillDetailUserController extends Controller
             )
             ->get();
 
-        foreach ($bilInfor as $item) {
+        foreach ($billInfor as $item) {
             $billId = $item->BILL_ID;
         }
         $billdetail = BillDetails::join('foods', 'billdetail.FOOD_ID', '=', 'foods.FOOD_ID')
@@ -62,6 +62,6 @@ class BillDetailUserController extends Controller
             ->where('billdetail.BILLDETAIL_ID', '=', $billId)
             ->get();
 
-        return view('page.index.BillDetailUserPage', ['bilInfor' => $bilInfor, 'billdetail' => $billdetail]);
+        return view('page.index.BillDetailUserPage', ['billInfor' => $billInfor, 'billdetail' => $billdetail]);
     }
 }

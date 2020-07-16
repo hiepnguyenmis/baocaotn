@@ -98,18 +98,18 @@
                         <div class="collapse navbar-collapse" id="caviarNav">
                             <ul class="navbar-nav ml-auto" id="caviarMenu">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#home">Trang chủ <span
+                                    <a class="nav-link" href="{{route('/')}}#home">Trang chủ <span
                                             class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#about">Về chúng tôi</a>
+                                    <a class="nav-link" href="{{route('/')}}#about">Về chúng tôi</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#awards">Các chứng nhận</a>
+                                    <a class="nav-link" href="{{route('/')}}#awards">Các chứng nhận</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#menu">Thực đơn</a>
+                                    <a class="nav-link" href="{{route('thucdon')}}">Thực đơn</a>
                                 </li>
 
 
