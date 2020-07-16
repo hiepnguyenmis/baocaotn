@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <button class="btn btn-primary" type="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Title" data-content="Content">Trang thu ngân| Cavia hệ thống nhà hàng</button>
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

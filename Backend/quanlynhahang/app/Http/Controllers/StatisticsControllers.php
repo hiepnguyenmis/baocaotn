@@ -85,7 +85,7 @@ class StatisticsControllers extends Controller
                 ->where('bills.BILL_DATE', '=', $datetime->toDateString())
                 ->groupby('bills.BILL_ID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS')
                 ->select('bills.BILL_ID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS', DB::raw('SUM(billdetail.BILLDETAIL_PRICE* billdetail.BILLDETAIL_AMOUNT) as BILL_TOTAL'))
-                ->paginate(1, ['*'], 'billToday');
+                ->paginate(4, ['*'], 'billToday');
 
             $billTotalToday = Bills::join('billdetail', 'bills.BILL_ID', '=', 'billdetail.BILLDETAIL_ID')
                 ->join('customers', 'bills.CUSTOMER_ID', '=', 'customers.CUSTOMER_ID')
@@ -277,7 +277,7 @@ class StatisticsControllers extends Controller
             ->where('bills.BILL_NO', 'LIKE', "%$search%")
             ->groupby('bills.BILL_ID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS')
             ->select('bills.BILL_ID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS', DB::raw('SUM(billdetail.BILLDETAIL_PRICE) as BILL_TOTAL'))
-            ->paginate(1, ['*'], 'billToday');
+            ->paginate(4, ['*'], 'billToday');
         $billTotalToday = Bills::join('billdetail', 'bills.BILL_ID', '=', 'billdetail.BILLDETAIL_ID')
             ->join('customers', 'bills.CUSTOMER_ID', '=', 'customers.CUSTOMER_ID')
             ->whereNotNull('bills.BILL_NO')
@@ -449,7 +449,7 @@ class StatisticsControllers extends Controller
             ->where('bills.BILL_DATE', '=', $datetime->toDateString())
             ->groupby('bills.BILL_ID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS')
             ->select('bills.BILL_ID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS', DB::raw('SUM(billdetail.BILLDETAIL_PRICE* billdetail.BILLDETAIL_AMOUNT) as BILL_TOTAL'))
-            ->paginate(1, ['*'], 'billToday');
+            ->paginate(4, ['*'], 'billToday');
 
         $billTotalToday = Bills::join('billdetail', 'bills.BILL_ID', '=', 'billdetail.BILLDETAIL_ID')
             ->join('customers', 'bills.CUSTOMER_ID', '=', 'customers.CUSTOMER_ID')
@@ -630,7 +630,7 @@ class StatisticsControllers extends Controller
             ->where('bills.BILL_DATE', '=', $datetime->toDateString())
             ->groupby('bills.BILL_ID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS')
             ->select('bills.BILL_ID', 'customers.CUSTOMER_PHONE', 'customers.CUSTOMER_NO', 'bills.BILL_NO', 'bills.BILL_STATUS', DB::raw('SUM(billdetail.BILLDETAIL_PRICE* billdetail.BILLDETAIL_AMOUNT) as BILL_TOTAL'))
-            ->paginate(1, ['*'], 'billToday');
+            ->paginate(4, ['*'], 'billToday');
 
         $billTotalToday = Bills::join('billdetail', 'bills.BILL_ID', '=', 'billdetail.BILLDETAIL_ID')
             ->join('customers', 'bills.CUSTOMER_ID', '=', 'customers.CUSTOMER_ID')

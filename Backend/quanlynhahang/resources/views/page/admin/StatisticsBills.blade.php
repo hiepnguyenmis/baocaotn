@@ -119,7 +119,7 @@
                                         <td class="text-danger">{{number_format($totalAllBillYesterday,2,',','.')}} vnđ</td>
                                     </tr>
                                     <tr>
-                                        <td>Tỉ lệ phần trăm:</td>
+                                        <td>Tỉ lệ phần trăm chênh lệch:</td>
                                         <td class="text-danger">{{round($percentDate)}} %</td>
                                     </tr>
                                 </tbody>
@@ -241,7 +241,7 @@
                                         <td class="text-danger">{{number_format($totalAllBillLastonth,2,',','.')}} vnđ</td>
                                     </tr>
                                     <tr>
-                                        <td>Tỉ lệ phần trăm:</td>
+                                        <td>Tỉ lệ phần trăm chênh lệch:</td>
                                         <td class="text-danger">{{round($percentMonth)}} %</td>
                                     </tr>
                                 </tbody>

@@ -389,7 +389,6 @@ if(!isset($_SESSION["check_employee"])){
                                                                     </div>
                                                                     {{notificationCreate}}
                                                                 </div>
-
                                                                 <button class="btn btn-primary" type="submit">Thêm</button>
                                                             </form>
 
@@ -463,19 +462,7 @@ if(!isset($_SESSION["check_employee"])){
             </div>
             <div class="col-4"></div>
         </div>
-    </div>
-    <div class="container-fluid content-responsive">
-        <div class="row mt-5">
-            <div class="col">
-                <div class="alert alert-success" role="alert">
-                    <h4 class="alert-heading">Hưm! Có vẻ bạn đang gặp vấn đề?</h4>
-                    <p>Chuyển sang chế độ toàn màn hình để có thể làm việc dễ dàng hơn</p>
-                    <hr>
-                </div>
-            </div>
-        </div>
-    </div>
-    <form id="form-bill-processing">
+        <form id="form-bill-processing">
             <!-- print -->
             <div class="container print-bill" style="font-size: 18px; line-height: 5px;">
                 <div class="row">
@@ -488,38 +475,25 @@ if(!isset($_SESSION["check_employee"])){
                         <div style="border:0.5px dashed"></div>
                         <h5 style="text-align: center">HÓA ĐƠN CHI TIẾT</h5>
 
-                        <p style="text-align: center; font-size: 16px"><b>Mã Hóa Đơn:
-                                {{$print_bills->BILL_NO}} </b></p>
-                        <p style="text-align: center; font-size: 12px"><b>Ngày Lập:
-                                {{$print_bills->BILL_DATE}}</b></p>
+
 
                         <div class="row">
                             <div class="col-sm-6">
                                 <div style="line-height: 10px;">
 
-                                    <p>Mã khách hàng: NV1472020898</p>
-                                    <p>Tên khách hàng: Nguyễn Văn Hiệp</p>
-                                    <p>Địa chỉ nhận hàng: </p>
-                                    <p>Số điện thoại: 0985007111</p>
-                                    <p>Email: work.vanhiep1998@gmail.com</p>
 
-                                    <p>Tổng Tiền Hàng: 300.000đ
+                                    <p>Tên khách hàng: {{customerbyphone.CUSTOMER_NAME}}</p>
+                                    <p>Địa chỉ nhận hàng: </p>
+                                    <p>Số điện thoại: {{checkPhoneCus}}</p>
+
+                                    <p>Điểm tích lỹ:{{customerbyphone.CUSTOMER_MARK}}</p>
+                                    <p>Tổng Tiền Hàng: {{total | currency:'':0}}đ
                                         đ</p>
-                                    <p>Giảm Giá: 0 đ</p>
+                                    <p>Giảm Giá: {{allPromotionOfBill | currency:'':0}}đ</p>
                                     <p>Tổng cộng: 0
                                         đ</p>
                                     <p style="font-size: 20px"><b>Đã thanh toán:
-                                            abc đ</b></p>
-
-                                    <p style="font-size: 20px"><b>Đã thanh toán:
-                                            abc đ</b></p>
-
-                                    @else
-                                    <p style="font-size: 20px"><b>Thanh toán sau:
-                                            abc đ</b></p>
-                                    @endif
-                                    <p>Thuế: 0%</p>
-                                    @endforeach
+                                    {{total- allPromotionOfBill| currency:'':0}} đ</b></p>
 
                                     <hr>
                                 </div>
@@ -534,7 +508,7 @@ if(!isset($_SESSION["check_employee"])){
                     <div>
                         <table class="table table-dark  align-items-center table-flush accordion  " id="accordionRow">
                             <thead class="boder">
-                                <tr>
+                                <tr >
                                     <th scope="col">STT</th>
                                     <th scope="col">TenM/A</th>
                                     <th scope="col">SL</th>
@@ -545,23 +519,14 @@ if(!isset($_SESSION["check_employee"])){
                             </thead>
                             <tbody>
 
-                                <!-- @php
-                                $total=null;
-                                $no=1;
-                                @endphp
-                                @foreach ($billdetail as $item )
-                                @php
-                                $intoMoney=$item->BILLDETAIL_AMOUNT * $item->BILLDETAIL_PRICE;
-                                $total+=$intoMoney;
-                                @endphp -->
-                                <tr >
-                                    <th scope="row"></th>
-                                    <td>Bánh tráng Trảng Bàng cuốn chân giò luộc (L)</td>
-                                    <td>1
 
-                                    </td>
-                                    <td>20.000 đ</td>
-                                    <td>20.000 đ</td>
+                                <tr ng-repeat='food in getonebill'>
+                                <th scope="row">1</th>
+                                <td>{{food.FOOD_NAME}}</td>
+                                <td>{{food.FOOD_UNIT}}</td>
+                                <td>{{food.FOOD_PRICE | currency: '': 0}} đ</td>
+                                <td>{{food.pivot.BILLDETAIL_AMOUNT}}</td>
+                                <td>{{food.pivot.BILLDETAIL_PRICE * food.pivot.BILLDETAIL_AMOUNT | currency: '': 0}} đ</td>
                                 </tr>
 
 
@@ -572,6 +537,19 @@ if(!isset($_SESSION["check_employee"])){
             </div>
             <!-- end print -->
         </form>
+    </div>
+    <div class="container-fluid content-responsive">
+        <div class="row mt-5">
+            <div class="col">
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Hưm! Có vẻ bạn đang gặp vấn đề?</h4>
+                    <p>Chuyển sang chế độ toàn màn hình để có thể làm việc dễ dàng hơn</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">

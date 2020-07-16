@@ -1,0 +1,424 @@
+-- MariaDB dump 10.17  Distrib 10.4.11-MariaDB, for Win64 (AMD64)
+--
+-- Host: 127.0.0.1    Database: quanlynhahang
+-- ------------------------------------------------------
+-- Server version	10.4.11-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `billdetail`
+--
+
+DROP TABLE IF EXISTS `billdetail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `billdetail` (
+  `BILLDETAIL_ID` int(11) NOT NULL,
+  `FOOD_ID` int(11) NOT NULL,
+  `BILLDETAIL_PRICE` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BILLDETAIL_AMOUNT` int(11) DEFAULT NULL,
+  PRIMARY KEY (`BILLDETAIL_ID`,`FOOD_ID`),
+  KEY `fk_HOADONCHITIET_MONAN1_idx` (`FOOD_ID`),
+  CONSTRAINT `FK_BILLDETAIL_ID_BILLDETAIL` FOREIGN KEY (`BILLDETAIL_ID`) REFERENCES `bills` (`BILL_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_FOODS_FOODID` FOREIGN KEY (`FOOD_ID`) REFERENCES `foods` (`FOOD_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `billdetail`
+--
+
+LOCK TABLES `billdetail` WRITE;
+/*!40000 ALTER TABLE `billdetail` DISABLE KEYS */;
+INSERT INTO `billdetail` VALUES (490,1,'50000',2),(490,2,'50000',8),(490,3,'35000',7),(490,4,'40000',5),(490,5,'25000',1),(490,6,'20000',2),(490,7,'30000',2),(490,8,'40000',3),(490,12,'18000',1),(502,2,'50000',1),(502,3,'35000',1),(504,2,'50000',1),(504,3,'35000',1),(505,2,'50000',2),(505,3,'35000',1),(505,4,'40000',1),(507,2,'50000',2),(507,3,'35000',1),(507,4,'40000',1),(507,6,'20000',1),(508,2,'50000',1),(508,3,'35000',1),(508,4,'40000',1),(508,7,'30000',1),(508,8,'40000',1),(508,14,'5000',1),(509,2,'50000',1),(509,3,'35000',1),(509,4,'40000',1),(509,5,'25000',1),(509,6,'20000',1),(509,7,'30000',1),(509,8,'40000',1),(510,2,'50000',1),(510,3,'35000',1),(510,4,'40000',1),(511,2,'50000',1),(511,4,'40000',1),(511,6,'20000',1),(511,7,'30000',1),(511,8,'40000',1),(512,2,'50000',1),(512,3,'35000',1),(512,4,'40000',1),(512,8,'40000',1),(513,2,'50000',1),(513,3,'35000',1),(513,4,'40000',1),(513,7,'30000',1),(513,8,'40000',1),(514,2,'50000',1),(514,3,'35000',1),(514,4,'40000',1),(514,8,'40000',1),(516,1,'50000',1),(516,2,'50000',1),(516,3,'35000',2),(516,4,'40000',1),(516,8,'40000',1),(517,3,'35000',1),(517,4,'40000',1),(519,2,'50000',1),(519,3,'35000',1),(519,4,'40000',1),(519,8,'40000',1),(520,1,'50000',1),(520,2,'50000',1),(520,3,'35000',1),(520,4,'40000',1),(521,3,'35000',1),(521,4,'40000',1),(521,7,'30000',1),(521,8,'40000',1),(522,1,'50000',1),(522,2,'50000',1),(522,3,'35000',1),(522,4,'40000',1),(522,5,'25000',1),(522,6,'20000',1),(522,7,'30000',1),(522,8,'40000',1),(523,1,'50000',1),(523,2,'50000',1),(523,3,'35000',1),(523,4,'40000',1),(524,2,'50000',1),(524,3,'35000',1),(524,4,'40000',1),(526,1,'50000',1),(526,2,'50000',1),(526,3,'35000',2),(526,4,'40000',1),(526,5,'25000',1),(526,6,'20000',1),(526,7,'30000',1),(526,8,'40000',1),(527,2,'50000',1),(527,3,'35000',1),(527,4,'40000',1),(528,2,'50000',1),(528,3,'35000',1),(530,3,'35000',3),(530,4,'40000',2),(530,42,'20000',1),(531,2,'50000',1),(532,2,'50000',1),(532,3,'35000',1),(532,4,'40000',1),(532,6,'20000',1),(532,8,'40000',1),(533,1,'50000',1),(533,2,'50000',1),(533,3,'35000',1),(533,4,'40000',1),(533,6,'20000',1),(533,7,'30000',1),(533,8,'40000',1),(539,7,'30000',1),(539,8,'40000',1),(540,7,'30000',1),(540,8,'40000',1),(541,7,'30000',1),(541,8,'40000',1),(542,7,'30000',1),(542,8,'40000',1),(543,7,'30000',1),(543,8,'40000',1),(554,1,'5000000',1),(554,2,'50000',1),(554,4,'40000',1),(556,1,'5000000',1),(556,2,'50000',1),(556,4,'40000',1),(557,2,'50000',1),(557,4,'40000',1),(558,2,'50000',2),(558,5,'25000',1),(564,2,'50000',1),(564,3,'35000',1),(564,4,'40000',1),(564,7,'30000',1),(564,8,'40000',1),(568,1,'5000000',1),(568,2,'50000',1),(568,6,'20000',1),(569,1,'5000000',1),(569,2,'50000',1),(569,6,'20000',1),(570,1,'5000000',1),(570,2,'50000',1),(570,6,'20000',1),(571,1,'5000000',1),(571,2,'50000',1),(571,6,'20000',1),(572,1,'5000000',1),(572,2,'50000',1),(572,6,'20000',1),(573,1,'5000000',1),(573,2,'50000',1),(573,6,'20000',1),(574,1,'5000000',1),(574,2,'50000',1),(574,6,'20000',1),(575,2,'50000',2),(576,2,'50000',2),(577,2,'50000',2),(578,2,'50000',2),(579,2,'50000',2),(580,2,'50000',2),(581,2,'50000',2),(582,2,'50000',2),(583,2,'50000',2),(584,2,'50000',2),(585,2,'50000',2),(586,2,'50000',2),(587,2,'50000',2),(588,2,'50000',2),(589,2,'50000',2),(590,2,'50000',2),(591,2,'50000',2),(592,2,'50000',2),(593,2,'50000',2),(594,2,'50000',2),(595,2,'50000',1),(595,5,'25000',1),(596,2,'50000',1),(596,5,'25000',1),(597,4,'40000',2),(598,2,'50000',1),(599,2,'50000',1),(599,41,'20000',1),(600,4,'40000',1),(601,2,'50000',1),(601,4,'40000',1),(602,2,'50000',1),(602,4,'40000',1),(603,4,'40000',1),(603,5,'25000',1),(604,2,'50000',1),(604,3,'35000',1),(605,2,'50000',1),(605,3,'35000',1),(605,4,'40000',1),(606,2,'50000',1),(606,3,'35000',1),(606,4,'40000',1),(608,11,'15000',1),(609,6,'20000',1),(610,2,'50000',1),(610,3,'35000',3),(612,1,'5000000',1),(612,3,'35000',2),(612,4,'40000',1),(612,8,'40000',3),(613,2,'50000',1),(614,2,'50000',2),(614,3,'35000',1),(614,4,'40000',1),(625,2,'50000',1),(626,2,'50000',1),(629,2,'50000',1),(630,2,'50000',1),(630,3,'35000',3),(630,4,'40000',1),(630,7,'30000',2),(632,2,'50000',1),(633,4,'40000',1),(634,4,'40000',1),(635,2,'50000',1),(635,3,'35000',1),(635,4,'40000',1),(638,2,'50000',1),(640,1,'5000000',1),(640,2,'50000',1),(640,3,'35000',1),(641,2,'50000',1),(642,2,'50000',1),(642,3,'35000',1),(643,2,'50000',1),(643,4,'40000',1),(644,3,'35000',1),(644,4,'40000',2),(645,2,'50000',1),(646,2,'50000',1),(647,3,'35000',1),(656,1,'5000000',1),(656,5,'25000',1),(657,1,'5000000',1),(658,1,'5000000',1),(660,2,'50000',1),(662,1,'5000000',1),(683,1,'5000000',2),(683,2,'50000',9),(683,3,'35000',1),(683,4,'40000',6),(683,5,'25000',6),(684,4,'40000',3),(688,4,'40000',1),(688,5,'25000',2),(691,10,'35000',1),(695,1,'5000000',1),(695,5,'25000',2),(698,1,'5000000',1),(698,4,'40000',1),(699,1,'5000000',1),(700,1,'5000000',1),(700,2,'50000',1),(700,4,'40000',1),(700,5,'25000',2),(705,1,'5000000',1),(706,2,'50000',1),(706,4,'40000',3),(709,1,'5000000',1),(710,2,'50000',1),(712,4,'40000',2),(712,5,'25000',3),(714,5,'25000',2),(715,2,'50000',1),(722,5,'25000',1),(725,2,'50000',1),(725,4,'40000',1),(726,2,'50000',1),(727,1,'50000',5),(727,2,'50000',3),(727,5,'25000',3),(727,7,'30000',1),(729,7,'30000',1),(731,2,'50000',1),(731,4,'40000',1),(731,5,'25000',1),(732,2,'50000',1),(732,4,'40000',1),(733,2,'50000',1),(733,4,'40000',1),(734,4,'40000',1),(734,5,'25000',2),(735,4,'40000',2),(736,2,'50000',1),(736,41,'20000',1),(738,2,'50000',1),(738,4,'40000',1),(738,5,'25000',1),(739,2,'50000',2),(739,4,'40000',2),(741,1,'50000',1),(741,4,'40000',1),(741,5,'25000',1),(741,8,'40000',1),(741,9,'35000',1);
+/*!40000 ALTER TABLE `billdetail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bills`
+--
+
+DROP TABLE IF EXISTS `bills`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bills` (
+  `BILL_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `BILL_NO` varchar(45) DEFAULT NULL,
+  `BILL_DATE` date DEFAULT NULL,
+  `BILL_STATUS` tinyint(4) DEFAULT NULL,
+  `BILL_TAX` varchar(45) DEFAULT NULL,
+  `CUSTOMER_ID` int(11) DEFAULT NULL,
+  `TABLE_ID` int(11) DEFAULT NULL,
+  `EMPLOYEE_ID` int(11) DEFAULT NULL,
+  `BILL_PROMOTION` int(11) DEFAULT NULL,
+  `BILL_DELIVERYADDRESS` text DEFAULT NULL,
+  `BILL_PAID` int(11) DEFAULT NULL,
+  `BILL_NOTE` text DEFAULT NULL,
+  `PHONE_DELIVERY` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`BILL_ID`),
+  UNIQUE KEY `BILL_NO_UNIQUE` (`BILL_NO`),
+  KEY `FK_TABLE_ID_TABLES` (`TABLE_ID`),
+  KEY `FK_EMPLOYEE_ID_EMPLOYEES` (`EMPLOYEE_ID`),
+  KEY `FK_CUSTOMER_ID_CUSTOMERS` (`CUSTOMER_ID`),
+  CONSTRAINT `FK_CUSTOMER_ID_CUSTOMERS` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `customers` (`CUSTOMER_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_EMPLOYEE_ID_EMPLOYEES` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `employees` (`EMPLOYEES_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_TABLE_ID_TABLES` FOREIGN KEY (`TABLE_ID`) REFERENCES `tables` (`TABLE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=743 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bills`
+--
+
+LOCK TABLES `bills` WRITE;
+/*!40000 ALTER TABLE `bills` DISABLE KEYS */;
+INSERT INTO `bills` VALUES (490,'HD202062022860','2020-06-11',1,NULL,1,1,1,NULL,NULL,NULL,NULL,NULL),(502,'HD202062088113','2020-06-11',1,NULL,1,4,1,0,NULL,NULL,NULL,NULL),(504,'HD202062061528','2020-08-11',1,NULL,1,10,1,NULL,NULL,NULL,NULL,NULL),(505,'HD202062014096','2020-05-20',1,NULL,1,2,1,NULL,NULL,NULL,NULL,NULL),(507,'HD202062011541','2019-04-20',1,NULL,1,3,32,NULL,NULL,NULL,NULL,NULL),(508,'HD2020621103541','2020-06-20',1,NULL,1,4,1,NULL,NULL,NULL,NULL,NULL),(509,'HD202062169603','2020-06-21',1,NULL,1,3,1,NULL,NULL,NULL,NULL,NULL),(510,'HD202062169667','2020-06-21',1,NULL,1,7,1,NULL,NULL,NULL,NULL,NULL),(511,'HD202062151513','2019-02-21',1,NULL,1,3,1,NULL,NULL,NULL,NULL,NULL),(512,'HD202062162384','2019-04-21',1,NULL,1,6,1,NULL,NULL,NULL,NULL,NULL),(513,'HD202062184339','2019-06-21',1,NULL,1,8,1,NULL,NULL,NULL,NULL,NULL),(514,'HD202062594780','2020-06-22',1,NULL,1,2,1,NULL,NULL,NULL,NULL,NULL),(516,'HD202062381062','2020-07-23',1,NULL,1,3,1,NULL,NULL,NULL,NULL,NULL),(517,'HD202062357536','2020-06-23',1,NULL,1,5,1,NULL,NULL,NULL,NULL,NULL),(519,'HD202062535319','2020-06-25',1,NULL,1,3,1,NULL,NULL,NULL,NULL,NULL),(520,'HD202062511967','2020-06-25',1,NULL,1,4,1,NULL,NULL,NULL,NULL,NULL),(521,'HD202062664208','2020-06-25',1,NULL,1,4,1,7250,NULL,NULL,NULL,NULL),(522,'HD2020626109691','2020-06-26',1,NULL,1,2,1,NULL,NULL,NULL,NULL,NULL),(523,'HD202062670520','2020-06-26',1,NULL,1,3,1,8750,NULL,NULL,NULL,NULL),(524,'HD202062710680','2020-06-27',1,NULL,1,2,1,NULL,NULL,NULL,NULL,NULL),(526,'HD202062719031','2020-06-27',1,NULL,1,3,1,16250,NULL,NULL,NULL,NULL),(527,'HD202063040215','2020-06-30',1,NULL,1,2,1,26250,NULL,NULL,NULL,NULL),(528,'HD2020630106059','2020-06-30',1,NULL,NULL,4,1,NULL,NULL,NULL,NULL,NULL),(530,'HD202071187399','2020-06-30',1,NULL,1,5,1,110250,NULL,NULL,NULL,NULL),(531,'HD20207953235','2020-06-30',1,NULL,1,3,1,3500,NULL,NULL,NULL,NULL),(532,'HD2020630106085','2020-07-01',1,NULL,1,NULL,1,NULL,NULL,1,NULL,NULL),(533,'HD2020894106086','2020-07-01',1,NULL,1,NULL,1,NULL,NULL,0,NULL,NULL),(539,'HD2020895106082','2020-07-02',1,NULL,1,NULL,1,NULL,NULL,1,NULL,NULL),(540,'HD2020897106183','2020-07-02',1,NULL,1,NULL,1,NULL,NULL,1,NULL,NULL),(541,'HD2020837106183','2020-07-02',1,NULL,1,NULL,1,NULL,NULL,1,NULL,NULL),(542,'HD2020897156183','2020-07-02',1,NULL,1,NULL,1,NULL,NULL,0,NULL,NULL),(543,'HD2025897156183','2020-07-02',1,NULL,1,NULL,1,NULL,NULL,0,NULL,NULL),(545,'HD202075173','2020-07-06',1,NULL,NULL,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(546,'HD202075894','2020-07-06',1,NULL,NULL,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(547,'HD202071275','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(548,'HD202077336','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,'abc',NULL),(549,'HD202079703','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(550,'HD202078409','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(551,'HD202078589','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(552,'HD202077742','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(553,'HD202073836','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(554,'HD202071916','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,'test',NULL),(555,'HD202076555','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(556,'HD202078229','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,'test',NULL),(557,'HD202077817','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(558,'HD202074907','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(559,'HD202071821','2020-07-06',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(564,'HD20207634183','2020-07-06',1,NULL,1,1,1,29750,NULL,NULL,NULL,NULL),(568,'HD202073625','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(569,'HD202074545','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(570,'HD202076163','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(571,'HD202072821','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(572,'HD202071602','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(573,'HD202073990','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(574,'HD202073841','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(575,'HD202072569','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(576,'HD202077836','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(577,'HD202073470','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(578,'HD202079078','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(579,'HD202075146','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(580,'HD202079319','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(581,'HD202073991','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(582,'HD202073730','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(583,'HD202075107','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(584,'HD202072257','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(585,'HD202078671','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(586,'HD202074421','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(587,'HD202078121','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(588,'HD202077087','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(589,'HD202078264','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(590,'HD202072679','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(591,'HD202075299','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(592,'HD202073606','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(593,'HD202076418','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(594,'HD202072463','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(595,'HD202077528','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(596,'HD202077734','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',0,NULL,NULL),(597,'HD202075606','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(598,'HD202073928','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(599,'HD202075602','2020-07-07',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(600,'HD202071700','2020-07-08',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(601,'HD202078493','2020-07-08',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',5,NULL,NULL),(602,'HD202074059','2020-07-08',1,NULL,19,NULL,NULL,0,'113 nguyen tat thanh',1,NULL,NULL),(603,'HD202071466','2020-07-08',1,NULL,19,NULL,NULL,3250,'113 nguyen tat thanh',1,NULL,NULL),(604,'HD20207964337','2020-07-09',1,NULL,NULL,4,1,NULL,NULL,NULL,NULL,NULL),(605,'HD202071089592','2020-07-10',1,NULL,1,1,1,26250,NULL,NULL,NULL,NULL),(606,'HD202071014037','2020-07-10',1,NULL,1,1,1,125000,NULL,NULL,NULL,NULL),(608,'HD202078028','2020-07-10',1,NULL,19,NULL,NULL,750,'113 nguyen tat thanh',0,'abc',NULL),(609,'HD202077793','2020-07-10',1,NULL,19,NULL,NULL,1000,'113 nguyen tat thanh',1,NULL,NULL),(610,'HD202071136292','2020-07-11',1,NULL,19,3,1,NULL,NULL,NULL,NULL,NULL),(612,'HD202071114880','2020-07-11',1,NULL,NULL,3,1,NULL,NULL,NULL,NULL,NULL),(613,'HD202072040','2020-07-11',4,NULL,19,NULL,NULL,2500,'113 nguyen tat thanh',1,NULL,NULL),(614,'HD202071166290','2020-07-11',1,NULL,1,6,1,528500,NULL,NULL,NULL,NULL),(616,'HD202071163042','2020-07-11',1,NULL,NULL,10,1,NULL,NULL,NULL,NULL,NULL),(617,'HD202071117649','2020-07-11',1,NULL,NULL,10,1,NULL,NULL,NULL,NULL,NULL),(625,'HD202077805','2020-07-11',1,NULL,19,NULL,NULL,2500,'113 nguyen tat thanh',1,NULL,NULL),(626,'HD202075420','2020-07-11',1,NULL,19,NULL,NULL,2500,'113 nguyen tat thanh',1,NULL,NULL),(629,'HD202071375716','2020-07-13',1,NULL,19,1,1,2500,NULL,NULL,NULL,NULL),(630,'HD202071473356','2020-07-13',1,NULL,19,4,1,25501,NULL,NULL,NULL,NULL),(632,'HD202071498665','2020-07-13',1,NULL,19,2,1,5000,NULL,NULL,NULL,NULL),(633,'HD202074119','2020-07-13',1,NULL,19,NULL,NULL,2000,'113 nguyen tat thanh',1,NULL,NULL),(634,'HD202076215','2020-07-13',1,NULL,19,NULL,NULL,2000,'113 nguyen tat thanh',1,NULL,NULL),(635,'HD202071435776','2020-07-14',1,NULL,19,3,1,12501,NULL,NULL,NULL,NULL),(638,'HD202071460501','2020-07-14',1,NULL,19,4,1,0,NULL,NULL,NULL,NULL),(640,'HD202071458218','2020-07-14',1,NULL,19,2,1,0,NULL,NULL,NULL,NULL),(641,'HD202071469887','2020-07-14',1,NULL,19,3,1,5000,NULL,NULL,NULL,NULL),(642,'HD202071451563','2020-07-14',1,NULL,19,3,1,8500,NULL,NULL,NULL,NULL),(643,'HD202071468703','2020-07-14',1,NULL,19,2,1,0,NULL,NULL,NULL,NULL),(644,'HD202071445011','2020-07-14',1,NULL,19,4,1,0,NULL,NULL,NULL,NULL),(645,'HD202071496249','2020-07-14',1,NULL,19,3,1,2500,NULL,NULL,NULL,NULL),(646,'HD202071411383','2020-07-14',1,NULL,19,3,1,2500,NULL,NULL,NULL,NULL),(647,'HD202071432476','2020-07-14',1,NULL,NULL,3,1,NULL,NULL,NULL,NULL,NULL),(656,'HD202077244','2020-07-14',4,NULL,19,NULL,NULL,251250,'113 nguyen tat thanh',1,NULL,NULL),(657,'HD202075425','2020-07-14',4,NULL,19,NULL,NULL,250000,'113 nguyen tat thanh',0,NULL,NULL),(658,'HD202077105','2020-07-14',4,NULL,19,NULL,NULL,250000,'113 nguyen tat thanh',1,NULL,NULL),(660,'HD202077056','2020-07-14',4,NULL,19,NULL,NULL,2500,'113 nguyen tat thanh',0,NULL,'0985007111'),(662,'HD202075383','2020-07-14',4,NULL,19,NULL,NULL,500000,'113 nguyen tat thanh',1,NULL,'0988877744'),(683,'HD202071610386','2020-07-15',1,NULL,19,2,1,20000,NULL,NULL,NULL,NULL),(684,'HD202071572688','2020-07-15',1,NULL,19,9,1,14000,NULL,NULL,NULL,NULL),(688,'HD202071513428','2020-07-15',1,NULL,19,4,1,19000,NULL,NULL,NULL,NULL),(691,'HD202074128','2020-07-15',4,NULL,19,NULL,NULL,3500,'113 nguyen tat thanh',0,NULL,'0985007111'),(695,'HD202071541879','2020-07-15',1,NULL,19,7,1,505000,NULL,NULL,NULL,NULL),(698,'HD202078949','2020-07-15',4,NULL,19,NULL,NULL,504000,'113 nguyen tat thanh',0,NULL,'0985007111'),(699,'HD202077852','2020-07-15',2,NULL,19,NULL,NULL,500000,'113 nguyen tat thanh',1,NULL,'0985007111'),(700,'HD202071517135','2020-07-15',1,NULL,19,1,1,534000,NULL,NULL,NULL,NULL),(705,'HD202074101','2020-07-15',2,NULL,19,NULL,NULL,500000,'113 nguyen tat thanh',1,NULL,'0985007111'),(706,'HD202071554974','2020-07-15',1,NULL,19,4,1,54000,NULL,NULL,NULL,NULL),(709,'HD202071157','2020-07-15',2,NULL,19,NULL,NULL,1000000,'113 nguyen tat thanh',0,NULL,'0985007111'),(710,'HD202071181','2020-07-15',2,NULL,19,NULL,NULL,10000,'113 nguyen tat thanh',1,NULL,'0985007111'),(712,'HD202071546008','2020-07-15',1,NULL,19,3,1,51000,NULL,NULL,NULL,NULL),(714,'HD202073845','2020-07-15',2,NULL,19,NULL,NULL,10000,'113 nguyen tat thanh',0,NULL,'0985007111'),(715,'HD202079211','2020-07-15',2,NULL,19,NULL,NULL,10000,'113 nguyen tat thanh',1,NULL,'0985007111'),(722,'HD202071686947','2020-07-16',1,NULL,NULL,3,1,NULL,NULL,NULL,NULL,NULL),(725,'HD2020716104739','2020-07-16',1,NULL,NULL,3,1,NULL,NULL,NULL,NULL,NULL),(726,'HD202071697450','2020-07-16',1,NULL,NULL,4,1,NULL,NULL,NULL,NULL,NULL),(727,'HD202071642905','2020-07-16',1,NULL,1,5,1,75750,NULL,NULL,NULL,NULL),(729,'HD202075658','2020-07-16',2,NULL,19,NULL,NULL,6000,'113 nguyen tat thanh',1,NULL,'098887774441111'),(731,'HD202071628401','2020-07-16',1,NULL,19,10,1,23000,NULL,NULL,NULL,NULL),(732,'HD202071618407','2020-07-16',1,NULL,19,2,1,18000,NULL,NULL,NULL,NULL),(733,'HD202071693258','2020-07-16',1,NULL,NULL,2,1,NULL,NULL,NULL,NULL,NULL),(734,'HD202071688306','2020-07-16',1,NULL,NULL,2,1,NULL,NULL,NULL,NULL,NULL),(735,'HD2020716109141','2020-07-16',1,NULL,19,9,1,16000,NULL,NULL,NULL,NULL),(736,'HD202074590','2020-07-16',2,NULL,19,NULL,NULL,14000,'113 nguyen tat thanh',1,NULL,'0985007111'),(738,'HD2020716104238','2020-07-16',1,NULL,19,5,1,23000,NULL,NULL,NULL,NULL),(739,NULL,'2020-07-16',0,NULL,NULL,3,1,NULL,NULL,NULL,NULL,NULL),(741,NULL,'2020-07-16',0,NULL,NULL,9,1,NULL,NULL,NULL,NULL,NULL),(742,NULL,'2020-07-16',0,NULL,NULL,7,1,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `bills` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categoryfoods`
+--
+
+DROP TABLE IF EXISTS `categoryfoods`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categoryfoods` (
+  `CATEGORYFOODS_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CATEGORYFOODS_NAME` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `CATEGORYFOODS_DES` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`CATEGORYFOODS_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoryfoods`
+--
+
+LOCK TABLES `categoryfoods` WRITE;
+/*!40000 ALTER TABLE `categoryfoods` DISABLE KEYS */;
+INSERT INTO `categoryfoods` VALUES (1,'Món chiên',NULL),(2,'Cơm',NULL),(3,'Món xào',NULL),(4,'Món mặn',NULL),(5,'Món nướng',NULL),(6,'Món tráng miệng',NULL),(7,'Nước',NULL),(8,'Sinh tố',NULL),(9,'Món lẩu',NULL),(10,'Món chay',NULL),(12,'Món Hồng Kong',NULL),(29,'Món nhật',NULL);
+/*!40000 ALTER TABLE `categoryfoods` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categorymaterial`
+--
+
+DROP TABLE IF EXISTS `categorymaterial`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categorymaterial` (
+  `CATEGORYMATERIAL_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CATEGORYMATERIAL_NAME` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `CATEGORYMATERIAL_UNIT` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`CATEGORYMATERIAL_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categorymaterial`
+--
+
+LOCK TABLES `categorymaterial` WRITE;
+/*!40000 ALTER TABLE `categorymaterial` DISABLE KEYS */;
+INSERT INTO `categorymaterial` VALUES (1,'Thịt','Kg'),(2,'Rau, củ, quả','Kg'),(3,'Sữa','Ml'),(4,'Cá','Kg'),(5,'Trứng','Hộp'),(6,'Nước','Lít');
+/*!40000 ALTER TABLE `categorymaterial` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customers` (
+  `CUSTOMER_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CUSTOMER_NO` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CUSTOMER_NAME` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `CUSTOMER_ADD` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `CUSTOMER_PHONE` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CUSTOMER_EMAIL` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CUSTOMER_IMG` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CUSTOMER_USERNAME` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CUSTOMER_PASSWORD` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CUSTOMER_STATUS` tinyint(4) DEFAULT NULL,
+  `CUSTOMER_MARK` int(11) DEFAULT NULL,
+  `CUSTOMER_ADDRESS` varchar(70) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`CUSTOMER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'KH001','Khách lẻ','Bình dương','0900000001','abc@gmail.com','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jul%2013%202020%2001%3A11%3A16%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-user.png?alt=media&token=12ab1038-a9b4-4a60-849d-f0873779de12','KH1','$2y$10$9m3y8yDtrBuLYFTSDHmnWud0kktVDGRaF0CtHlbod1XIbpZoK4/lm',1,6,NULL),(19,'KH202074605','Nguyễn Văn Hiệp','1233 nguyen tất thành','0985007111','work.vanhiep1998@gmail.com','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jul%2013%202020%2001%3A11%3A16%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-user.png?alt=media&token=12ab1038-a9b4-4a60-849d-f0873779de12',NULL,'$2y$10$9m3y8yDtrBuLYFTSDHmnWud0kktVDGRaF0CtHlbod1XIbpZoK4/lm',1,33,NULL),(20,NULL,NULL,NULL,'0985007112',NULL,NULL,NULL,NULL,NULL,1,NULL),(21,NULL,NULL,NULL,'0985007202',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employees`
+--
+
+DROP TABLE IF EXISTS `employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employees` (
+  `EMPLOYEES_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `EMPLOYEES_NO` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_LASTNAME` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_FIRSTNAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_USERNAME` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `EMPLOYEES_PHONE` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_EMAIL` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_PASSWORD` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `POSITION_ID` int(11) NOT NULL,
+  `EMPLOYEES_STATUS` tinyint(4) DEFAULT NULL,
+  `EMPLOYEES_ADDRESS` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_IMG` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_STARTDAY` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_ENDDAY` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_BIRTHDAY` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_GENDER` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMPLOYEES_ISMANAGE` int(11) DEFAULT NULL,
+  PRIMARY KEY (`EMPLOYEES_ID`),
+  KEY `fk_NHANVIEN_CHUCVU_idx` (`POSITION_ID`),
+  CONSTRAINT `fk_POSITION_ID_EMPLOYEE` FOREIGN KEY (`POSITION_ID`) REFERENCES `positions` (`POSITION_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employees`
+--
+
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (1,'001','Nguyễn',NULL,NULL,'0904716299','nguyenthanhviet31031998@gmail.com','1',2,1,NULL,'https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Thu%20Jun%2018%202020%2017%3A09%3A38%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-hp-envy-13-aq0027tu-2%20(1).png?alt=media&token=7a9149ac-b951-409d-9c8e-9e8c11dc3c6b',NULL,NULL,NULL,NULL,1),(32,'NV202067501','Nguyễn',NULL,NULL,'0985007100','nguyenvanhiep858@gmail.com',NULL,3,1,'TDM-BD','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Fri%20Jun%2019%202020%2001%3A17%3A29%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-hp-envy-13-aq0027tu-2%20(1).png?alt=media&token=d90f3a26-e15a-465c-820f-8e9e5a99ef69','2020-06-26T21:29',NULL,'2020-06-12T21:29','Nam',NULL),(33,'NV202064252','Nguyễn','Văn Hiệp','NV202064252','0985007100','nguyenvanhiep858@gmail.com','$2y$10$2qUrxdE4PEaSy2axAAtO3.Ki0dA2nZ62r7bePop1ylKMu7rVCDx1i',2,1,'TDM-BD','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jul%2013%202020%2001%3A11%3A16%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-user.png?alt=media&token=12ab1038-a9b4-4a60-849d-f0873779de12','2020-06-18T00:13',NULL,'2020-06-04T00:12','Nữ',NULL),(34,'NV202068603','Nguyễn','Văn Hiệp','NV202068603','0985007100','nguyenvanhiep858@gmail.com','$2y$10$Z417CBhDE69.xgM44nmsZOuS00oZNLcERf3Wl3/lzGAlARTqMssBy',4,1,'TDM-BD','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jul%2013%202020%2001%3A10%3A48%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-user.png?alt=media&token=98da394c-1369-4ea0-a91a-4abc3378dfe3','2020-06-19T00:37',NULL,'2020-06-06T00:37','Nữ',1),(35,'NV202063977','Nguyễn',NULL,'NV202063977','0985007100','a@gmail.com','$2y$10$Rl9AAdixqh7zJGzogKjmwOvOGdwiw9NGy6HzGRpdHe06vozT1GNZS',2,0,'TDM','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jun%2029%202020%2000%3A53%3A51%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-gl65-4-1.jpg?alt=media&token=aa91863d-981a-4efd-b683-d53d91193006','2020-06-29T00:53','2020-06-10T18:07','2020-06-12T00:53','Nam',NULL),(36,'NV202061491','Nguyễn','Văn Hiệp','NV202061491','0985007100','nguyenthanhviet31031998@gmail.com','$2y$10$8e/w4orYKrCwM/ogwvK6pOpkWgck53yFMRhpatJwqWV4kAOMsIf.u',2,0,'TDM-BD','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jun%2029%202020%2001%3A07%3A10%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-hp-envy-13-aq0027tu-2.png?alt=media&token=485685e1-5f8d-49df-afc0-716a4bfecc97','2020-06-26T01:06','2020-06-04T18:02','2020-06-05T01:10','Nữ',NULL),(37,'NV202078234','Nguyễn','Văn Hiệp','NV202078234','0985007133','a333@gmail.com','$2y$10$2Gv9fS9GFXE6VzGTiv9YCePQO2khdzvB3AP0SaSkVPfNoOhBZAo6O',2,0,'TDM-BD','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Fri%20Jul%2010%202020%2007%3A42%3A04%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-gl65-3-1.jpg?alt=media&token=d801a8fa-1806-40e8-86a9-54140200269c','2020-07-10T07:41','2020-08-01T07:43','1998-06-10T07:41','Nam',NULL),(38,'NV202079498','Nguyễn','Ngọc Quý','NV202079498','0985007235','nguyenngocquy1997@gmail.com','$2y$10$a9FcNOb/axMnz9SuBegQhurlvxi4QVXOw1gFJtcKRXk58/Iju5iqq',2,1,'thủ dầu một','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2015%3A54%3A24%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-user.png?alt=media&token=2f4d5c33-1a32-4ec3-bc2d-2d34d9379aaf','2020-07-02T15:53',NULL,'2020-07-17T15:52','Nam',NULL),(39,'NV202079289','Lê','Văn Nam','NV202079289','0985007125','vannam@gmail.com','$2y$10$RIEkVsisPl0hqOrD/qCR2u4Ak22yyotpBQ6lfiRWYXS5KjGugl036',2,1,'thủ dầu một','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2016%3A33%3A46%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-user.png?alt=media&token=3a7be75e-5c79-4f74-a596-0e2b86624748','2020-07-15T16:33',NULL,'2017-07-06T16:33','Nam',NULL);
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fooddetail`
+--
+
+DROP TABLE IF EXISTS `fooddetail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fooddetail` (
+  `FOOD_ID` int(11) NOT NULL,
+  `MATERIAL_ID` int(11) NOT NULL,
+  `FOODDETAIL_QUANTILY` float DEFAULT NULL,
+  PRIMARY KEY (`FOOD_ID`,`MATERIAL_ID`),
+  KEY `fk_MONANCHITIET_NGUYENLIEU1_idx` (`MATERIAL_ID`),
+  CONSTRAINT `fk_FOOD_FOODID` FOREIGN KEY (`FOOD_ID`) REFERENCES `foods` (`FOOD_ID`),
+  CONSTRAINT `fk_MATERIAL_MATERIALID` FOREIGN KEY (`MATERIAL_ID`) REFERENCES `materials` (`MATERIALS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fooddetail`
+--
+
+LOCK TABLES `fooddetail` WRITE;
+/*!40000 ALTER TABLE `fooddetail` DISABLE KEYS */;
+INSERT INTO `fooddetail` VALUES (1,1,2),(1,2,1),(1,3,1),(2,2,1),(2,3,0.2),(3,16,0.2);
+/*!40000 ALTER TABLE `fooddetail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `foods`
+--
+
+DROP TABLE IF EXISTS `foods`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `foods` (
+  `FOOD_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FOOD_NO` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FOOD_NAME` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `FOOD_PRICE` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FOOD_UNIT` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
+  `FOOD_STATUS` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
+  `FOOD_IMG` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CATEGORYFOODS_ID` int(11) NOT NULL,
+  `FOOD_DATE` date DEFAULT NULL,
+  `FOOD_TYPE` int(11) DEFAULT NULL,
+  `FOOD_DESCRIPTION` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FOOD_ISSPECIAL` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`FOOD_ID`),
+  KEY `fk_MONAN_LOAIMONAN1_idx` (`CATEGORYFOODS_ID`),
+  CONSTRAINT `fk_LOAIMONAN_LOAIMONANID` FOREIGN KEY (`CATEGORYFOODS_ID`) REFERENCES `categoryfoods` (`CATEGORYFOODS_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `foods`
+--
+
+LOCK TABLES `foods` WRITE;
+/*!40000 ALTER TABLE `foods` DISABLE KEYS */;
+INSERT INTO `foods` VALUES (1,'1bllvktc','Bánh Tráng Trảng Bàng Cuốn Ba Chỉ Quay (L)','50000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2004%3A27%3A37%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20Ba%20Ch%E1%BB%89%20Quay%20(L).PNG?alt=media&token=34cee955-7154-4bd0-9e51-b3781a95878c',1,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(2,'1dhcnm','Bánh Tráng Trảng Bàng Cuốn Bò Tơ Củ Chi (L)','50000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2004%3A38%3A06%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20B%C3%B2%20T%C6%A1%20C%E1%BB%A7%20Chi%20(L).PNG?alt=media&token=75548d61-e46c-4299-91f5-5fba82e29790',1,'2020-07-15',2,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(3,'2ccdc','Bánh Tráng Trảng Bàng Cuốn Cá Lóc Nướng','35000','Dĩa','0','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jul%2013%202020%2003%3A29%3A28%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-IMG_0390-scaled.jpg?alt=media&token=2f3fab54-0f90-47b0-8803-698f53cd44b8',2,'2020-06-28',2,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(4,'2cchs','Lẩu mắm cá linh, cá sặc (N)','40000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',2,'2020-06-28',2,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(5,'3rdxt','Chân gà chiên sốt cay','25000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A05%3A21%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20C%C3%A1%20L%C3%B3c%20N%C6%B0%E1%BB%9Bng.PNG?alt=media&token=efbecf51-4708-4a38-bce6-bb7da268192f',3,'2020-07-15',3,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(6,'3rcvxt','Cháo chim bồ câu','20000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',3,'2020-07-15',3,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(7,'4thq','Cháo thịt bò','30000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',4,'2020-06-28',3,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','1'),(8,'4ctkd','Bánh tráng Trảng Bàng cuốn chân giò luộc (L)','40000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A03%3A53%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20B%C3%B2%20T%C6%A1%20C%E1%BB%A7%20Chi%20(L).PNG?alt=media&token=349dad49-6570-4fc0-a19a-5902a91dc7d8',4,'2020-07-15',2,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','1'),(9,'5bnxq','Chim bồ câu quay','35000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A03%3A53%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20B%C3%B2%20T%C6%A1%20C%E1%BB%A7%20Chi%20(L).PNG?alt=media&token=349dad49-6570-4fc0-a19a-5902a91dc7d8',5,'2020-06-28',2,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','1'),(10,'5ctlns','Cá thác lác nướng sả','35000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',5,'2020-06-28',2,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(11,'6rc','Cơm cháy kho quẹt','15000','Ly','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',6,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(12,'6tctc','Trái cây thập cẩm','18000','Dĩa','0','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Mon%20Jul%2013%202020%2003%3A29%3A28%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-IMG_0390-scaled.jpg?alt=media&token=2f3fab54-0f90-47b0-8803-698f53cd44b8',6,'2020-06-27',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(13,'7cpsd','Lẩu cá kèo lá giang lớn','17000','Ly','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A03%3A29%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20B%C3%B2%20T%C6%A1%20C%E1%BB%A7%20Chi%20(L).PNG?alt=media&token=8df82ba0-94d6-4eb9-9942-61b02d3460c0',7,'2020-07-15',4,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(14,'7ns','Lẩu chua cá linh - Bông điên điển (Theo mùa)','5000','Chai','0','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',1,'2020-06-28',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(35,'MA202061955','Lẩu gà lá giang (L)','20000','Dĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A04%3A32%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20B%C3%B2%20T%C6%A1%20C%E1%BB%A7%20Chi%20(L).PNG?alt=media&token=8acab0a3-0b2c-46f0-b347-16adf83092c8',3,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(37,'MA202066957','Lẩu gà lá giang (N)','20000','Đĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',4,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(38,'MA202064460','Cánh gà chiên bơ','20000','Đĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A19%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20C%C3%A1%20L%C3%B3c%20N%C6%B0%E1%BB%9Bng.PNG?alt=media&token=ed1ffc9b-de7c-4737-8748-6a9171dd9849',1,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(39,'MA202078763','Cá trứng Nhật chiên','20000','Đĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',10,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(40,'MA202071447','Cá kèo muối ớt','20000','Đĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2004%3A55%3A00%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1%20K%C3%A8o%20Mu%E1%BB%91i%20%E1%BB%9At.PNG?alt=media&token=5f69c2f2-f98d-49ad-8a41-659deb80c5e2',9,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.',NULL),(41,'MA202077513','Bò cháy tỏi','20000','Đĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2004%3A53%3A13%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%B2%20Ch%C3%A1y%20T%E1%BB%8Fi.PNG?alt=media&token=b2fbaef2-c9c3-4946-9d90-a1dc9ef3f5c9',6,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.','0'),(42,'MA202079839','Bánh xèo tép đồng/Tôm thịt','20000','Đĩa','1','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2016%3A30%3A15%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-B%C3%A1nh%20Tr%C3%A1ng%20Tr%E1%BA%A3ng%20B%C3%A0ng%20Cu%E1%BB%91n%20C%C3%A1%20L%C3%B3c%20N%C6%B0%E1%BB%9Bng.PNG?alt=media&token=cfc27f98-837a-4c86-894f-b714b376267d',9,'2020-07-15',2,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.',NULL),(43,'MA202072451','Bánh tráng Trảng Bàng cuốn cá lóc nướng','20000','Đĩa','0','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A02%3A41%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-C%C3%A1nh%20G%C3%A0%20Chi%C3%AAn%20B%C6%A1.PNG?alt=media&token=341d6abc-fd5a-4970-9e1d-b22f31b55131',5,'2020-07-15',1,'Mâm cỗ cưới xưa thường chia 6 người/mâm, ăn từ sáng đến tối. Cứ vào đủ 6 người một mâm là chủ nhân buổi tiệc sẽ dọn hết toàn bộ thức ăn lên bàn để mọi người ai muốn ăn gì thì ăn, chứ không dọn theo thứ tự các món.',NULL);
+/*!40000 ALTER TABLE `foods` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inputmaterial`
+--
+
+DROP TABLE IF EXISTS `inputmaterial`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `inputmaterial` (
+  `INPUTMATERIAL_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `INPUTMATERIAL_DATE` date DEFAULT NULL,
+  `MATERIAL_ID` int(11) DEFAULT NULL,
+  `INPUTMATERIAL_AMOUNT` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`INPUTMATERIAL_ID`),
+  KEY `FK_MATERIAL_ID_MATERIALS` (`MATERIAL_ID`),
+  CONSTRAINT `FK_MATERIAL_ID_MATERIALS` FOREIGN KEY (`MATERIAL_ID`) REFERENCES `materials` (`MATERIALS_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inputmaterial`
+--
+
+LOCK TABLES `inputmaterial` WRITE;
+/*!40000 ALTER TABLE `inputmaterial` DISABLE KEYS */;
+INSERT INTO `inputmaterial` VALUES (43,'2019-06-21',1,'10'),(44,'2019-06-21',2,'20'),(45,'2019-06-21',3,'12'),(46,'2019-06-21',4,'11'),(47,'2019-06-21',44,'11'),(48,'2019-06-21',6,'11'),(49,'2019-06-21',7,'11'),(50,'2019-06-21',8,'12'),(51,'2019-06-21',9,'13'),(52,'2019-06-21',15,'15'),(53,'2019-06-21',18,'15'),(54,'2019-06-21',25,'16'),(55,'2019-06-21',1,'20'),(56,'2020-06-21',2,'4'),(57,'2020-06-21',3,'2'),(58,'2020-06-21',4,'40'),(59,'2020-06-21',6,'4'),(60,'2020-06-21',7,'1'),(61,'2020-06-21',8,'1'),(62,'2020-06-21',9,'5'),(63,'2020-07-27',15,'4'),(83,'2020-07-27',1,'42'),(84,'2020-07-27',2,'42'),(85,'2020-07-27',3,'300'),(86,'2020-07-27',4,'256'),(87,'2020-07-27',6,'4748'),(88,'2020-06-27',7,'44'),(89,'2020-07-27',8,'55'),(90,'2020-07-27',9,'558'),(91,'2020-07-27',15,NULL);
+/*!40000 ALTER TABLE `inputmaterial` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `materials`
+--
+
+DROP TABLE IF EXISTS `materials`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `materials` (
+  `MATERIALS_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MATERIALS_NO` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `MATERIALS_NAME` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `MATERIALS_PRICE` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MATERIALS_DATE` date DEFAULT NULL,
+  `MATERIALS_IMG` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CATEGORYTYPE_ID` int(11) DEFAULT NULL,
+  `MATERIALS_STATUS` int(11) DEFAULT NULL,
+  PRIMARY KEY (`MATERIALS_ID`),
+  KEY `fk_NGUYENLIEU_LOAINGUYENLIEU1_idx` (`CATEGORYTYPE_ID`),
+  CONSTRAINT `fk_CATEGORYMATERIAL_MATERIALID` FOREIGN KEY (`CATEGORYTYPE_ID`) REFERENCES `categorymaterial` (`CATEGORYMATERIAL_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `materials`
+--
+
+LOCK TABLES `materials` WRITE;
+/*!40000 ALTER TABLE `materials` DISABLE KEYS */;
+INSERT INTO `materials` VALUES (1,'1tb','Thịt bò 2','200000','2020-06-27','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Sat%20Jun%2027%202020%2020%3A15%3A06%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-hp-envy-13-aq0027tu-2%20(1).png?alt=media&token=a0ca894a-0347-4e5b-bee4-d70c9a7629fe',1,0),(2,'1thd','Thịt heo đùi','80000','2019-10-10','Pork.jpg',1,1),(3,'2rd','Rau dền','10000','2019-10-10','Rau_den.png',2,1),(4,'2rcv','Rau chân vịt','9000','2019-10-10','Rau_chan_vit.jpg',2,1),(6,'2kt','Khoai tây','22000','2019-10-10','Potato.jpg',2,1),(7,'3stvm','Sữa Tươi Vinamilk 100% Có Đường - Hộp 900ml','34000','2019-10-10','milk.jpg',3,1),(8,'4ct','Cá thu','250000','2019-10-10','Mackerel.jpg',4,1),(9,'4ctl','Cá thác lác','220000','2019-10-10','Cá_thác_lác.jpg',4,1),(15,'5tv','Trứng vịt','30000','2019-10-10','Duck\'s_egg.jpg',5,1),(16,'5tg','Trứng gà tươi','30000','2019-10-10','Eggs.jpg',5,1),(18,'5tc','Trứng cút','28500','2019-10-10','Trứng_cút.jpg',5,1),(25,'5tn','Trứng ngỗng','30000','2020-06-27','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Sat%20Jun%2027%202020%2023%3A49%3A52%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-thongke.png?alt=media&token=2a80f169-b4f1-4cf5-8c10-11007ae5dbf1',5,1),(26,'5tdd','Trứng đà điễu','32000','2019-12-17','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Fri%20Jun%2019%202020%2001%3A47%3A49%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-gl65-4-1.jpg?alt=media&token=7edce4c6-48c0-4593-a0eb-5c9c31b75044',5,1),(44,'NL202067522','Đậu bắp','750000',NULL,'https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Sat%20Jun%2027%202020%2008%3A41%3A09%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-hp-envy-13-aq0027tu-2%20(1).png?alt=media&token=44648210-447e-49a9-ad2f-f536ac7fb9a8',3,1),(47,'NL202067806','Tiêu xây','750000','2020-06-27','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Sat%20Jun%2027%202020%2019%3A24%3A16%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-hp-envy-13-aq0027tu-2.png?alt=media&token=445c4822-f81d-4694-a16f-f6664864b7b2',2,1),(48,'NL202062399','Hoa hồi','750000','2020-07-15','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2016%3A28%3A26%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-giaitue.jpg?alt=media&token=d321260f-b828-46a3-b365-6d0eb446db94',2,0),(49,'NL202062028','Đậu bắp 8','750000','2020-06-27','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Sat%20Jun%2027%202020%2019%3A59%3A32%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-hp-envy-13-aq0027tu-2.png?alt=media&token=4082ac30-c4a3-4f2c-9075-d74099d887e5',2,0),(50,'NL202064197','Cải cúc','750000','2020-07-15',NULL,1,1),(51,'NL202064862','Quế','750000','2020-07-10','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Fri%20Jul%2010%202020%2007%3A23%3A21%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-gl65-4-1.jpg?alt=media&token=29b9b7ad-327c-4a3b-809d-4b0ed4d2b0c8',1,0),(52,'NL202062434','Đậu bắp 5','750000','2020-06-27',NULL,1,0),(53,'NL202066118','Tỏi','750000','2020-06-28','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Sun%20Jun%2028%202020%2022%3A23%3A26%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-50448-laptop-asus-zenbook-ux334fac-a4059t-i5-xanh-02.jpg?alt=media&token=a7aa5b39-47cc-4c0e-9071-0db2a2b54165',2,0),(55,'NL202062984','Tỏi','750000','2020-07-15','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Wed%20Jul%2015%202020%2005%3A58%3A32%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-giaitue.jpg?alt=media&token=594916b2-958e-45a3-968c-931d7a96b20a',2,1),(56,'NL202075343','test','750000','2020-07-10','https://firebasestorage.googleapis.com/v0/b/do-an-tot-nghiep-1d016.appspot.com/o/Fri%20Jul%2010%202020%2007%3A22%3A28%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)-gl65-4-1.jpg?alt=media&token=a890c6c7-bee7-41f9-9c1e-4fc0173b8029',2,0);
+/*!40000 ALTER TABLE `materials` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `positions`
+--
+
+DROP TABLE IF EXISTS `positions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `positions` (
+  `POSITION_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `POSITION_NAME` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `POSITION_DES` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  PRIMARY KEY (`POSITION_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `positions`
+--
+
+LOCK TABLES `positions` WRITE;
+/*!40000 ALTER TABLE `positions` DISABLE KEYS */;
+INSERT INTO `positions` VALUES (1,'Phục vụ',NULL),(2,'Thu ngân',NULL),(3,'Bếp',NULL),(4,'Quản lý',NULL);
+/*!40000 ALTER TABLE `positions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rooms`
+--
+
+DROP TABLE IF EXISTS `rooms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rooms` (
+  `ROOM_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ROOM_NAME` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`ROOM_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rooms`
+--
+
+LOCK TABLES `rooms` WRITE;
+/*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
+INSERT INTO `rooms` VALUES (1,'Sảnh A');
+/*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tables`
+--
+
+DROP TABLE IF EXISTS `tables`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tables` (
+  `TABLE_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TABLE_NO` text DEFAULT NULL,
+  `TABLE_STATUS` tinyint(4) DEFAULT NULL,
+  `ROOM_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`TABLE_ID`),
+  KEY `FK_ROOM_ID_ROOMS` (`ROOM_ID`),
+  CONSTRAINT `FK_ROOM_ID_ROOMS` FOREIGN KEY (`ROOM_ID`) REFERENCES `rooms` (`ROOM_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tables`
+--
+
+LOCK TABLES `tables` WRITE;
+/*!40000 ALTER TABLE `tables` DISABLE KEYS */;
+INSERT INTO `tables` VALUES (1,'1',0,1),(2,'2',0,1),(3,'3',1,1),(4,'4',0,1),(5,'5',0,1),(6,'6',0,1),(7,'7',1,1),(8,'8',0,1),(9,'9',1,1),(10,'10',0,1),(12,'11',0,1),(13,'12',0,1),(14,'13',0,1),(15,'14',0,1),(16,'15',0,1),(17,'16',0,1),(18,'17',0,1),(19,'18',0,1),(20,'19',0,1),(23,'20',0,1);
+/*!40000 ALTER TABLE `tables` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-07-17  0:06:29
